@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel — Sản phẩm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/products.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><span class="txt">Fashion Admin</span></div>
+      <nav class="menu">
+        <a href="dashboard.html"><span class="txt">Tổng quan</span></a>
+        <a href="users.html"><span class="txt">Người dùng</span></a>
+        <a href="categories.html"><span class="txt">Loại sản phẩm</span></a>
+        <a href="receipts.html"><span class="txt">Nhập kho</span></a>
+        <a href="pricelist.html"><span class="txt">Bảng giá</span></a>
+        <a href="orders.html"><span class="txt">Đơn hàng</span></a>
+        <a href="inventory.html"><span class="txt">Tồn kho</span></a>
+        <a href="products.html" class="active"><span class="txt">Sản phẩm</span></a>
+      </nav>
+      <div class="sidebar-footer">Fashion Admin • v1.0</div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div class="title">SẢN PHẨM</div>
+        <div class="top-actions">
+          <button class="btn btn-primary" id="btnAddProduct">+ Thêm sản phẩm</button>
+          <div class="avatar">
+            <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+          </div>
+          <div class="account">
+            <div class="name" data-admin-name>Nguyễn Admin</div>
+            <div class="role">Quản trị viên</div>
+          </div>
+          <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
+        </div>
+      </div>
+
+      <div class="container grid">
+        <!-- BỘ LỌC -->
+        <div class="card" style="display:grid;grid-template-columns:1fr 220px 180px auto;gap:12px;align-items:end">
+          <div>
+            <label>Tìm kiếm</label>
+            <input id="kw" type="text" placeholder="Tên / Mã sản phẩm"
+                   style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px">
+          </div>
+          <div>
+            <label>Loại sản phẩm</label>
+            <select id="selCat" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px">
+              <option>Tất cả</option>
+              <option>Trang phục Xuân Hè</option>
+              <option>Trang phục Thu Đông</option>
+              <option>Giày dép</option>
+              <option>Phụ kiện</option>
+            </select>
+          </div>
+          <div>
+            <label>Trạng thái</label>
+            <select id="selStatus" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px">
+              <option value="all">Tất cả</option>
+              <option value="show">Hiển thị</option>
+              <option value="hide">Đang ẩn</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end">
+            <button class="btn btn-ghost">Đặt lại</button>
+            <button class="btn btn-primary" disabled title="Demo">Lọc</button>
+          </div>
+        </div>
+
+        <!-- BẢNG SẢN PHẨM -->
+        <div class="card">
+          <h3 style="margin:0 0 8px">Tất cả sản phẩm</h3>
+          <p class="muted" style="margin:0 0 10px">UI minh hoạ: Thêm / Sửa / Ẩn–Hiện / Xoá (không lưu dữ liệu thật).</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Ảnh</th>
+                <th>Mã</th>
+                <th>Tên sản phẩm</th>
+                <th>Loại</th>
+                <th>Trạng thái</th>
+                <th style="width:240px">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="prodTbody">
+              <tr><td colspan="6" class="muted">Đang tải dữ liệu…</td></tr>
+            </tbody>
+          </table class="tbl-products">
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Thêm / Sửa sản phẩm -->
+  <div id="productModal" class="modal">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-dialog">
+      <h3 id="productModalTitle">Thêm sản phẩm</h3>
+      <div class="modal-grid">
+        <div>
+          <label>Loại sản phẩm</label>
+          <select id="f_type">
+            <option>Trang phục Xuân Hè</option>
+            <option>Trang phục Thu Đông</option>
+            <option>Giày dép</option>
+            <option>Phụ kiện</option>
+          </select>
+        </div>
+        <div>
+          <label>Mã sản phẩm (SKU)</label>
+          <input id="f_sku" type="text" placeholder="SKU-001">
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Tên sản phẩm</label>
+          <input id="f_name" type="text" placeholder="Áo thun basic">
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Hình ảnh</label>
+          <input id="f_image" type="file" accept="image/*">
+          <div id="f_preview_wrap" class="muted" style="margin-top:6px;display:none">
+            <small>Ảnh hiện tại:</small><br>
+            <img id="f_preview" src="" alt="preview"
+                 style="margin-top:6px;max-width:160px;border-radius:8px;border:1px solid var(--border)">
+          </div>
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Mô tả</label>
+          <textarea id="f_desc" placeholder="Mô tả ngắn..."></textarea>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close>Đóng</button>
+        <button class="btn btn-primary" disabled title="Demo">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/admin-session.js" defer></script>
+  <script src="../js/products.js" defer></script>
+</body>
+</html>

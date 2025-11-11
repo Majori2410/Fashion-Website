@@ -1,0 +1,208 @@
+[
+  {
+    "code": "OD-20251103-0001",
+    "createdAt": "2025-11-03T09:15:00+07:00",
+    "status": "NEW",
+    "customer": {
+      "name": "Nguyễn Minh Anh",
+      "phone": "0901234567",
+      "email": "minhanh@example.com",
+      "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM"
+    },
+    "items": [
+      {
+        "id": 1,
+        "name": "Áo sơ mi linen trắng",
+        "size": "M",
+        "color": "Trắng",
+        "qty": 1,
+        "price": 259000,
+        "img": "../assets/orders/1.jpeg"
+      },
+      {
+        "id": 2,
+        "name": "Quần short kaki be",
+        "size": "M",
+        "color": "Be",
+        "qty": 2,
+        "price": 199000,
+        "img": "../assets/orders/2.jpeg"
+      }
+    ],
+    "payment": {
+      "method": "COD",
+      "shippingFee": 20000,
+      "discount": 0
+    },
+    "processedBy": null,
+    "note": "Giao trong giờ hành chính"
+  },
+
+  {
+    "code": "OD-20251102-0004",
+    "createdAt": "2025-11-02T14:40:00+07:00",
+    "status": "PROCESSED",
+    "customer": {
+      "name": "Trần Quốc Bảo",
+      "phone": "0919988776",
+      "email": "quocbao@example.com",
+      "address": "145 Cách Mạng Tháng 8, Q.3, TP.HCM"
+    },
+    "items": [
+      {
+        "id": 3,
+        "name": "Váy hoa cổ vuông",
+        "size": "S",
+        "color": "Hồng",
+        "qty": 1,
+        "price": 459000,
+        "img": "../assets/orders/3.jpg"
+      }
+    ],
+    "payment": {
+      "method": "Chuyển khoản",
+      "shippingFee": 25000,
+      "discount": 15000
+    },
+    "processedBy": "Lê Văn Dũng",
+    "note": "Đặt hộ cho bạn gái"
+  },
+
+  {
+    "code": "OD-20251030-0009",
+    "createdAt": "2025-10-30T10:22:00+07:00",
+    "status": "DELIVERED",
+    "customer": {
+      "name": "Lê Thu Hà",
+      "phone": "0912345678",
+      "email": "thuha@example.com",
+      "address": "KDC An Phú, TP. Thủ Đức, TP.HCM"
+    },
+    "items": [
+      {
+        "id": 4,
+        "name": "Áo khoác dù basic",
+        "size": "L",
+        "color": "Đen",
+        "qty": 1,
+        "price": 389000,
+        "img": "../assets/orders/4.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Nón lưỡi trai Classic",
+        "size": "-",
+        "color": "Đen",
+        "qty": 1,
+        "price": 99000,
+        "img": "../assets/orders/5.jpg"
+      }
+    ],
+    "payment": {
+      "method": "COD",
+      "shippingFee": 20000,
+      "discount": 0
+    },
+    "processedBy": "Nguyễn Hữu Phát",
+    "note": ""
+  },
+
+  {
+    "code": "OD-20251028-0006",
+    "createdAt": "2025-10-28T16:35:00+07:00",
+    "status": "CANCELLED",
+    "customer": {
+      "name": "Phạm Thu Hà",
+      "phone": "0938123123",
+      "email": "thuhapham@example.com",
+      "address": "89 Lê Lợi, Q. Hải Châu, Đà Nẵng"
+    },
+    "items": [
+      {
+        "id": 6,
+        "name": "Chân váy ngắn jean",
+        "size": "M",
+        "color": "Xanh nhạt",
+        "qty": 1,
+        "price": 279000,
+        "img": "../assets/orders/6.jpeg"
+      }
+    ],
+    "payment": {
+      "method": "COD",
+      "shippingFee": 0,
+      "discount": 0
+    },
+    "processedBy": "Trần Ngọc Yến",
+    "note": "Khách hủy do đặt nhầm size"
+  },
+
+  {
+    "code": "OD-20251025-0012",
+    "createdAt": "2025-10-25T09:10:00+07:00",
+    "status": "PROCESSED",
+    "customer": {
+      "name": "Đặng Thế Hiển",
+      "phone": "0977666555",
+      "email": "hien@example.com",
+      "address": "25 Nguyễn Thị Minh Khai, Q.1, TP.HCM"
+    },
+    "items": [
+      {
+        "id": 7,
+        "name": "Áo thun unisex logo nhỏ",
+        "size": "L",
+        "color": "Xám",
+        "qty": 2,
+        "price": 199000,
+        "img": "../assets/orders/1.jpeg"
+      },
+      {
+        "id": 8,
+        "name": "Quần jogger thể thao",
+        "size": "L",
+        "color": "Đen",
+        "qty": 1,
+        "price": 299000,
+        "img": "../assets/orders/2.jpeg"
+      }
+    ],
+    "payment": {
+      "method": "Chuyển khoản",
+      "shippingFee": 25000,
+      "discount": 50000
+    },
+    "processedBy": "Nguyễn Hữu Phát",
+    "note": "Giao trong tuần"
+  },
+
+  {
+    "code": "OD-20251021-0004",
+    "createdAt": "2025-10-21T18:25:00+07:00",
+    "status": "DELIVERED",
+    "customer": {
+      "name": "Võ Bảo Châu",
+      "phone": "0902233445",
+      "email": "baochau@example.com",
+      "address": "123 Nguyễn Văn Cừ, Q.5, TP.HCM"
+    },
+    "items": [
+      {
+        "id": 9,
+        "name": "Áo hoodie nỉ oversize",
+        "size": "XL",
+        "color": "Be",
+        "qty": 1,
+        "price": 459000,
+        "img": "../assets/orders/3.jpg"
+      }
+    ],
+    "payment": {
+      "method": "COD",
+      "shippingFee": 20000,
+      "discount": 0
+    },
+    "processedBy": "Lê Văn Dũng",
+    "note": "Giao hàng nhanh"
+  }
+]

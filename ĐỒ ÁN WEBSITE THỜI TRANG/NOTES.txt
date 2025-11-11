@@ -1,0 +1,21 @@
+CHỨC NĂNG CÁC FILE:
+admin: bao gồm css của giao diện admin chung và phần Tổng quan (Dashboard)
+style của popup thêm cái gì đó nằm trong admin.css (những page khác sử dụng sẽ dùng nó)
+Nếu muốn thiết kế popup thêm cái gì đó theo kiểu khác thì có thể đặt nó trong css của riêng page đó, ko dùng popup chung
+site.css là trang css chung cho phần user
+home.css là trang css riêng của index.html
+home.js cần nhúng vào mọi loại trang nếu trang đó cần một top bar với nút tìm kiếm (js này có toàn bộ logic cho search modal rồi)
+auth-ui.js: chịu trách nhiệm hiển thị tên user, avatar và menu “Hồ sơ / Đăng xuất”
+
+FILE PHÍA USER:
+index 
+user-order
+cart
+
+
+NOTE VIỆC LÀM (TINH CHỈNH):
+thêm một số sản phẩm tại mục Admin Product cho phong phú
+Đổi tên shop cho đẹp hơn
+
+THẮC MẮC:
+Tìm kiếm có cần phải hiển thị các sp theo tìm kiếm không?

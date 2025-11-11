@@ -1,0 +1,327 @@
+:root {
+  --btn-bg: #111;           /* màu nút mặc định */
+  --pulse-color: #e6b980;      /* màu nhấn tạm */
+}
+
+.page-product-detail .pd-wrap{ padding-top:18px; padding-bottom:40px; }
+.page-product-detail .breadcrumbs{ color:#6b7280; margin:6px 0 10px; }
+.page-product-detail .breadcrumbs a{ color:#4b5563; text-decoration:none; }
+.page-product-detail .breadcrumbs > *:not(:last-child)::after{ content:"›"; margin:0 6px; color:#9ca3af; }
+
+.page-product-detail .pd{
+  display:grid; grid-template-columns: 1.1fr 1fr; gap:28px;
+}
+@media (max-width: 980px){ .page-product-detail .pd{ grid-template-columns:1fr; } }
+
+.pd-gallery .pd-hero{ border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+.pd-gallery .pd-hero img{ width:100%; display:block; object-fit:cover; aspect-ratio: 1 / 1; }
+.pd-thumbs{ display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
+.pd-thumbs .thumb{ border:1px solid var(--border); border-radius:12px; overflow:hidden; padding:0; background:#fff; }
+.pd-thumbs .thumb.is-active{ outline:2px solid #111; }
+.pd-thumbs img{ width:72px; height:72px; object-fit:cover; display:block; }
+
+.pd-info .pd-title{ margin:0 0 8px; font-size:28px; }
+.pd-info .pd-price{ font-size:20px; margin-bottom:8px; }
+.pd-info .pd-desc{ color:#4b5563; margin-bottom:14px; }
+
+.pd-block{ margin:14px 0; }
+.pd-block .lbl{ font-weight:700; margin-bottom:8px; }
+
+.size-pills{ display:flex; gap:10px; flex-wrap:wrap; }
+.sp-pill{ display:inline-flex; align-items:center; }
+.sp-pill input{ display:none; }
+.sp-pill span{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:44px; height:36px; padding:0 12px; border:1px solid var(--border);
+  border-radius:999px; font-weight:700; background:#fff; cursor:pointer;
+  transition: background .18s ease, border-color .18s ease, transform .06s ease;
+}
+.sp-pill input:checked + span{ background:#111; color:#fff; border-color:#111; }
+.sp-pill span:hover{ background:#f5f5f7; transform: translateY(-1px); }
+
+.pd-block .hint{ color:#9ca3af; font-size:13px; margin-top:6px; }
+
+.qty-ctrl{ display:inline-flex; align-items:center; gap:8px; }
+.qty-ctrl .qt{ width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:#fff; font-weight:700; }
+#qtyInput{ width:64px; text-align:center; height:36px; border:1px solid var(--border); border-radius:10px; }
+
+.pd-actions{ display:flex; gap:10px; margin-top:8px; }
+.pd-meta{ margin:14px 0 0; color:#4b5563; }
+.pd-meta li{ margin:4px 0; }
+
+/* ========== PRODUCT DETAIL POLISH ========== */
+
+/* khung tổng thể */
+.page-product-detail .pd-wrap{ padding-top:24px; padding-bottom:56px; }
+
+/* grid cân hơn + khoảng cách thoáng */
+.page-product-detail .pd{
+  display:grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap:34px;
+}
+@media (max-width: 1100px){
+  .page-product-detail .pd{ grid-template-columns:1fr; gap:24px; }
+}
+
+/* breadcrumb thanh mảnh, đồng bộ */
+.page-product-detail .breadcrumbs{
+  display:flex; align-items:center; gap:6px;
+  color:#6b7280; margin:4px 0 14px;
+  font-size:15px;
+}
+.page-product-detail .breadcrumbs a{ color:#374151; text-decoration:none; }
+.page-product-detail .breadcrumbs a:hover{ text-decoration:underline; }
+.page-product-detail .breadcrumbs span::before{ content:"›"; margin:0 6px; color:#9ca3af; }
+
+/* gallery “card” hơn một chút */
+.pd-gallery .pd-hero{
+  border-radius:20px; overflow:hidden;
+  border:1px solid var(--border);
+  background:#fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,.06);
+}
+.pd-gallery .pd-hero img{ width:100%; display:block; object-fit:cover; }
+
+/* thumbnails cuộn ngang mượt + hover */
+.pd-thumbs{ display:flex; gap:12px; margin-top:12px; overflow:auto; scroll-snap-type:x mandatory; }
+.pd-thumbs::-webkit-scrollbar{ height:6px; }
+.pd-thumbs::-webkit-scrollbar-thumb{ background:#e5e7eb; border-radius:999px; }
+.pd-thumbs .thumb{
+  scroll-snap-align:start;
+  border:1px solid var(--border); border-radius:14px; overflow:hidden; background:#fff;
+  transition:transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.pd-thumbs .thumb img{ width:76px; height:76px; object-fit:cover; display:block; }
+.pd-thumbs .thumb:hover{ transform: translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.08); }
+.pd-thumbs .thumb.is-active{ outline:2px solid #111; }
+
+/* panel thông tin sticky trên desktop để đọc dễ hơn */
+@media (min-width: 1101px){
+  .pd-info{ position:sticky; top:92px; align-self:start; }
+}
+
+/* tiêu đề & giá: nhịp điệu typographic đẹp hơn */
+.pd-info .pd-title{
+  font-size: clamp(24px, 3.2vw, 36px);
+  line-height:1.15; letter-spacing:-.01em; margin:0 0 10px;
+}
+.pd-info .pd-price{ font-size:22px; margin-bottom:10px; }
+.pd-info .pd-desc{ color:#374151; line-height:1.65; margin:10px 0 16px; }
+
+/* block chung */
+.pd-block{ margin:18px 0; }
+.pd-block .lbl{ font-weight:800; margin-bottom:10px; }
+
+/* pills size: cảm giác “tactile” hơn */
+.size-pills{ display:flex; gap:10px; flex-wrap:wrap; }
+.sp-pill{ display:inline-flex; }
+.sp-pill input{ display:none; }
+.sp-pill span{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:46px; height:38px; padding:0 14px;
+  border:1px solid var(--border); border-radius:999px;
+  background:#fff; font-weight:700; cursor:pointer;
+  transition: background .18s ease, border-color .18s ease, transform .06s ease, box-shadow .18s ease;
+}
+.sp-pill span:hover{ background:#f7f7f8; transform:translateY(-1px); }
+.sp-pill input:checked + span{ background:#111; color:#fff; border-color:#111; box-shadow:0 6px 14px rgba(0,0,0,.18); }
+
+/* trạng thái không còn size (nếu sau này bạn dùng) */
+.sp-pill.is-disabled span{ color:#9ca3af; background:#f3f4f6; cursor:not-allowed; }
+.sp-pill.is-disabled span:hover{ transform:none; }
+
+/* quantity control gọn gàng hơn */
+.qty-ctrl{ display:inline-flex; align-items:center; gap:10px; }
+.qty-ctrl .qt{
+  width:40px; height:40px; border-radius:12px;
+  border:1px solid var(--border); background:#fff; font-weight:800;
+  transition:transform .06s ease, background .12s ease;
+}
+.qty-ctrl .qt:hover{ background:#f7f7f8; transform:translateY(-1px); }
+#qtyInput{
+  width:70px; height:40px; text-align:center;
+  border:1px solid var(--border); border-radius:12px; font-weight:700;
+}
+
+/* nút chính “đã tay” hơn */
+.pd-actions{ display:flex; gap:12px; margin-top:10px; }
+.btn.btn-primary{
+  background:#111; color:#fff; border-radius:14px; padding:12px 18px; font-weight:800;
+  box-shadow: 0 10px 20px rgba(0,0,0,.16);
+  transition: transform .06s ease, box-shadow .2s ease, background .12s ease;
+}
+.btn.btn-primary:hover{ transform: translateY(-1px); box-shadow:0 14px 26px rgba(0,0,0,.2); background:#0a0a0a; }
+.btn.btn-ghost{ border-radius:14px; }
+
+/* meta list: tick nhẹ */
+.pd-meta{ margin-top:14px; color:#4b5563; }
+.pd-meta li{ position:relative; margin:6px 0 6px 18px; }
+.pd-meta li::before{
+  content:""; position:absolute; left:-18px; top:10px;
+  width:8px; height:8px; border-radius:999px; background:#111;
+}
+
+/* mobile: tối ưu thumbs + spacing */
+@media (max-width: 640px){
+  .pd-thumbs .thumb img{ width:64px; height:64px; }
+  .pd-actions{ flex-wrap:wrap; }
+}
+
+/* pulse giữ style, tự về màu cũ */
+.btn-primary.added {
+  animation: add-pulse 900ms ease;
+}
+
+@keyframes add-pulse {
+  0%   { box-shadow: 0 0 0 0 var(--pulse-color); background: var(--pulse-color); }
+  70%  { box-shadow: 0 0 0 14px rgba(0,0,0,0); background: var(--pulse-color); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); background: var(--btn-bg); }
+}
+
+
+/* toast nhỏ ở góc dưới */
+.toast {
+  position: fixed; right: 24px; bottom: 24px;
+  background: #111; color:#fff; padding: 12px 16px;
+  border-radius: 12px; font-weight: 700;
+  opacity: 0; transform: translateY(10px);
+  pointer-events: none; transition: .25s;
+  z-index: 9999;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* badge giỏ hàng nhảy */
+.cart-badge.bump { animation: cart-bump .3s ease; }
+@keyframes cart-bump { 0%{transform:scale(1)} 50%{transform:scale(1.2)} 100%{transform:scale(1)} }
+
+.sp-pill span {
+  transition: all 0.25s ease;
+}
+
+.sp-pill input:checked + span {
+  background: var(--pulse-color);
+  color: #fff;
+  border-color: var(--pulse-color);
+}
+
+.sp-pill input:not(:checked) + span {
+  background: #fff;
+  color: #111;
+  border-color: var(--border);
+}
+
+/* flash nhẹ cho size được chọn, không làm mất trạng thái checked */
+.sp-pill span.flash {
+  animation: size-flash 900ms ease;
+}
+@keyframes size-flash {
+  0%   { background: var(--pulse-color); color:#fff; border-color: var(--pulse-color); box-shadow: 0 6px 14px rgba(0,0,0,.18); }
+  70%  { background: var(--pulse-color); color:#fff; border-color: var(--pulse-color); box-shadow: 0 6px 14px rgba(0,0,0,.12); }
+  100% { background: #fff; color:#111; border-color: var(--border); box-shadow: none; }
+}
+
+/* màu be khi đang chọn */
+.sp-pill input:checked + span{
+  background: var(--pulse-color);
+  color:#fff;
+  border-color: var(--pulse-color);
+}
+
+/* hiệu ứng trả về mặc định sau khi bấm Thêm vào giỏ */
+@keyframes pill-reset {
+  0%   { background: var(--pulse-color); color:#fff; border-color: var(--pulse-color); }
+  100% { background: #fff; color:#111; border-color: var(--border); }
+}
+.sp-pill span.reverting{
+  animation: pill-reset 320ms ease forwards;
+}
+
+/* ========= Size button state ========= */
+.size-btn {
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .05s ease;
+}
+
+/* Khi chọn size (thay màu be bằng màu accent của style guide nếu có; fallback = xanh than) */
+.size-btn.is-selected {
+  background: var(--accent-600, #2563eb);   /* thử map với guide của bạn; nếu chưa có biến, dùng #2563eb */
+  border-color: var(--accent-600, #2563eb);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ========= Add-to-cart pressed state ========= */
+.add-to-cart-btn {
+  transition: background-color .2s ease, box-shadow .2s ease, transform .05s ease;
+}
+
+/* hiệu ứng khi bấm "Thêm vào giỏ" */
+.add-to-cart-btn.is-pressed {
+  background: var(--success-600, #059669);  /* nếu guide có green success thì tự map; fallback #059669 */
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  transform: translateY(0); /* chống nhảy/layout shift */
+}
+
+/* ========= Toast (thông báo thêm giỏ) ========= */
+.pd-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(16px);
+  background: #111; /* có thể đổi sang var(--surface-900) nếu guide có */
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.2;
+  box-shadow: 0 8px 30px rgba(0,0,0,.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  z-index: 9999;
+}
+.pd-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* rung nhẹ vùng chọn size khi chưa chọn mà bấm thêm giỏ */
+@keyframes pd-shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+.size-group.shake {
+  animation: pd-shake .35s both;
+}
+
+/* Tôn trọng người dùng giảm chuyển động */
+@media (prefers-reduced-motion: reduce) {
+  .size-btn, .add-to-cart-btn, .pd-toast { transition: none; }
+}
+
+/* nút disabled rõ ràng hơn */
+.add-to-cart-btn:disabled{
+  opacity:.55;
+  cursor: not-allowed;
+  filter: grayscale(20%);
+}
+
+/* hint nhỏ dưới nút */
+.btn-hint{
+  margin-top: 6px;
+  font-size: 13px;
+  color:#6b7280;
+}
+.btn-hint.hidden{ display:none; }
+
+/* hiệu ứng rung nhẹ cho size-group khi nhắc */
+.size-group.shake{ animation: sizeShake .28s ease; }
+@keyframes sizeShake{
+  0%,100%{ transform: translateX(0); }
+  25%{ transform: translateX(-4px); }
+  75%{ transform: translateX(4px); }
+}
+

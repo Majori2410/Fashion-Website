@@ -1,0 +1,34 @@
+{
+  "categoryMargins": {
+    "Trang phục Xuân Hè": { "label": "Trang phục Xuân Hè", "marginPct": 20, "avgCost": 0 },
+    "Trang phục Thu Đông": { "label": "Trang phục Thu Đông", "marginPct": 22, "avgCost": 0 },
+    "Giày dép": { "label": "Giày dép", "marginPct": 18, "avgCost": 0 },
+    "Phụ kiện": { "label": "Phụ kiện", "marginPct": 15, "avgCost": 0 }
+  },
+  "productMargins": [
+    { "productId": 1, "name": "Đầm Nữ Sơ Mi Cotton Tay Ngắn Rút Dây Regular", "category": "Trang phục Xuân Hè", "cost": 492000, "marginPct": 20 },
+    { "productId": 2, "name": "Áo tanktop Slimme.Fitted", "category": "Trang phục Xuân Hè", "cost": 134000, "marginPct": 20 },
+    { "productId": 3, "name": "Áo Thun Tanktop Nam Sát Nách Cotton Form Loose", "category": "Trang phục Xuân Hè", "cost": 311000, "marginPct": 20 },
+    { "productId": 4, "name": "Quần Denim Nữ Xanh Navy Rã Phối Form Balloon", "category": "Trang phục Xuân Hè", "cost": 528000, "marginPct": 20 },
+    { "productId": 5, "name": "Áo Thun Nam Tay Ngắn Thêu Chữ Trước Ngực Fitted", "category": "Trang phục Xuân Hè", "cost": 286000, "marginPct": 20 },
+    { "productId": 6, "name": "Quần Short Nam Cotton Lưng Thun In Chữ Form Relax", "category": "Trang phục Xuân Hè", "cost": 327000, "marginPct": 20 },
+    { "productId": 7, "name": "BE BOLD DERBY", "category": "Giày dép", "cost": 1992000, "marginPct": 18 },
+    { "productId": 8, "name": "Giày Sandal Nữ MWC E196", "category": "Giày dép", "cost": 165000, "marginPct": 18 },
+    { "productId": 9, "name": "Giày Cao Gót Nữ MWC G266", "category": "Giày dép", "cost": 199000, "marginPct": 18 },
+    { "productId": 10, "name": "Giày Cao Gót Kiểu Dáng Basic Bít Mũi Bít Gót", "category": "Giày dép", "cost": 201000, "marginPct": 18 },
+    { "productId": 11, "name": "Giày Sneaker Nam Phối Màu Streetwear Cá Tính", "category": "Giày dép", "cost": 330000, "marginPct": 18 },
+    { "productId": 12, "name": "Dép Sục Nam Quai Liền Khối Bản Rộng Phối Khoá Kim Loại", "category": "Giày dép", "cost": 290000, "marginPct": 18 },
+    { "productId": 13, "name": "Áo dệt kim tay dài nam. Loose", "category": "Trang phục Thu Đông", "cost": 563000, "marginPct": 22 },
+    { "productId": 14, "name": "Áo gile phao nam đen", "category": "Trang phục Thu Đông", "cost": 819000, "marginPct": 22 },
+    { "productId": 15, "name": "Bộ nỉ basic unisex", "category": "Trang phục Thu Đông", "cost": 627000, "marginPct": 22 },
+    { "productId": 16, "name": "Áo len dệt kim nữ trắng viền đen", "category": "Trang phục Thu Đông", "cost": 373000, "marginPct": 22 },
+    { "productId": 17, "name": "Áo ôm cổ cao nữ màu xám nhạt", "category": "Trang phục Thu Đông", "cost": 388000, "marginPct": 22 },
+    { "productId": 18, "name": "Áo len nữ đen viền trắng basic", "category": "Trang phục Thu Đông", "cost": 646000, "marginPct": 22 },
+    { "productId": 19, "name": "Mặt dây chuyền Bán Nguyệt Ánh Lam", "category": "Phụ kiện", "cost": 340000, "marginPct": 15 },
+    { "productId": 20, "name": "Ba lô thời trang unisex MWC hai tông xám", "category": "Phụ kiện", "cost": 541000, "marginPct": 15 },
+    { "productId": 21, "name": "Scrunchie ren hoa vintage nơ đỏ", "category": "Phụ kiện", "cost": 154000, "marginPct": 15 },
+    { "productId": 22, "name": "Bịt tai lông siêu mềm Moji trắng sữa", "category": "Phụ kiện", "cost": 213000, "marginPct": 15 },
+    { "productId": 23, "name": "Găng tay len hồng nơ xanh dễ thương", "category": "Phụ kiện", "cost": 187000, "marginPct": 15 },
+    { "productId": 24, "name": "Mũ tai thỏ lông mềm nơ trắng", "category": "Phụ kiện", "cost": 347000, "marginPct": 15 }
+  ]
+}

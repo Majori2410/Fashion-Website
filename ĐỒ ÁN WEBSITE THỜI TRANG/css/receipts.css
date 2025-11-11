@@ -1,0 +1,537 @@
+/* ====== RECEIPTS PAGE (Nhập kho) ====== */
+/* Đồng bộ tone với admin.css & users.css */
+
+.card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.card h3{margin:0 0 10px;font-size:18px}
+.muted{color:var(--muted)}
+
+.receipts-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;margin:12px 0 4px
+}
+.search-box{position:relative;display:inline-flex;align-items:center}
+.search-box input[type="search"]{
+  width:min(420px,60vw);box-sizing:border-box;padding:10px 36px 10px 12px;
+  border:1px solid var(--border);border-radius:10px;background:#fff;font-size:14px;outline:none;
+  transition:box-shadow .15s ease,border-color .15s ease
+}
+.search-box input[type="search"]:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(197,168,128,.18)}
+.search-box .clear{position:absolute;right:6px;border:none;background:transparent;cursor:pointer;font-size:14px;line-height:1;padding:6px;opacity:.6}
+.search-box .clear:hover{opacity:1}
+
+/* Bảng phiếu nhập */
+.receipts-table-wrap{overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+table.receipts{
+  width:100%;border-collapse:separate;border-spacing:0;font-size:14px;table-layout:fixed
+}
+table.receipts thead th{
+  position:sticky;top:0;z-index:1;background:#fafafa;border-bottom:1px solid var(--border);color:#444;font-weight:600;padding:12px
+}
+table.receipts th, table.receipts td{
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:12px;border-bottom:1px solid var(--border);vertical-align:middle
+}
+table.receipts tbody tr:hover{background:#fcfcfc}
+
+/* Cân cột */
+table.receipts th:nth-child(1), table.receipts td:nth-child(1){ width:140px } /* mã phiếu */
+table.receipts th:nth-child(2), table.receipts td:nth-child(2){ width:160px; text-align:center } /* ngày */
+table.receipts th:nth-child(3), table.receipts td:nth-child(3){ width:180px; text-align:right }  /* tổng */
+table.receipts th:nth-child(4), table.receipts td:nth-child(4){ width:140px; text-align:center } /* trạng thái */
+table.receipts th:nth-child(5), table.receipts td:nth-child(5){ width:220px; text-align:center } /* thao tác */
+
+/* Badge trạng thái */
+.badge{
+  display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid transparent
+}
+.badge.processing{ background:#fff8e6;color:#a16207;border-color:#f5d48f }
+.badge.completed{  background:#eaf6ee;color:#1f7a2e;border-color:#cfe9d6 }
+
+/* Nút hành động */
+.actions{display:inline-flex;gap:8px}
+.icon-btn.xs{
+  padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:#fff;
+  box-shadow:0 1px 0 rgba(0,0,0,.02);cursor:pointer;transition:background .15s ease, transform .06s ease;
+  font-size:12px;font-weight:600
+}
+.icon-btn.xs:hover{background:#f5f5f5}
+.icon-btn.xs:active{transform:translateY(1px)}
+.icon-btn.xs.disabled{opacity:.5;pointer-events:none}
+
+/* Modal chi tiết & editor (tận dụng admin.css modal) */
+.detail-items .items,
+.items-editor .items{
+  width:100%;border-collapse:separate;border-spacing:0;font-size:14px;table-layout:fixed;margin-top:10px
+}
+.items th,.items td{
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:10px;border-bottom:1px solid var(--border);vertical-align:middle
+}
+.items thead th{background:#f8f8f8;font-weight:600}
+.items td img{width:46px;height:46px;object-fit:cover;border-radius:8px;border:1px solid var(--border)}
+
+.editor-header{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.row-del{border:1px dashed #f3c4c4;background:#fff;padding:6px 8px;border-radius:8px;cursor:pointer}
+.row-del:hover{background:#fff2f2}
+
+/* Inputs trong bảng editor */
+.items input[type="text"], .items input[type="number"]{
+  width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px
+}
+
+/* Toast (dùng chung) */
+.toast{
+  position:fixed;right:16px;bottom:16px;min-width:240px;max-width:60vw;padding:12px 14px;border-radius:10px;background:rgba(0,0,0,.85);color:#fff;transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s ease;z-index:9999;font-size:14px
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+@media (max-width: 980px){
+  table.receipts th:nth-child(2), table.receipts td:nth-child(2){ display:none } /* ẩn Ngày nhập nếu màn hẹp */
+}
+
+/* Ô ảnh trong editor */
+.imgcell { display:flex; align-items:center; justify-content:center; }
+.imgcell img { width:46px; height:46px; object-fit:cover; border-radius:8px; border:1px solid var(--border); }
+
+.img-placeholder {
+  width: 46px;
+  height: 46px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+  background: #fafafa;
+}
+
+/* Căn đường kẻ dưới của cột ảnh ngang với cột khác */
+.items td { padding: 10px 12px; }                /* đồng nhất padding */
+.imgcell { display:flex; align-items:center; justify-content:center; height:46px; }
+.imgcell img,
+.imgcell .img-placeholder { display:block; }     /* bỏ baseline gap */
+.img-placeholder {
+  width:46px; height:46px;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; color:var(--muted); background:#fafafa;
+}
+
+/* Nút bị disable nhìn rõ ràng hơn */
+.btn[disabled], .icon-btn.xs.disabled, .btn.disabled {
+  opacity: .55; pointer-events: none;
+}
+
+/* Giữ chiều cao và căn giữa placeholder ảnh trong modal Thêm/Sửa */
+.items td { padding: 10px 12px; vertical-align: middle; }  /* đảm bảo cùng baseline */
+.imgcell { display: flex; align-items: center; justify-content: center; height: 46px; }
+
+/* Loại bỏ mọi lệch baseline và căn giữa tuyệt đối */
+.imgcell img,
+.imgcell .img-placeholder { display: block; margin: 0 auto; }
+
+.img-placeholder{
+  width:46px; height:46px;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; color:var(--muted); background:#fafafa;
+}
+
+/* Style khi bị khóa (trạng thái completed) */
+.items input.readonly[disabled]{
+  background:#f8f8f8; color:#777; cursor:not-allowed;
+}
+
+/* Giữ chữ trong ô 46x46, căn giữa chuẩn, không tràn */
+.img-placeholder{
+  width:46px; height:46px;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  background:#fafafa;
+  font-size:11px; color:var(--muted);
+  overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+  padding:0 4px;              /* chút padding cho text */
+}
+.imgcell { display:flex; align-items:center; justify-content:center; height:46px; }
+.imgcell img, .imgcell .img-placeholder { display:block; margin:0; }
+
+/* Cột Ảnh trong 2 editor (Thêm/Sửa): đúng trục với tiêu đề "Ảnh" */
+.items thead th:nth-child(3),
+.items tbody td:nth-child(3){
+  width: 86px;             /* 46px ảnh + viền + khoảng thở */
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+
+/* Giữ placeholder nằm gọn & giữa ô */
+.imgcell { display:flex; align-items:center; justify-content:center; height:46px; }
+.imgcell img, .imgcell .img-placeholder { display:block; margin:0; }
+.img-placeholder{
+  width:46px; height:46px;
+  border:1px dashed var(--border);
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  background:#fafafa;
+  font-size:11px; color:var(--muted);
+  overflow:hidden; white-space:nowrap; text-overflow:ellipsis; padding:0 4px;
+}
+
+/* Nút khi bị disable */
+.btn-ghost[disabled], .btn[disabled], .row-del[disabled]{
+  opacity:.55; pointer-events:none;
+}
+
+/* --- Dropdown chọn tình trạng --- */
+.status-select-wrap {
+  position: relative;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.status-select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #666;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Select chính */
+.status-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font: inherit;
+  padding: 6px 28px 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1.3;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.status-select:hover {
+  background: #fafafa;
+  border-color: #ccc;
+}
+
+.status-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Màu gợi ý theo trạng thái */
+.status-select option[value="processing"] {
+  color: #b27900;
+}
+.status-select option[value="completed"] {
+  color: #0f7a3b;
+}
+
+/* --- Dropdown chọn tình trạng (bo tròn đẹp, đồng bộ nút) --- */
+.status-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font: inherit;
+  padding: 8px 32px 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;          /* ✅ Bo tròn đẹp hơn */
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1.4;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.status-select:hover {
+  background: #fafafa;
+  border-color: #bbb;
+}
+
+.status-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Cột Thao tác --- */
+table.users td.actions,
+table.receipts td.actions,
+.actions {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Bọc 2 nút gọn hơn */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+/* Nếu bảng bị hẹp: ép xuống dòng mềm */
+@media (max-width: 1400px) {
+  .actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .status-select,
+  .icon-btn.xs {
+    width: 100%;
+    max-width: 140px;
+  }
+}
+
+/* --- Dropdown chỉnh tình trạng trong cột thao tác --- */
+.status-select-wrap {
+  position: relative;
+  display: inline-block;
+  margin-right: 8px;
+  max-width: 150px;          /* tránh tràn khung */
+  overflow: visible;
+}
+
+.status-select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #555;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Nút dropdown chính */
+.status-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font: inherit;
+  padding: 7px 32px 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;       /* ✅ Bo tròn vừa phải như nút “Xem / sửa” */
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  min-width: 130px;
+}
+
+.status-select:hover {
+  background: #fafafa;
+  border-color: #ccc;
+}
+
+.status-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.06);
+}
+
+/* Cột thao tác: căn giữa và tránh bị che mất */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  overflow: visible;
+}
+
+/* Nút Xem / sửa phiếu nhập bo tròn đều */
+.icon-btn.xs {
+  border-radius: 12px;
+  padding: 7px 14px;
+  white-space: nowrap;
+}
+
+/* --- Cột thao tác: căn giữa và tránh tràn --- */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  overflow: hidden;         /* ✅ không tràn ra ngoài khung */
+  white-space: nowrap;
+}
+
+.status-select-wrap {
+  flex-shrink: 0;           /* ✅ không bị ép nhỏ khi container hẹp */
+}
+
+.icon-btn.xs {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1400px) {
+  .actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .status-select,
+  .icon-btn.xs {
+    width: 100%;
+    max-width: 160px;
+  }
+}
+
+/* === Cột thao tác: không tràn, đẹp và linh hoạt === */
+.receipts-table-wrap{ overflow: visible; }                /* để menu không bị cắt */
+table.receipts th:last-child{ width: 320px; }             /* đủ chỗ cho 2 control */
+table.receipts td:last-child{
+  white-space: normal;                                    /* cho phép xuống dòng khi hẹp */
+}
+
+/* cụm nút trong cột thao tác */
+.rcp-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;                              /* thẳng hàng phải */
+  align-items: center;
+  flex-wrap: wrap;                                        /* hẹp thì tự xuống hàng */
+}
+
+/* nút xem/sửa */
+.btn-inline{
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.btn-inline:hover{ background:#fafafa; border-color:#cfd4dc; }
+
+/* ===== Custom Select (đồng bộ như orders.css) ===== */
+.select-hidden{ display:none !important; }
+
+.cs{ position:relative; font-size:14px; min-width: 158px; } /* ~ kích thước nút xem/sửa */
+.cs-toggle{
+  height: 38px;
+  padding: 8px 36px 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;                                    /* bo tròn như nút */
+  background: #fff;
+  line-height: 1.2;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.cs-toggle:hover{ background:#f9fafb; }
+.cs-toggle:focus{ outline:none; border-color:#9ca3af; box-shadow:0 0 0 2px rgba(156,163,175,.25); }
+/* mũi tên */
+.cs-toggle::after{
+  content:"";
+  position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  border:6px solid transparent; border-top-color:#6b7280;
+}
+.cs.open .cs-toggle::after{ transform:translateY(-25%) rotate(180deg); }
+
+/* menu */
+.cs-menu{
+  position:absolute; z-index: 40;
+  top: calc(100% + 6px); left:0; right:0;
+  display:none;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius: 12px;                                    /* menu bo tròn */
+  box-shadow: 0 8px 24px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  padding:6px;
+}
+.cs.open .cs-menu{ display:block; }
+
+/* option trong menu */
+.cs-option{
+  padding:8px 10px;
+  border-radius: 8px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:space-between;
+  transition: background .15s ease;
+}
+.cs-option:hover{ background:#f3f4f6; }
+.cs-option[aria-selected="true"]{ background:#f5f3ff; }
+
+/* responsive nhẹ cho cột thao tác */
+@media (max-width: 1200px){
+  table.receipts th:last-child{ width: 280px; }
+}
+@media (max-width: 992px){
+  table.receipts th:last-child{ width: 240px; }
+}
+
+/* Cột thao tác: để các nút không tràn */
+.rcp-actions{
+  display:flex; justify-content:flex-end; align-items:center; gap:10px;
+  flex-wrap: wrap;               /* xuống dòng khi thiếu chỗ */
+}
+
+/* Ẩn select gốc (đã có .select-hidden, thêm phòng hờ) */
+.select-hidden, select.rcp-status{
+  position:absolute !important; left:-9999px !important; width:1px; height:1px; opacity:0;
+}
+
+/* Custom select (nút + menu) */
+.rcp-actions .cs { position: relative; }
+.cs-btn{
+  padding:8px 12px; border:1px solid var(--border);
+  background:#fff; border-radius: 999px;  /* bo tròn giống nút pill */
+  font-weight:600; font-size:14px; cursor:pointer;
+}
+.cs-btn:hover{ background:#fafafa; }
+
+/* Menu xổ xuống */
+.cs-menu{
+  position:absolute; top:100%; right:0; margin-top:6px;
+  background:#fff; border:1px solid var(--border); border-radius:12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  padding:6px; min-width:160px; display:none; z-index:10;
+}
+.cs-menu.open{ display:block; }
+.cs-menu > button{
+  display:block; width:100%; text-align:left; padding:10px 12px; border:none; background:transparent;
+  border-radius:8px; font-size:14px; cursor:pointer;
+}
+.cs-menu > button:hover{ background:#f5f5f5; }
+
+/* TẮT nút chỉnh trạng thái trong cột Thao tác (không xóa code) */
+.rcp-actions .cs,
+.rcp-actions .status-select-wrap,
+.rcp-actions select.rcp-status,
+.rcp-actions .cs-menu { 
+  display: none !important;
+}
+
+/* Canh lại cụm nút thao tác khi chỉ còn 1 nút */
+.rcp-actions {
+  gap: 0;                 /* hết khoảng trống của dropdown */
+  justify-content: center;
+}
+

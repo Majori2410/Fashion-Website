@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cat_ss",
+    "name": "Spring/Summer",
+    "description": "BST Xuân–Hè",
+    "status": "visible"
+  },
+  {
+    "id": "cat_fw",
+    "name": "Fall/Winter",
+    "description": "BST Thu–Đông",
+    "status": "visible"
+  },
+  {
+    "id": "cat_shoes",
+    "name": "Shoes",
+    "description": "Giày",
+    "status": "visible"
+  },
+  {
+    "id": "cat_acc",
+    "name": "Accessories",
+    "description": "Phụ kiện",
+    "status": "visible"
+  }
+]

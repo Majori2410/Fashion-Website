@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin • Nhập kho</title>
+
+  <!-- Fonts (đồng bộ như users/products) -->
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+
+  <!-- CSS chung -->
+  <link rel="stylesheet" href="../css/admin.css">
+  <!-- CSS riêng -->
+  <link rel="stylesheet" href="../css/receipts.css">
+</head>
+<body>
+  <div class="wrap">
+    <!-- ========== SIDEBAR (đồng bộ, KHÔNG có “Sản phẩm”) ========== -->
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="dot"></span><span class="txt">Fashion Admin</span>
+      </div>
+      <nav class="menu">
+        <a href="dashboard.html" data-nav="dashboard">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            </svg>
+          </span>
+          <span class="txt">Tổng quan</span>
+        </a>
+
+        <a href="users.html" data-nav="users">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a3 3 0 0 1 0 5.74"/>
+            </svg>
+          </span>
+          <span class="txt">Người dùng</span>
+        </a>
+
+        <a href="categories.html" data-nav="categories">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/>
+            </svg>
+          </span>
+          <span class="txt">Loại sản phẩm</span>
+        </a>
+
+        <a href="receipts.html" data-nav="receipts" class="active">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v14"/><path d="M19 10l-7 7-7-7"/>
+            </svg>
+          </span>
+          <span class="txt">Nhập kho</span>
+        </a>
+
+        <a href="pricelist.html" data-nav="pricelist">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span>
+          <span class="txt">Bảng giá</span>
+        </a>
+
+        <a href="orders.html" data-nav="orders">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 2h14a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2-3-2-1 0V4a2 2 0 0 1 2-2z"/>
+              <path d="M8 7h8M8 11h8M8 15h5"/>
+            </svg>
+          </span>
+          <span class="txt">Đơn hàng</span>
+        </a>
+
+        <a href="inventory.html" data-nav="inventory">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
+              <path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
+            </svg>
+          </span>
+          <span class="txt">Tồn kho</span>
+        </a>
+        <a href="products.html">
+          <span class="ico">
+            <!-- icon túi mua hàng -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 7l1-3h10l1 3"></path>
+              <path d="M6 7h12l-1 13H7L6 7z"></path>
+              <path d="M9 10a3 3 0 0 0 6 0"></path>
+            </svg>
+          </span><span class="txt">Sản phẩm</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">Fashion Admin • v1.0</div>
+    </aside>
+
+    <!-- ========== MAIN ========== -->
+    <main>
+      <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="title">NHẬP KHO</div>
+      <div class="top-actions">
+        <div class="avatar">
+          <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+        </div>
+        <div class="account">
+          <div class="name" data-admin-name>Nguyễn Admin</div>
+          <div class="role">Quản trị viên</div>
+        </div>
+        <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
+      </div>
+    </div>
+
+      <div class="container grid">
+        <!-- TOOLBAR: Tìm kiếm + Thêm phiếu -->
+        <div class="card receipts-toolbar">
+          <div class="search-box">
+            <input id="rcpSearch" type="search" placeholder="Tìm theo mã phiếu / ngày (YYYY-MM-DD)..." autocomplete="off" />
+            <button id="btnClearSearch" class="clear" title="Xoá">✕</button>
+          </div>
+          <div class="toolbar-right">
+            <button id="btnOpenCreate" class="btn btn-primary">+ Thêm phiếu nhập</button>
+          </div>
+        </div>
+
+        <!-- BẢNG RECEIPTS -->
+        <div class="card receipts-table-wrap">
+          <h3 style="margin:0 0 8px">Phiếu nhập hàng</h3>
+          <table class="receipts">
+            <thead>
+              <tr>
+                <th>Mã phiếu</th>
+                <th>Ngày nhập</th>
+                <th>Tổng trị giá</th>
+                <th>Tình trạng</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="rcpTbody">
+              <tr><td colspan="5" class="muted">Đang tải dữ liệu…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ========== MODALS ========== -->
+
+  <!-- XEM CHI TIẾT -->
+  <div class="modal" id="modalDetail" aria-hidden="true">
+    <div class="modal-backdrop" data-close="detail"></div>
+    <div class="modal-dialog">
+      <h3>Chi tiết phiếu nhập <span id="detailId" class="muted"></span></h3>
+      <div class="detail-meta muted" id="detailMeta"></div>
+      <div class="detail-items">
+        <table class="items">
+          <thead>
+            <tr>
+              <th style="width:54px">Ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá nhập</th>
+              <th>Số lượng</th>
+              <th>Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody id="detailBody"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="muted" style="text-align:right">Tổng cộng:</td>
+              <td id="detailTotal" style="font-weight:700"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="detail">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TẠO PHIẾU NHẬP -->
+  <div class="modal" id="modalCreate" aria-hidden="true">
+    <div class="modal-backdrop" data-close="create"></div>
+    <div class="modal-dialog">
+      <h3>Thêm phiếu nhập</h3>
+      <div class="modal-grid">
+        <div>
+          <label>Ngày nhập</label>
+          <input id="createDate" type="date">
+        </div>
+      </div>
+
+      <div class="items-editor">
+        <div class="editor-header">
+          <div class="muted">Sản phẩm</div>
+          <button class="btn btn-ghost" id="btnCreateAddRow">+ Thêm dòng</button>
+        </div>
+        <table class="items">
+          <thead>
+            <tr>
+              <th style="width:34px"></th>
+              <th>Tên sản phẩm</th>
+              <th>Ảnh</th>
+              <th>Giá nhập</th>
+              <th>Số lượng</th>
+              <th>Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody id="createItems"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="muted" style="text-align:right">Tổng cộng:</td>
+              <td id="createTotal" style="font-weight:700"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="create">Hủy</button>
+        <button class="btn btn-primary" id="btnCreateSave">Lưu phiếu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SỬA PHIẾU (chỉ khi đang xử lý) -->
+  <div class="modal" id="modalEdit" aria-hidden="true">
+    <div class="modal-backdrop" data-close="edit"></div>
+    <div class="modal-dialog">
+      <h3>Sửa phiếu nhập <span id="editId" class="muted"></span></h3>
+      <div class="modal-grid">
+        <div>
+          <label>Ngày nhập</label>
+          <input id="editDate" type="date">
+        </div>
+        <div>
+          <label>Tình trạng</label>
+          <select id="editStatus">
+            <option value="processing">Đang xử lý</option>
+            <option value="completed">Hoàn thành</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="items-editor">
+        <div class="editor-header">
+          <div class="muted">Sản phẩm</div>
+          <button class="btn btn-ghost" id="btnEditAddRow">+ Thêm dòng</button>
+        </div>
+        <table class="items">
+          <thead>
+            <tr>
+              <th style="width:34px"></th>
+              <th>Tên sản phẩm</th>
+              <th>Ảnh</th>
+              <th>Giá nhập</th>
+              <th>Số lượng</th>
+              <th>Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody id="editItems"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="muted" style="text-align:right">Tổng cộng:</td>
+              <td id="editTotal" style="font-weight:700"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close="edit">Hủy</button>
+        <button class="btn btn-primary" id="btnEditSave">Lưu thay đổi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../js/receipts.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const link = document.querySelector('[data-nav="receipts"]');
+      if (link) link.classList.add('active');
+    });
+  </script>
+
+  <datalist id="productNames"></datalist>
+
+</body>
+
+<script src="../js/admin-session.js" defer></script>
+
+</html>

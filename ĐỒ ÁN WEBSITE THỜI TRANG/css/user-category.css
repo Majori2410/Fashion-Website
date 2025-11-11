@@ -1,0 +1,124 @@
+/* Header của trang category */
+.cat-head{
+  display:flex; align-items:baseline; justify-content:space-between;
+  margin: 6px 0 10px 0;
+}
+.cat-head h1{ margin:0; font-size:28px; }
+.cat-meta{ color:#666; }
+
+/* ========== Breadcrumb refinement ========== */
+.page-user-category .breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: #6b7280;
+  margin: 8px 0 4px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+.page-user-category .breadcrumbs a {
+  color: #4b5563;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.page-user-category .breadcrumbs a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.page-user-category .breadcrumbs a:hover {
+  color: #111;
+}
+.page-user-category .breadcrumbs a:hover::after {
+  opacity: 0.4;
+}
+
+.page-user-category .breadcrumbs span {
+  color: #111;
+  font-weight: 600;
+}
+
+/* Dấu phân tách › tinh tế hơn */
+.page-user-category .breadcrumbs::before {
+  content: none;
+}
+.page-user-category .breadcrumbs > *:not(:last-child)::after {
+  content: "›";
+  color: #9ca3af;
+  margin: 0 4px;
+  font-size: 13px;
+}
+
+/* ------- Tabs: Tất cả / Xuân Hè / Thu Đông / Giày dép / Phụ kiện ------- */
+.page-user-category .cat-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin: 6px 0 16px;
+}
+
+.page-user-category .cat-tabs a{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:#fff;
+  font-weight:600;
+  text-decoration:none;       /* bỏ gạch chân */
+  color:#111;                 /* bỏ màu tím visited */
+  transition: background .18s ease, border-color .18s ease, transform .08s ease;
+}
+
+/* bảo đảm ghi đè cả trạng thái :visited của trình duyệt */
+.page-user-category .cat-tabs a:link,
+.page-user-category .cat-tabs a:visited{
+  color:#111;
+  text-decoration:none;
+}
+
+.page-user-category .cat-tabs a:hover{
+  background:#f5f5f7;
+  border-color:#e5e7eb;
+  transform: translateY(-1px);
+}
+
+.page-user-category .cat-tabs a.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+/* ==== Nút "Xem chi tiết" trên card sản phẩm ==== */
+.view-detail {
+  display: inline-block;
+  background-color: #111;          /* nền đen */
+  color: #fff;                     /* chữ trắng */
+  text-decoration: none;           /* bỏ gạch chân */
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+}
+
+/* Hiệu ứng hover: đổi sang xám đậm hơn, hơi nhô lên */
+.view-detail:hover {
+  background-color: #222;          /* đậm hơn nhẹ */
+  transform: translateY(-2px);     /* nổi lên một chút */
+}
+
+/* Khi bấm giữ: nhún xuống */
+.view-detail:active {
+  transform: translateY(0);
+}
+
+

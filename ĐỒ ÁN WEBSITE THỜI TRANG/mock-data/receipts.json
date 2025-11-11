@@ -1,0 +1,50 @@
+[
+  {
+    "id": "RCP-202511-001",
+    "date": "2025-11-08",
+    "status": "processing",
+    "items": [
+      { "productId": 1,  "importPrice": 420000, "qty": 30 },
+      { "productId": 4,  "importPrice": 450000, "qty": 12 }
+    ]
+  },
+  {
+    "id": "RCP-202511-002",
+    "date": "2025-11-09",
+    "status": "completed",
+    "items": [
+      { "productId": 7,  "importPrice": 1410000, "qty": 5 },
+      { "productId": 16, "importPrice": 273000,  "qty": 8 }
+    ]
+  },
+  {
+    "id": "RCP-202511-003",
+    "date": "2025-11-10",
+    "status": "processing",
+    "items": [
+      { "productId": 8,  "importPrice": 117000, "qty": 10 },
+      { "productId": 13, "importPrice": 412000, "qty": 6 }
+    ]
+  },
+
+  {
+    "id": "RCP-202511-004",
+    "date": "2025-11-11",
+    "status": "completed",
+    "items": [
+      { "productId": 2,  "importPrice": 199000,  "qty": 7 },
+      { "productId": 18, "importPrice": 325000,  "qty": 4 },
+      { "productId": 21, "importPrice": 279000,  "qty": 2 }
+    ]
+  },
+  {
+    "id": "RCP-202511-005",
+    "date": "2025-11-12",
+    "status": "processing",
+    "items": [
+      { "productId": 1,  "importPrice": 420000, "qty": 5 },
+      { "productId": 8,  "importPrice": 117000, "qty": 6 },
+      { "productId": 16, "importPrice": 273000,  "qty": 3 }
+    ]
+  }
+]

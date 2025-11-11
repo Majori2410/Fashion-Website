@@ -1,0 +1,91 @@
+/* Layout cơ bản */
+.container { max-width: 1120px; margin: 0 auto; padding: 16px; }
+.orders-title { font-size: 24px; font-weight: 800; margin: 10px 0 4px; color: #111827; }
+.orders-subtitle { color: #6b7280; margin-bottom: 12px; }
+
+/* Filter */
+.orders-filters { margin-bottom: 12px; }
+.filter-form { display: grid; grid-template-columns: 1fr 220px auto auto; gap: 8px; }
+.filter-form input, .filter-form select {
+  padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 10px; outline: none; background: #fff;
+}
+.filter-form input:focus, .filter-form select:focus { border-color: #c7cdd4; }
+.btn { padding: 10px 14px; border-radius: 12px; border: 1px solid transparent; cursor: pointer; }
+.btn-primary { background: #111827; color: #fff; }
+.btn-ghost { background: #fff; border-color: #e5e7eb; }
+
+/* List */
+.orders-list { display: grid; gap: 12px; }
+.order-card { border: 1px solid #e5e7eb; border-radius: 16px; background: #fff; overflow: hidden; }
+.order-head {
+  display: grid; grid-template-columns: 1fr auto; gap: 12px;
+  padding: 12px 16px; align-items: center; border-bottom: 1px dashed #f0f2f5;
+}
+.order-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; color: #374151; }
+.order-meta b { color: #111827; }
+
+/* Status badges (4 trạng thái) */
+.status-badge { padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; border: 1px solid transparent; }
+.status--NEW        { background: #fff7ed; color: #9a3412; border-color: #fed7aa; } /* Mới đặt */
+.status--PROCESSED  { background: #f0f9ff; color: #075985; border-color: #bae6fd; } /* Đã xử lý */
+.status--DELIVERED  { background: #f0fdf4; color: #166534; border-color: #bbf7d0; } /* Đã giao */
+.status--CANCELLED  { background: #fef2f2; color: #991b1b; border-color: #fecaca; } /* Hủy */
+
+.order-body { padding: 10px 16px 14px; display: none; }
+.order-body.is-open { display: block; }
+
+.item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px dashed #f3f4f6; }
+.item:last-child { border-bottom: none; }
+.item img { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; border: 1px solid #f1f5f9; }
+.item-name { font-weight: 700; color: #111827; }
+.item-meta { font-size: 13px; color: #6b7280; }
+.item-price { font-weight: 700; color: #111827; text-align: right; }
+
+.order-foot { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px 6px; gap: 8px; }
+.order-total { font-weight: 800; color: #111827; }
+.order-actions { display: flex; gap: 8px; }
+.btn-link { background: transparent; border: none; color: #111827; text-decoration: underline; cursor: pointer; padding: 0; }
+
+/* Pagination */
+.orders-pagination { display: flex; justify-content: center; gap: 6px; padding: 12px 0 24px; }
+.page-btn { padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 10px; background: #fff; cursor: pointer; }
+.page-btn.is-active { background: #111827; color: #fff; border-color: #111827; }
+
+/* Empty */
+.empty { padding: 16px; color: #6b7280; text-align: center; }
+
+@media (max-width: 640px) {
+  .filter-form { grid-template-columns: 1fr; }
+  .item { grid-template-columns: 48px 1fr auto; }
+  .order-head { grid-template-columns: 1fr; }
+}
+
+/* Customer info box */
+.customer-box {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border: 1px dashed #e5e7eb;
+  border-radius: 12px;
+  background: #fcfcfc;
+}
+.customer-title {
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2px;
+}
+.customer-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 6px 10px;
+  font-size: 14px;
+  color: #374151;
+}
+.customer-grid .label { color: #6b7280; }
+.customer-grid a { color: inherit; text-decoration: underline; }
+@media (max-width: 640px){
+  .customer-grid { grid-template-columns: 1fr; }
+  .customer-grid .label { font-weight: 600; }
+}
+

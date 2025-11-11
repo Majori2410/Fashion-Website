@@ -1,0 +1,352 @@
+/* Layout 2 cột */
+.checkout-grid{
+  display:grid; gap:24px; margin: 22px auto 48px;
+}
+@media (min-width: 960px){
+  .checkout-grid{ grid-template-columns: 1fr 380px; align-items:start; }
+}
+
+/* Form */
+.ck-title{ font-size:20px; font-weight:800; margin:14px 0 8px; }
+.ck-form{
+  background:#fff; border:1px solid var(--border,#eee); border-radius:16px;
+  padding:18px; box-shadow:0 8px 26px rgba(0,0,0,.05);
+}
+.fieldset{ border:1px dashed #e5e7eb; border-radius:12px; padding:12px; margin:10px 0 14px; }
+.row2{ display:grid; gap:12px; }
+@media (min-width: 520px){ .row2{ grid-template-columns: 1fr 1fr; } }
+
+.form-row{ display:flex; flex-direction:column; gap:6px; }
+.form-row input, .form-row textarea{
+  height:42px; border:1px solid #e5e7eb; border-radius:10px; padding:0 12px;
+}
+.form-row textarea{ height:auto; padding:10px 12px; resize:vertical; }
+
+.addr-mode, .pay-methods{ display:flex; gap:16px; flex-wrap:wrap; margin:8px 0 10px; }
+.radio{ display:inline-flex; align-items:center; gap:8px; }
+.radio input{ width:16px; height:16px; accent-color:#111; }
+
+.btn-place{ margin-top:10px; height:44px; border-radius:12px; font-weight:800; }
+
+/* Summary */
+.ck-summary{
+  background:#fff; border:1px solid var(--border,#eee); border-radius:16px;
+  padding:16px; position:sticky; top:88px;
+  box-shadow:0 8px 26px rgba(0,0,0,.05);
+}
+.ck-summary h3{ margin:0 0 10px; font-size:18px; font-weight:800; }
+.ck-items{ display:grid; gap:10px; margin-bottom:10px; }
+.ck-item{ display:grid; grid-template-columns: 64px 1fr auto; gap:10px; align-items:center; }
+.ck-item .thumb{ width:64px; height:64px; border-radius:10px; overflow:hidden; background:#f6f6f6; border:1px solid #eee; }
+.ck-item .thumb img{ width:100%; height:100%; object-fit:cover; }
+.ck-item .name{ font-weight:700; }
+.ck-item .meta{ color:#6b7280; font-size:13px; }
+.sum-line{ display:flex; justify-content:space-between; padding:8px 0; border-top:1px dashed #eee; }
+.sum-line.total strong{ font-size:20px; }
+
+/* Modal thành công */
+.ck-modal{
+  position:fixed; inset:0; background:rgba(0,0,0,.5);
+  display:none;            /* ⬅️ ẨN mặc định */
+  place-items:center; z-index:1000;
+}
+.ck-modal.open{            /* ⬅️ CHỈ hiển thị khi có .open */
+  display:grid;
+}
+
+.ck-modal-card{
+  width:min(520px, 92vw); background:#fff; border-radius:16px; padding:18px;
+  border:1px solid var(--border,#eee); box-shadow:0 16px 40px rgba(0,0,0,.2);
+  text-align:center;
+}
+.ck-modal-card h3{ margin:0 0 6px; }
+.ck-modal-actions{ display:flex; gap:10px; justify-content:center; margin-top:12px; }
+
+/* ===== Grid mới: trái sản phẩm (1fr) | phải hộp nhỏ (360px) ===== */
+.ck-grid{
+  display: grid; gap: 24px; margin: 22px auto 48px;
+}
+@media (min-width: 960px){
+  .ck-grid{ grid-template-columns: 1fr 360px; align-items: start; }
+}
+
+/* ===== Trái: mô phỏng sản phẩm ===== */
+.ck-sec-title{ font-size: 20px; font-weight: 800; margin: 0 0 10px; }
+.ck-prodlist{
+  background:#fff; border:1px solid var(--border,#eee); border-radius:16px;
+  padding: 14px; box-shadow:0 8px 26px rgba(0,0,0,.05);
+  display: grid; gap: 12px;
+}
+.ck-item{ display:grid; grid-template-columns: 72px 1fr auto; gap:12px; align-items:center; }
+.ck-item .thumb{ width:72px; height:72px; border-radius:10px; overflow:hidden; background:#f6f6f6; border:1px solid #eee; }
+.ck-item .thumb img{ width:100%; height:100%; object-fit:cover; }
+.ck-item .name{ font-weight:700; }
+.ck-item .meta{ color:#6b7280; font-size:13px; }
+
+/* ===== Phải: box Địa chỉ + Thanh toán ===== */
+.ck-right{ display: grid; gap: 16px; }
+.ck-box{
+  background:#fff; border:1px solid var(--border,#eee); border-radius:16px;
+  padding: 14px; box-shadow:0 8px 26px rgba(0,0,0,.05);
+}
+.ck-box-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.ck-box h3{ margin:0; font-size:18px; font-weight:800; }
+
+.addr-card{ display:grid; gap:6px; font-size:15px; }
+.addr-line.name{ font-weight:800; color:#111; }
+.addr-line.phone, .addr-line.email{ color:#4b5563; }
+.addr-line.street{ color:#111; }
+
+.btn-ghost.sm{
+  padding:6px 10px; border-radius:10px; border:1px solid var(--border,#e5e7eb);
+  background:#fff; cursor:pointer; font-weight:600;
+}
+.btn-ghost.sm:hover{ background:#f7f7f7; }
+
+.btn.full{ width:100%; height:44px; border-radius:12px; font-weight:800; }
+
+/* Segmented buttons cho Payment */
+.pay-seg{
+  display:inline-flex; gap:6px; padding:6px; background:#f4f5f7;
+  border:1px solid var(--border,#e5e7eb); border-radius:12px;
+}
+.pay-seg .seg{
+  padding:8px 12px; border-radius:10px; background:transparent; border:0;
+  font-weight:700; cursor:pointer; transition:background .15s ease, box-shadow .15s ease, color .15s ease;
+}
+.pay-seg .seg:hover{ color:#111; }
+.pay-seg .seg.active{
+  background:#fff; color:#111; box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* ===== Nút Đặt hàng: trạng thái chưa đủ thông tin ===== */
+.btn.btn-primary.is-disabled,
+.btn.btn-primary[disabled]{
+  background: #e5e7eb;
+  color: #9ca3af;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: grayscale(20%);
+}
+
+/* ===== Modal: ẩn mặc định, chỉ hiện khi .open ===== */
+.ck-modal{
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  display:none; place-items:center; z-index:1000;
+}
+.ck-modal.open{ display:grid; }  /* bật bằng JS */
+.ck-modal-card{
+  width:min(520px, 92vw); background:#fff; border-radius:16px; padding:18px;
+  border:1px solid var(--border,#eee); box-shadow:0 16px 40px rgba(0,0,0,.2);
+  text-align:center;
+}
+.ck-modal-card h3{ margin:0 0 6px; }
+.ck-modal-actions{ display:flex; gap:10px; justify-content:center; margin-top:12px; }
+
+/* ===== Modal chỉnh sửa địa chỉ ===== */
+.addr-form{ margin: 8px 0; }
+.addr-form .row2{ display:grid; gap:12px; }
+@media (min-width:520px){ .addr-form .row2{ grid-template-columns: 1fr 1fr; } }
+.addr-form .form-row{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
+.addr-form input{
+  height:42px; border:1px solid #e5e7eb; border-radius:10px; padding:0 12px;
+}
+.ck-modal-card h3{ margin:0 0 10px; }
+
+/* dùng lại .radio, .btn-ghost, .btn styles hiện có */
+
+/* ===== Segmented buttons cho chọn địa chỉ trong modal ===== */
+.addr-seg{
+  display:inline-flex;
+  gap:6px;
+  padding:6px;
+  background:#f4f5f7;
+  border:1px solid var(--border,#e5e7eb);
+  border-radius:12px;
+  justify-content:center;
+  width:100%;
+  margin:10px 0 14px;
+}
+.addr-seg .seg{
+  flex:1;
+  padding:8px 12px;
+  border-radius:10px;
+  background:transparent;
+  border:0;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .15s ease, box-shadow .15s ease, color .15s ease;
+}
+.addr-seg .seg:hover{ color:#111; }
+.addr-seg .seg.active{
+  background:#fff;
+  color:#111;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+}
+
+/* Placeholder màu xám nhạt */
+.addr-form input::placeholder{
+  color:#9ca3af;
+  opacity:1; /* bảo đảm hiển thị */
+}
+
+/* Giả placeholder cho ô có dữ liệu “Chưa có ...” */
+.addr-form input.placeholder {
+  color: #9ca3af;             /* xám nhạt giống placeholder */
+  font-style: italic;         /* trông nhẹ nhàng hơn */
+}
+
+.addr-form input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+/* Màu placeholder đồng bộ cho mọi input trong modal */
+.addr-form input::placeholder{
+  color:#9ca3af;
+  opacity:1;
+}
+
+/* Nếu còn block giả placeholder thì tắt nghiêng đi */
+.addr-form input.placeholder{ font-style:normal; }
+
+/* Mặc định chữ trong input là màu bình thường */
+.addr-form input { color: #111; }
+
+/* Placeholder thật vẫn xám nhạt */
+.addr-form input::placeholder { color: #9ca3af; opacity: 1; }
+
+/* Nếu trước đó còn rule giả placeholder, xóa hoặc ghi đè màu */
+.addr-form input.placeholder { color: #111 !important; } /* hoặc xóa hẳn rule này */
+
+/* ===== Nút chuẩn dùng trong modal ===== */
+.ck-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  height: 42px;
+  padding: 0 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+/* Nút chính (nâu nhạt) */
+.btn-primary {
+  background: #c6a77a;
+  color: #fff;
+  border-color: #c6a77a;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+.btn-primary:hover {
+  background: #b79468;
+  border-color: #b79468;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Nút phụ (trắng xám) */
+.btn-ghost {
+  background: #fff;
+  color: #444;
+  border: 1px solid #e5e7eb;
+}
+.btn-ghost:hover {
+  background: #f5f5f5;
+  border-color: #d1d5db;
+  color: #111;
+}
+
+/* Khi hai nút nằm cạnh nhau, canh đều & cùng chiều cao */
+.ck-modal-actions .btn,
+.ck-modal-actions a.btn {
+  text-align: center;
+  font-size: 15px;
+  line-height: 1;
+}
+
+/* Hiệu ứng nhấn nhẹ khi click */
+.btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+/* Bỏ gạch chân & viền mặc định của link khi biến thành nút */
+.ck-modal-actions a { text-decoration: none; }
+.btn, a.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  height: 42px;
+  padding: 0 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+/* Nút chính */
+.btn-primary{ background:#c6a77a; color:#fff; border-color:#c6a77a; box-shadow:0 4px 14px rgba(0,0,0,.05); }
+.btn-primary:hover{ background:#b79468; border-color:#b79468; box-shadow:0 6px 16px rgba(0,0,0,.08); }
+
+/* Nút phụ trắng */
+.btn-ghost{ background:#fff; color:#444; border:1px solid #e5e7eb; }
+.btn-ghost:hover{ background:#f5f5f5; border-color:#d1d5db; color:#111; }
+
+/* Trạng thái nhấn & focus cho đẹp, bỏ viền xanh mặc định */
+.btn:active{ transform:scale(.97); box-shadow:0 2px 8px rgba(0,0,0,.08); transition:transform .05s ease, box-shadow .05s ease; }
+.btn:focus{ outline: none; }
+.btn:focus-visible{ outline:2px solid #b79468; outline-offset:2px; }
+
+/* Base button cho cả a và button */
+.btn, a.btn, button.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  height: 42px;
+  padding: 0 18px;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+/* Nhóm nút trong modal */
+.ck-modal-actions { display:flex; justify-content:center; gap:10px; margin-top:14px; }
+.ck-modal-actions a { text-decoration:none; }
+
+/* Primary */
+.btn-primary { background:#c6a77a; color:#fff; border-color:#c6a77a; box-shadow:0 4px 14px rgba(0,0,0,.05); }
+.btn-primary:hover { background:#b79468; border-color:#b79468; box-shadow:0 6px 16px rgba(0,0,0,.08); }
+
+/* Ghost (trắng, viền xám) */
+.btn-ghost { background:#fff; color:#444; border:1px solid #e5e7eb; }
+.btn-ghost:hover { background:#f5f5f5; border-color:#d1d5db; color:#111; }
+
+/* Press + focus */
+.btn:active { transform:scale(.97); box-shadow:0 2px 8px rgba(0,0,0,.08); transition:transform .05s ease, box-shadow .05s ease; }
+.btn:focus { outline: none; }
+.btn:focus-visible { outline:2px solid #b79468; outline-offset:2px; }
+

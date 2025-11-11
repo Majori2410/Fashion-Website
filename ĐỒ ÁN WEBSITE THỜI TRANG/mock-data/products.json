@@ -1,0 +1,220 @@
+[
+  { 
+    "id": 1, 
+    "name": "Đầm Nữ Sơ Mi Cotton Tay Ngắn Rút Dây Regular", 
+    "category": "Trang phục Xuân Hè", 
+    "price": 590000, 
+    "img": "/assets/products/1.webp",
+    "sizes": ["S","M","L","XL"], 
+    "description": [
+    "Chất liệu cotton thoáng mát, phom A-line tôn dáng. Phù hợp đi làm, dạo phố.",
+    "Chất liệu: Cotton 100%",
+    "Xuất xứ: Việt Nam",
+    "Giặt máy chế độ nhẹ, không tẩy." 
+    ],
+    "images": [
+      "/assets/products/1.webp",
+      "/assets/products/1.1.webp",
+      "/assets/products/1.2.webp",
+      "/assets/products/1.3.webp"
+    ]
+  },
+  { 
+    "id": 2, 
+    "name": "Áo tanktop Slimme.Fitted", 
+    "category": "Trang phục Xuân Hè", 
+    "price": 160200, 
+    "img": "/assets/products/2.webp" 
+  },
+  { 
+    "id": 4, 
+    "name": "Quần Denim Nữ Xanh Navy Rã Phối Form Balloon", 
+    "category": "Trang phục Xuân Hè", 
+    "price": 633000, 
+    "img": "/assets/products/3.webp" 
+  },
+  { 
+    "id": 3, 
+    "name": "Áo Thun Tanktop Nam Sát Nách Cotton Form Loose", 
+    "category": "Trang phục Xuân Hè", 
+    "price": 373000, 
+    "img": "/assets/products/4.webp" 
+  },
+  { 
+    "id": 5, 
+    "name": "Áo Thun Nam Tay Ngắn Thêu Chữ Trước Ngực Fitted", 
+    "category": "Trang phục Xuân Hè", 
+    "price": 343000, 
+    "img": "/assets/products/5.webp" 
+  },
+  { 
+    "id": 6, 
+    "name": "Quần Short Nam Cotton Lưng Thun In Chữ Form Relax", 
+    "category": "Trang phục Xuân Hè", 
+    "price": 392000, 
+    "img": "/assets/products/6.webp" 
+  },
+  { 
+    "id": 7, 
+    "name": "BE BOLD DERBY", 
+    "category": "Giày dép", 
+    "price": 2350000, 
+    "img": "/assets/products/7.webp",
+    "sizes": ["38","39","40","41","42","43","44","45"], 
+    "description": [
+    "Đại diện cho sự thoải mái và phóng khoáng, Be Bold Derby là ứng cử viên sáng giá cho các quý ông đang tìm kiếm một đôi giày có thể dễ dàng kết hợp với nhiều loại trang phục. Với sự kỳ công và tỉ mỉ trong thiết kế lẫn chất liệu, Fashion shop tin chắc rằng đôi giày Derby này sẽ giúp các quý ông nâng tầm phong cách cá nhân, đồng thời thể hiện cái tôi của bản thân." 
+    ],
+    "images": [
+      "/assets/products/7.webp",
+      "/assets/products/7.1.webp",
+      "/assets/products/7.2.webp",
+      "/assets/products/7.3.webp"
+    ]
+  }, 
+  { 
+    "id": 8, 
+    "name": "Giày Sandal Nữ MWC E196", 
+    "category": "Giày dép", 
+    "price": 195000, 
+    "img": "/assets/products/8.jpg" 
+  },
+  { 
+    "id": 9, 
+    "name": "Giày Cao Gót MWC G266", 
+    "category": "Giày dép", 
+    "price": 235000, 
+    "img": "/assets/products/9.jpg" 
+  },
+  { 
+    "id": 10, 
+    "name": "Giày Cao Gót Kiểu Dáng Basic Bít Mũi Bít Gót", 
+    "category": "Giày dép", 
+    "price": 237500, 
+    "img": "/assets/products/10.jpg" 
+  },
+  { 
+    "id": 11, 
+    "name": "Giày Sneaker Nam Form Giày Cá Tính, Phối Màu Hiện Đại, Streetwear Chuẩn Chất", 
+    "category": "Giày dép", 
+    "price": 39500, 
+    "img": "/assets/products/11.jpg" 
+  },
+  { 
+    "id": 12, 
+    "name": "Dép Sục Nam Quai Liền Khối Bản Rộng Phối Khoá Kim Loại", 
+    "category": "Giày dép", 
+    "price": 34500, 
+    "img": "/assets/products/12.jpg" 
+  },
+  { 
+    "id": 13, 
+    "name": "Áo dệt kim tay dài nam. Loose", 
+    "category": "Trang phục Thu Đông", 
+    "price": 687000, 
+    "img": "/assets/products/13.webp",
+    "sizes": ["S","M","L","XL"], 
+    "description": [
+    "Áo len cổ tròn đỏ - lựa chọn lý tưởng cho nam giới yêu thích phong cách tối giản nhưng nổi bật. Màu đỏ rực rỡ kết hợp cùng phụ kiện tối màu giúp tôn lên sự tự tin và cá tính.",
+    "Chất liệu: Len cao cấp, mềm mịn, giữ ấm tốt",
+    "Màu sắc: Đỏ đô",
+    "Kiểu dáng: Cổ tròn, tay dài, form regular" 
+    ],
+    "images": [
+      "/assets/products/13.webp",
+      "/assets/products/13.1.webp",
+      "/assets/products/13.2.webp",
+      "/assets/products/13.3.webp"
+    ]
+  },
+  { 
+    "id": 14, 
+    "name": "Áo gile phao nam đen", 
+    "category": "Trang phục Thu Đông", 
+    "price": 999000, 
+    "img": "/assets/products/14.webp" 
+  },
+  { 
+    "id": 15, 
+    "name": "Bộ nỉ basic unisex", 
+    "category": "Trang phục Thu Đông", 
+    "price": 765000, 
+    "img": "/assets/products/15.webp" 
+  },
+  { 
+    "id": 16, 
+    "name": "Áo len dệt kim nữ trắng viền đen", 
+    "category": "Trang phục Thu Đông", 
+    "price": 455000, 
+    "img": "/assets/products/16.webp" 
+  },
+  { 
+    "id": 17, 
+    "name": "Áo ôm cổ cao nữ màu xám nhạt", 
+    "category": "Trang phục Thu Đông", 
+    "price": 473000, 
+    "img": "/assets/products/17.webp" 
+  },
+  { 
+    "id": 18, 
+    "name": "Áo len nữ đen viền trắng basic", 
+    "category": "Trang phục Thu Đông", 
+    "price": 788000, 
+    "img": "/assets/products/18.webp" 
+  },
+  { 
+    "id": 19, 
+    "name": "Mặt dây chuyền Bán Nguyệt Ánh Lam", 
+    "category": "Phụ kiện", 
+    "price": 3910000, 
+    "img": "/assets/products/19.png",
+    "sizes": ["30","31","32","33"], 
+    "description": [
+    "Lấy cảm hứng từ ánh trăng dịu dàng, Mặt dây chuyền Bán Nguyệt Ánh Lam được chế tác từ bạc cao cấp với phần mặt trăng ánh lam óng ánh. Thiết kế đơn giản mà tinh tế, tượng trưng cho sự nữ tính và bí ẩn.",
+    "Chất liệu: Bạc 925 phủ bóng.",
+    "Màu sắc: Ánh bạc kết hợp lam nhẹ.",
+    "Kiểu dáng: Hình bán nguyệt.",
+    "Phù hợp với: Vòng tay, dây chuyền hoặc charm mix nhiều kiểu."
+    ],
+    "images": [
+      "/assets/products/19.png",
+      "/assets/products/19.1.png",
+      "/assets/products/19.2.png",
+      "/assets/products/19.3.png"
+    ]
+  },
+  { 
+    "id": 20, 
+    "name": "Ba lô thời trang unisex MWC hai tông xám", 
+    "category": "Phụ kiện", 
+    "price": 622000, 
+    "img": "/assets/products/20.jpg" 
+  },
+  { 
+    "id": 21, 
+    "name": "Scrunchie ren hoa vintage nơ đỏ", 
+    "category": "Phụ kiện", 
+    "price": 177000, 
+    "img": "/assets/products/21.jpeg" 
+  },
+  { 
+    "id": 22, 
+    "name": "Bịt tai lông siêu mềm Moji trắng sữa", 
+    "category": "Phụ kiện", 
+    "price": 245000, 
+    "img": "/assets/products/22.jpeg" 
+  },
+  { 
+    "id": 23, 
+    "name": "Găng tay len hồng nơ xanh dễ thương", 
+    "category": "Phụ kiện", 
+    "price": 215000, 
+    "img": "/assets/products/23.jpeg" 
+  },
+  { 
+    "id": 24, 
+    "name": "Mũ tai thỏ lông mềm nơ trắng", 
+    "category": "Phụ kiện", 
+    "price": 399000, 
+    "img": "/assets/products/24.jpeg" 
+  }
+]

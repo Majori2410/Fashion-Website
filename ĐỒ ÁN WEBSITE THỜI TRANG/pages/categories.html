@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel — Loại sản phẩm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/categories.css">
+</head>
+<body>
+  <div class="wrap">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><span class="txt">Fashion Admin</span></div>
+      <nav class="menu">
+        <a href="dashboard.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            </svg>
+          </span><span class="txt">Tổng quan</span>
+        </a>
+
+        <a href="users.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a3 3 0 0 1 0 5.74"/>
+            </svg>
+          </span><span class="txt">Người dùng</span>
+        </a>
+
+        <a href="categories.html" class="active">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/>
+            </svg>
+          </span><span class="txt">Loại sản phẩm</span>
+        </a>
+
+        <a href="receipts.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v14"/><path d="M19 10l-7 7-7-7"/>
+            </svg>
+          </span><span class="txt">Nhập kho</span>
+        </a>
+
+        <a href="pricelist.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span><span class="txt">Bảng giá</span>
+        </a>
+
+        <a href="orders.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 2h14a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2-3-2-1 0V4a2 2 0 0 1 2-2z"/>
+              <path d="M8 7h8M8 11h8M8 15h5"/>
+            </svg>
+          </span><span class="txt">Đơn hàng</span>
+        </a>
+
+        <a href="inventory.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
+              <path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
+            </svg>
+          </span><span class="txt">Tồn kho</span>
+        </a>
+
+        <a href="products.html">
+          <span class="ico">
+            <!-- icon túi mua hàng -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 7l1-3h10l1 3"></path>
+              <path d="M6 7h12l-1 13H7L6 7z"></path>
+              <path d="M9 10a3 3 0 0 0 6 0"></path>
+            </svg>
+          </span><span class="txt">Sản phẩm</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">Fashion Admin • v1.0</div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div class="title" id="pageTitle">LOẠI SẢN PHẨM</div>
+        <div class="top-actions">
+          <button class="btn btn-primary" id="btnAddType">+ Thêm loại sản phẩm</button>
+
+          <div class="avatar">
+            <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+          </div>
+          <div class="account">
+            <div class="name" data-admin-name>Nguyễn Admin</div>
+            <div class="role">Quản trị viên</div>
+          </div>
+          <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- LOẠI SẢN PHẨM -->
+        <section id="categories" class="grid" style="display:none">
+          <div class="card">
+            <table id="typeTable">
+              <thead>
+                <tr>
+                  <th style="width:140px">Mã</th>
+                  <th>Tên loại</th>
+                  <th>Mô tả</th>
+                  <th style="width:120px">Trạng thái</th>
+                  <th style="width:240px">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-id="apparel-ss">
+                  <td>type-ss</td>
+                  <td>Trang phục Xuân Hè</td>
+                  <td>Bộ sưu tập/dòng sản phẩm cho mùa Xuân – Hè.</td>
+                  <td><span class="tag ok">Hiển thị</span></td>
+                  <td>
+                    <button class="icon-btn" data-edit>Sửa</button>
+                    <button class="icon-btn" data-toggle>Ẩn</button>
+                    <button class="icon-btn" data-delete>Xóa</button>
+                  </td>
+                </tr>
+                <tr data-id="apparel-fw">
+                  <td>type-fw</td>
+                  <td>Trang phục Thu Đông</td>
+                  <td>Bộ sưu tập/dòng sản phẩm cho mùa Thu – Đông.</td>
+                  <td><span class="tag ok">Hiển thị</span></td>
+                  <td>
+                    <button class="icon-btn" data-edit>Sửa</button>
+                    <button class="icon-btn" data-toggle>Ẩn</button>
+                    <button class="icon-btn" data-delete>Xóa</button>
+                  </td>
+                </tr>
+                <tr data-id="shoes">
+                  <td>type-shoes</td>
+                  <td>Giày dép</td>
+                  <td>Sneaker, boot, sandal…</td>
+                  <td><span class="tag ok">Hiển thị</span></td>
+                  <td>
+                    <button class="icon-btn" data-edit>Sửa</button>
+                    <button class="icon-btn" data-toggle>Ẩn</button>
+                    <button class="icon-btn" data-delete>Xóa</button>
+                  </td>
+                </tr>
+                <tr data-id="accessory">
+                  <td>type-accessory</td>
+                  <td>Phụ kiện</td>
+                  <td>Nón, thắt lưng, túi xách…</td>
+                  <td><span class="tag hidden">Đang ẩn</span></td>
+                  <td>
+                    <button class="icon-btn" data-edit>Sửa</button>
+                    <button class="icon-btn" data-toggle>Hiện</button>
+                    <button class="icon-btn" data-delete>Xóa</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Các mục khác (placeholder) -->
+        <section id="dashboard" class="grid" style="display:none"><div class="card"><h3>Tổng quan</h3><p class="muted">Placeholder.</p></div></section>
+        <section id="users" class="grid" style="display:none"><div class="card"><h3>Người dùng</h3><p class="muted">Placeholder.</p></div></section>
+        <section id="receipts" class="grid" style="display:none"><div class="card"><h3>Nhập kho</h3><p class="muted">Placeholder.</p></div></section>
+        <section id="pricelist" class="grid" style="display:none"><div class="card"><h3>Bảng giá</h3><p class="muted">Placeholder.</p></div></section>
+        <section id="orders" class="grid" style="display:none"><div class="card"><h3>Đơn hàng</h3><p class="muted">Placeholder.</p></div></section>
+        <section id="inventory" class="grid" style="display:none"><div class="card"><h3>Tồn kho</h3><p class="muted">Placeholder.</p></div></section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Thêm/Sửa loại sản phẩm (UI only) -->
+  <div id="typeModal" class="modal">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-dialog">
+      <h3 id="typeModalTitle">Thêm loại sản phẩm</h3>
+      <div class="modal-grid">
+        <div>
+          <label>Mã loại</label>
+          <input id="f_id" type="text" placeholder="type-ss">
+        </div>
+        <div>
+          <label>Tên loại</label>
+          <input id="f_name" type="text" placeholder="Trang phục Xuân Hè">
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Mô tả</label>
+          <textarea id="f_desc" placeholder="Mô tả ngắn..."></textarea>
+        </div>
+        <div>
+          <label>Trạng thái</label>
+          <select id="f_status">
+            <option>Hiển thị</option>
+            <option>Đang ẩn</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close>Đóng</button>
+        <button class="btn btn-primary" disabled title="Demo giao diện">Lưu</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Router: mở Loại sản phẩm mặc định, bôi sáng menu chính xác
+    const links = Array.from(document.querySelectorAll('[data-link]'));
+    const routes = links.map(a => a.getAttribute('href'));
+    const pageTitle = document.getElementById('pageTitle');
+    const titles = {
+      '#dashboard':'Tổng quan',
+      '#users':'Người dùng',
+      '#categories':'Loại sản phẩm',
+      '#receipts':'Nhập kho',
+      '#pricelist':'Bảng giá',
+      '#orders':'Đơn hàng',
+      '#inventory':'Tồn kho'
+    };
+    function setActive(hash){
+      if(!routes.includes(hash)) hash = '#categories';
+      document.querySelectorAll('section').forEach(s => s.style.display='none');
+      const show = document.querySelector(hash); if(show) show.style.display='grid';
+      links.forEach(a=>a.classList.remove('active'));
+      const current = document.querySelector(`.menu a[href="${hash}"]`);
+      if(current) current.classList.add('active');
+      pageTitle.textContent = titles[hash] || 'Quản trị';
+    }
+    window.addEventListener('hashchange', ()=> setActive(location.hash));
+    setActive(location.hash || '#categories');
+
+    // UI-only: mở/đóng modal Thêm loại
+    const addTypeBtn = document.getElementById('btnAddType');
+    const typeModal = document.getElementById('typeModal');
+    if(addTypeBtn && typeModal){
+      addTypeBtn.addEventListener('click', ()=> typeModal.classList.add('open'));
+      typeModal.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close')) typeModal.classList.remove('open'); });
+    }
+  </script>
+</body>
+</html>

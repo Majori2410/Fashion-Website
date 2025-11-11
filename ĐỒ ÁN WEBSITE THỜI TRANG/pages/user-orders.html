@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Đơn hàng của tôi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- CSS chung của site (nếu có) -->
+  <link rel="stylesheet" href="../css/site.css">
+  <!-- CSS riêng cho trang orders -->
+  <link rel="stylesheet" href="../css/user-orders.css">
+</head>
+<body>
+  <!-- ========== TOP BAR (đồng bộ với user-category) ========== -->
+    <header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+        <nav class="main-nav" aria-label="Chính">
+        <a href="./index.html">Trang chủ</a>
+
+        <div class="nav-dd">
+            <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">Danh mục ▾</button>
+            <ul class="dd-menu" role="menu" aria-label="Danh mục">
+            <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Giày%20dép">Giày dép</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Phụ%20kiện">Phụ kiện</a></li>
+            </ul>
+        </div>
+
+        <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+
+        <!-- đánh dấu active cho trang hiện tại -->
+        <a href="./user-orders.html" class="orders-link active" aria-current="page">Đơn hàng</a>
+
+        <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+        <a href="./cart.html">Giỏ hàng</a>
+        </nav>
+
+        <a href="./login.html" class="actions account-login">
+        <span class="avatar anon" aria-hidden="true"></span>
+        <span class="account-text">Đăng nhập</span>
+        </a>
+    </div>
+    </header>
+  <!-- ========================================================= -->
+
+  <main class="orders-page container">
+    <h1 class="orders-title">Đơn hàng của tôi</h1>
+    <p class="orders-subtitle">Xem lịch sử đặt hàng, theo dõi trạng thái và chi tiết sản phẩm.</p>
+
+    <!-- Filter bar -->
+    <section class="orders-filters">
+      <form id="orderFilterForm" class="filter-form" autocomplete="off">
+        <input type="text" id="searchCode" placeholder="Tìm theo mã đơn (VD: OD-2025...)" />
+        <select id="statusSelect">
+          <option value="">Tất cả trạng thái</option>
+          <option value="NEW">Mới đặt</option>
+          <option value="PROCESSED">Đã xử lý</option>
+          <option value="DELIVERED">Đã giao</option>
+          <option value="CANCELLED">Hủy</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Lọc</button>
+        <button type="button" id="btnReset" class="btn btn-ghost">Xóa lọc</button>
+      </form>
+    </section>
+
+    <!-- Orders list -->
+    <section id="ordersList" class="orders-list" aria-live="polite"></section>
+
+    <!-- Pagination -->
+    <nav class="orders-pagination" id="ordersPagination" aria-label="Phân trang đơn hàng"></nav>
+  </main>
+
+  <!-- JS riêng cho trang orders -->
+  <script src="../js/user-orders.js" defer></script>
+
+  <!-- Search Overlay & Modal -->
+<div id="searchOverlay" class="search-overlay" hidden></div>
+
+<div id="searchModal" class="search-modal" hidden role="dialog" aria-labelledby="searchTitle">
+  <form id="searchForm" class="search-form" autocomplete="off">
+    <h3 id="searchTitle" class="search-title">Bạn cần gì?</h3>
+
+    <label class="sr-only" for="sName">Tên sản phẩm</label>
+    <input id="sName" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Tìm theo tên sản phẩm" />
+
+    <div class="row cat-row">
+      <span class="blocklabel">Loại sản phẩm</span>
+      <div class="cat-radios" role="radiogroup" aria-label="Loại sản phẩm">
+        <label class="radio"><input type="radio" name="cat" value="" checked><span class="dot"></span><span class="text">Tất cả</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Trang phục Xuân Hè"><span class="dot"></span><span class="text">Trang phục Xuân Hè</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Trang phục Thu Đông"><span class="dot"></span><span class="text">Trang phục Thu Đông</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Giày dép"><span class="dot"></span><span class="text">Giày dép</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Phụ kiện"><span class="dot"></span><span class="text">Phụ kiện</span></label>
+      </div>
+      <input type="hidden" id="sCategory" value="">
+    </div>
+
+    <div class="row price-row">
+      <span class="blocklabel">Khoảng giá (VNĐ)</span>
+      <div class="range">
+        <input id="sMin" type="number" min="0" step="50000" placeholder="Tối thiểu" aria-label="Giá tối thiểu" />
+        <span>—</span>
+        <input id="sMax" type="number" min="0" step="50000" placeholder="Tối đa" aria-label="Giá tối đa" />
+      </div>
+    </div>
+
+    <div class="search-actions">
+      <button type="button" class="btn-ghost" id="closeSearch">Đóng</button>
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </form>
+</div>
+
+<!-- Script cho ô tìm kiếm (đường dẫn tương đối) -->
+<script src="../js/search-modal.js" defer></script>
+<script src="../js/auth-ui.js" defer></script>
+
+</body>
+</html>

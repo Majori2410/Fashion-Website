@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "fullName": "Nguyễn Minh An",
+    "email": "an.nguyen@example.com",
+    "role": "admin",
+    "status": "active",
+    "createdAt": "2024-11-12T08:30:00Z",
+    "lastLogin": "2025-10-30T13:05:00Z"
+  },
+  {
+    "id": 2,
+    "fullName": "Trần Hải Yến",
+    "email": "yen.tran@example.com",
+    "role": "staff",
+    "status": "active",
+    "createdAt": "2024-12-01T02:15:00Z",
+    "lastLogin": "2025-11-07T09:42:00Z"
+  },
+  {
+    "id": 3,
+    "fullName": "Phạm Quốc Bảo",
+    "email": "bao.pham@example.com",
+    "role": "staff",
+    "status": "locked",
+    "createdAt": "2025-01-22T10:00:00Z",
+    "lastLogin": "2025-07-01T15:20:00Z"
+  },
+  {
+    "id": 4,
+    "fullName": "Lê Thu Hà",
+    "email": "ha.le@example.com",
+    "role": "customer",
+    "status": "active",
+    "createdAt": "2025-02-05T06:40:00Z",
+    "lastLogin": "2025-11-08T21:10:00Z"
+  },
+  {
+    "id": 5,
+    "fullName": "Đỗ Thanh Tùng",
+    "email": "tung.do@example.com",
+    "role": "customer",
+    "status": "active",
+    "createdAt": "2025-03-18T03:25:00Z",
+    "lastLogin": "2025-11-09T08:55:00Z"
+  }
+]

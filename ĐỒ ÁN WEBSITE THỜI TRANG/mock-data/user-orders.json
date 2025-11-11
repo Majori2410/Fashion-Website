@@ -1,0 +1,48 @@
+[
+  {
+    "code": "UO-20251101-0003",
+    "createdAt": "2025-11-01T19:42:00+07:00",
+    "status": "NEW",
+    "customer": { "name": "Nguyễn Minh Anh", "phone": "0901234567", "email": "minhanh@example.com", "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM" },
+    "receiver": { "name": "Nguyễn Minh Anh", "phone": "0901234567", "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM", "note": "Giao buổi sáng trong giờ hành chính" },
+    "payment": { "method": "COD", "shippingFee": 20000, "discount": 0 },
+    "items": [
+      { "id": 11, "name": "Áo sơ mi linen",  "size": "M", "color": "Trắng", "qty": 1, "price": 259000, "img": "../assets/orders/1.jpeg" },
+      { "id": 12, "name": "Quần short kaki", "size": "M", "color": "Be",    "qty": 1, "price": 199000, "img": "../assets/orders/2.jpeg" }
+    ]
+  },
+  {
+    "code": "UO-20251029-0010",
+    "createdAt": "2025-10-29T13:05:00+07:00",
+    "status": "PROCESSED",
+    "customer": { "name": "Nguyễn Minh Anh", "phone": "0901234567", "email": "minhanh@example.com", "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM" },
+    "receiver": { "name": "Trần Quốc Bảo", "phone": "0919988776", "address": "145 Cách Mạng Tháng 8, Q.3, TP.HCM", "note": "Đặt hộ cho bạn" },
+    "payment": { "method": "Thanh toán online", "shippingFee": 25000, "discount": 15000 },
+    "items": [
+      { "id": 21, "name": "Váy hoa cổ vuông", "size": "S", "color": "Hồng", "qty": 1, "price": 459000, "img": "../assets/orders/3.jpg" }
+    ]
+  },
+  {
+    "code": "UO-20251026-0007",
+    "createdAt": "2025-10-26T20:10:00+07:00",
+    "status": "DELIVERED",
+    "customer": { "name": "Nguyễn Minh Anh", "phone": "0901234567", "email": "minhanh@example.com", "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM" },
+    "receiver": { "name": "Nguyễn Minh Anh", "phone": "0901234567", "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM", "note": "" },
+    "payment": { "method": "COD", "shippingFee": 20000, "discount": 0 },
+    "items": [
+      { "id": 31, "name": "Áo khoác dù basic",     "size": "L", "color": "Đen", "qty": 1, "price": 389000, "img": "../assets/orders/4.jpg" },
+      { "id": 32, "name": "Nón lưỡi trai Classic", "size": "-", "color": "Đen", "qty": 1, "price": 99000,  "img": "../assets/orders/5.jpg" }
+    ]
+  },
+  {
+    "code": "UO-20251022-0002",
+    "createdAt": "2025-10-22T10:50:00+07:00",
+    "status": "CANCELLED",
+    "customer": { "name": "Nguyễn Minh Anh", "phone": "0901234567", "email": "minhanh@example.com", "address": "12 Hoa Lan, Q.Phú Nhuận, TP.HCM" },
+    "receiver": { "name": "Phạm Thu Hà", "phone": "0938123123", "address": "KDC An Phú, TP.Thủ Đức", "note": "Đặt nhầm size" },
+    "payment": { "method": "COD", "shippingFee": 0, "discount": 0 },
+    "items": [
+      { "id": 41, "name": "Chân váy ngắn jean", "size": "M", "color": "Xanh nhạt", "qty": 1, "price": 279000, "img": "../assets/orders/6.jpeg" }
+    ]
+  }
+]

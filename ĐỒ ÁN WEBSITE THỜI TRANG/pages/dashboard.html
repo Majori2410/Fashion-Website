@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel — Tổng quan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <div class="wrap">
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><span class="txt">Fashion Admin</span></div>
+      <nav class="menu">
+        <a href="dashboard.html" class="active">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            </svg>
+          </span><span class="txt">Tổng quan</span>
+        </a>
+        <a href="users.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a3 3 0 0 1 0 5.74"/>
+            </svg>
+          </span><span class="txt">Người dùng</span>
+        </a>
+        <a href="categories.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/>
+            </svg>
+          </span><span class="txt">Loại sản phẩm</span>
+        </a>
+        <a href="receipts.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v14"/><path d="M19 10l-7 7-7-7"/>
+            </svg>
+          </span><span class="txt">Nhập kho</span>
+        </a>
+        <a href="pricelist.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span><span class="txt">Bảng giá</span>
+        </a>
+        <a href="orders.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 2h14a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2-3-2-1 0V4a2 2 0 0 1 2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/>
+            </svg>
+          </span><span class="txt">Đơn hàng</span>
+        </a>
+        <a href="inventory.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/><path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
+            </svg>
+          </span><span class="txt">Tồn kho</span>
+        </a>
+        <a href="products.html">
+          <span class="ico">
+            <!-- icon túi mua hàng -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 7l1-3h10l1 3"></path>
+              <path d="M6 7h12l-1 13H7L6 7z"></path>
+              <path d="M9 10a3 3 0 0 0 6 0"></path>
+            </svg>
+          </span><span class="txt">Sản phẩm</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">Fashion Admin • v1.0</div>
+    </aside>
+
+    <main>
+    <div class="topbar">
+      <div class="title">TỔNG QUAN</div>
+      <div class="top-actions">
+        <div class="avatar">
+          <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+        </div>
+        <div class="account">
+          <div class="name" data-admin-name>Nguyễn Admin</div>
+          <div class="role">Quản trị viên</div>
+        </div>
+        <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
+      </div>
+    </div>
+
+
+      <div class="container">
+        <!-- Thông báo (chỉ hiển thị ở Tổng quan) -->
+        <div class="notice" id="notice">🔔 <b>Thông báo:</b> Hệ thống hoạt động ổn định • Có <b>3</b> đơn hàng mới cần xử lý.
+          <button class="close" aria-label="Đóng">×</button>
+        </div>
+
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero-overlay">
+            <h1>Chào mừng đến với bảng Tổng quan</h1>
+            <p>Quản trị shop thời trang — theo dõi đơn hàng, kho và sản phẩm một cách trực quan.</p>
+          </div>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stat-cards">
+          <div class="stat">
+            <div class="icon"><span>🧾</span></div>
+            <p class="label">Đơn hàng hôm nay</p>
+            <div class="value">128</div>
+            <div class="trend">+15% so với hôm qua</div>
+          </div>
+          <div class="stat">
+            <div class="icon"><span>👥</span></div>
+            <p class="label">Khách hàng mới</p>
+            <div class="value">42</div>
+            <div class="trend neutral">Trong tuần này</div>
+          </div>
+          <div class="stat">
+            <div class="icon"><span>🧥</span></div>
+            <p class="label">Sản phẩm đang bán</p>
+            <div class="value">312</div>
+            <div class="trend neutral">Tổng trên hệ thống</div>
+          </div>
+          <div class="stat warn">
+            <div class="icon"><span>📦</span></div>
+            <p class="label">Tồn kho thấp</p>
+            <div class="value">9</div>
+            <div class="trend">Cần nhập bổ sung</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // Cho phép đóng notice ở Tổng quan
+        const n = document.getElementById('notice');
+        if(n){ n.querySelector('.close')?.addEventListener('click',()=> n.remove()); }
+      </script>
+    </main>
+  </div>
+</body>
+
+<script src="../js/admin-session.js" defer></script>
+
+</html>

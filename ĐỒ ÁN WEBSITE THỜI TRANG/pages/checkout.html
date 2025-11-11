@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thanh toán | FashionShop</title>
+
+  <link rel="stylesheet" href="../css/site.css">
+  <link rel="stylesheet" href="../css/checkout.css">
+</head>
+<body class="page-checkout">
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+
+    <nav class="main-nav" aria-label="Chính">
+      <a href="./index.html">Trang chủ</a>
+
+      <!-- Dropdown Danh mục -->
+      <div class="nav-dd">
+        <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Danh mục ▾
+        </button>
+        <ul class="dd-menu" role="menu" aria-label="Danh mục">
+          <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+          <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+          <li><a role="menuitem" href="./user-category.html?category=Giày%20dép">Giày dép</a></li>
+          <li><a role="menuitem" href="./user-category.html?category=Phụ%20kiện">Phụ kiện</a></li>
+        </ul>
+      </div>
+
+      <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+      <a href="./user-orders.html" class="orders-link">Đơn hàng</a>
+      <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+      <a href="./cart.html">Giỏ hàng</a>
+    </nav>
+
+    <!-- Khu tài khoản (giống user-category) -->
+    <a href="./login.html" class="actions account-login" id="accEntry">
+      <span class="avatar anon" aria-hidden="true"></span>
+      <span class="account-text">Đăng nhập</span>
+    </a>
+  </div>
+</header>
+
+
+  <section class="hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Vị trí">
+        <a href="./index.html">Trang chủ</a>
+        <span>Thanh toán</span>
+      </nav>
+      <h1>Thanh toán</h1>
+    </div>
+  </section>
+
+  <main class="container ck-grid">
+  <!-- LEFT: mô phỏng danh sách sản phẩm -->
+  <section class="ck-left">
+    <h2 class="ck-sec-title">Sản phẩm của bạn</h2>
+    <div id="ckProdList" class="ck-prodlist">
+      <!-- JS sẽ render mô phỏng ở đây -->
+    </div>
+  </section>
+
+  <!-- RIGHT: thẻ nhỏ Địa chỉ + Thanh toán -->
+  <aside class="ck-right">
+    <div class="ck-box">
+      <div class="ck-box-head">
+        <h3>Địa chỉ nhận hàng</h3>
+        <button id="editAddrBtn" type="button" class="btn-ghost sm">Chỉnh sửa</button>
+      </div>
+      <div class="addr-card" id="addrCard">
+        <div class="addr-line name"   id="addrName">—</div>
+        <div class="addr-line phone"  id="addrPhone">—</div>
+        <div class="addr-line email"  id="addrEmail">—</div>
+        <div class="addr-line street" id="addrStreet">—</div>
+      </div>
+    </div>
+
+    <div class="ck-box">
+      <div class="ck-box-head">
+        <h3>Phương thức thanh toán</h3>
+      </div>
+
+      <!-- Segmented buttons -->
+      <div id="paySeg" class="pay-seg" role="group" aria-label="Chọn phương thức thanh toán">
+        <button type="button" class="seg active" data-value="cod"   aria-pressed="true">Tiền mặt</button>
+        <button type="button" class="seg"        data-value="bank"  aria-pressed="false">Chuyển khoản</button>
+        <button type="button" class="seg"        data-value="online" aria-pressed="false">Trực tuyến</button>
+      </div>
+      <input type="hidden" id="payMethod" value="cod">
+    </div>
+
+    <button id="placeOrder" class="btn btn-primary full">Đặt hàng</button>
+  </aside>
+</main>
+
+<!-- Modal: Đặt hàng thành công -->
+<div id="ckDone" class="ck-modal" aria-hidden="true">
+  <div class="ck-modal-card">
+    <h3>Đặt hàng thành công!</h3>
+    <p>Chúng tôi đã ghi nhận đơn của bạn.</p>
+    <div class="ck-modal-actions">
+        <a href="./user-orders.html" class="btn btn-primary">Xem đơn hàng</a>
+        <a href="./index.html" class="btn btn-ghost btn">Trang chủ</a>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Chỉnh sửa địa chỉ -->
+<div id="addrEditModal" class="ck-modal" aria-hidden="true">
+  <div class="ck-modal-card">
+    <h3>Địa chỉ nhận hàng</h3>
+
+<!-- Nút chuyển chế độ địa chỉ -->
+<div id="addrSeg" class="addr-seg">
+  <button type="button" class="seg active" data-mode="account" aria-pressed="true">Địa chỉ hiện tại</button>
+  <button type="button" class="seg" data-mode="new" aria-pressed="false">Địa chỉ mới</button>
+</div>
+
+
+    <!-- Khối địa chỉ từ tài khoản (cho phép chỉnh nhẹ nếu muốn) -->
+    <form id="accAddrForm" class="addr-form">
+      <div class="row2">
+        <div class="form-row">
+          <label>Họ và tên</label>
+          <input id="acc_fullName_inp" type="text" />
+        </div>
+        <div class="form-row">
+          <label>Số điện thoại</label>
+          <input id="acc_phone_inp" type="tel" />
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Email</label>
+        <input id="acc_email_inp" type="email" />
+      </div>
+      <div class="form-row">
+        <label>Địa chỉ</label>
+        <input id="acc_address_inp" type="text" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành" />
+      </div>
+    </form>
+
+    <!-- Khối địa chỉ mới -->
+    <form id="newAddrForm" class="addr-form" style="display:none;">
+      <div class="row2">
+        <div class="form-row">
+          <label>Họ và tên</label>
+          <input id="new_fullName_inp" type="text" placeholder="Nguyễn Văn A" />
+        </div>
+        <div class="form-row">
+          <label>Số điện thoại</label>
+          <input id="new_phone_inp" type="tel" placeholder="09xxxxxxxx" />
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Email</label>
+        <input id="new_email_inp" type="email" placeholder="you@example.com" />
+      </div>
+      <div class="form-row">
+        <label>Tỉnh/Thành</label>
+        <input id="new_province_inp" type="text" placeholder="VD: TP. Hồ Chí Minh" />
+      </div>
+      <div class="row2">
+        <div class="form-row">
+          <label>Quận/Huyện</label>
+          <input id="new_district_inp" type="text" placeholder="VD: Quận 1" />
+        </div>
+        <div class="form-row">
+          <label>Phường/Xã</label>
+          <input id="new_ward_inp" type="text" placeholder="VD: Phường Bến Nghé" />
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Địa chỉ chi tiết</label>
+        <input id="new_address_inp" type="text" placeholder="Số nhà, tên đường" />
+      </div>
+    </form>
+
+    <div class="ck-modal-actions">
+      <button id="addrCancelBtn" type="button" class="btn btn-ghost">Hủy</button>
+      <button id="addrSaveBtn" type="button" class="btn btn-primary">Lưu địa chỉ</button>
+    </div>
+  </div>
+</div>
+
+  <footer class="site-footer"><div class="container">© 2025 FashionShop</div></footer>
+
+  <!-- Scripts -->
+  <script src="../js/checkout.js"></script>
+  <script src="../js/auth-ui.js"></script>
+
+  <script>
+    (function () {
+    // Hiện tên user / đăng xuất như các trang khác
+    const acc = document.getElementById("accEntry");
+    let u = null; try { u = JSON.parse(localStorage.getItem("currentUser") || "null"); } catch {}
+    if (u && acc) {
+    const initial = (u.name || "U").trim().charAt(0).toUpperCase();
+    acc.outerHTML = `
+        <div class="actions account-login acc-wrap" id="accWrap">
+        <span class="avatar with-initial">${initial}</span>
+        <span class="account-text">${u.name || "User"}</span>
+        </div>`;
+    }
+
+    // Link Giỏ hàng → nếu chưa đăng nhập thì đưa sang login
+    const cartLink = document.querySelector('.main-nav a[href$="cart.html"]');
+    if (cartLink && !u) cartLink.href = './login.html?next=cart.html';
+
+    // Đặt trạng thái active cho mục đang mở
+    const file = location.pathname.split("/").pop();
+    document.querySelectorAll(".main-nav > a").forEach(a => {
+        const href = a.getAttribute("href");
+        if (href && file === href.split("/").pop()) a.classList.add("active");
+    });
+    })();
+  </script>
+
+</body>
+</html>

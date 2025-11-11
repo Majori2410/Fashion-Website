@@ -1,0 +1,25 @@
+{
+  "openingStock": {
+    "1": 10,
+    "2": 6,
+    "4": 5,
+    "7": 2,
+    "8": 12,
+    "13": 4,
+    "16": 6,
+    "18": 9,
+    "21": 3
+  },
+  "outMovements": [
+    { "productId": 1,  "date": "2025-11-09", "qty": 3 },
+    { "productId": 1,  "date": "2025-11-11", "qty": 2 },
+    { "productId": 2,  "date": "2025-11-10", "qty": 1 },
+    { "productId": 4,  "date": "2025-11-10", "qty": 2 },
+    { "productId": 7,  "date": "2025-11-10", "qty": 1 },
+    { "productId": 8,  "date": "2025-11-11", "qty": 5 },
+    { "productId": 13, "date": "2025-11-12", "qty": 2 },
+    { "productId": 16, "date": "2025-11-11", "qty": 2 },
+    { "productId": 18, "date": "2025-11-09", "qty": 3 },
+    { "productId": 21, "date": "2025-11-12", "qty": 1 }
+  ]
+}

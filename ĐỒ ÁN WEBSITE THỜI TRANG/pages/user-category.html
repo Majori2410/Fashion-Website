@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <title>Danh mục sản phẩm</title>
+
+  <link rel="stylesheet" href="/css/site.css?v=uc2">
+<link rel="stylesheet" href="/css/user-category.css?v=uc2">
+</head>
+<body class="page-user-category">
+  <!-- Header (giữ nguyên như index) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+      <nav class="main-nav" aria-label="Chính">
+        <a href="./index.html">Trang chủ</a>
+        <!-- Dropdown Danh mục bạn đang dùng -->
+        <div class="nav-dd">
+          <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">Danh mục ▾</button>
+          <ul class="dd-menu" role="menu" aria-label="Danh mục">
+            <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Giày%20dép">Giày dép</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Phụ%20kiện">Phụ kiện</a></li>
+          </ul>
+        </div>
+        <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+        <a href="./user-orders.html" class="orders-link">Đơn hàng</a>
+        <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+        <a href="./cart.html">Giỏ hàng</a>
+      </nav>
+      <a href="./login.html" class="actions account-login">
+        <span class="avatar anon" aria-hidden="true"></span>
+        <span class="account-text">Đăng nhập</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Breadcrumb + Heading -->
+    <nav class="breadcrumbs" aria-label="Vị trí">
+      <a href="./index.html">Trang chủ</a>
+      <span>›</span>
+      <strong id="crumbCat">Danh mục</strong>
+    </nav>
+
+    <header class="cat-head">
+      <h1 id="catTitle">Danh mục</h1>
+      <div class="cat-meta"><span id="resultCount">0</span> sản phẩm</div>
+    </header>
+
+    <nav class="cat-tabs" aria-label="Loại sản phẩm">
+      <a href="./user-category.html" data-tab="all">Tất cả</a>
+      <a href="./user-category.html?category=Trang%20phục%20Xuân%20Hè" data-tab="Trang phục Xuân Hè">Xuân Hè</a>
+      <a href="./user-category.html?category=Trang%20phục%20Thu%20Đông" data-tab="Trang phục Thu Đông">Thu Đông</a>
+      <a href="./user-category.html?category=Giày%20dép" data-tab="Giày dép">Giày dép</a>
+      <a href="./user-category.html?category=Phụ%20kiện" data-tab="Phụ kiện">Phụ kiện</a>
+    </nav>
+
+    <!-- Product grid -->
+    <section id="grid" class="product-grid"></section>
+
+    <!-- Pagination -->
+    <nav id="pagination" class="pagination" aria-label="Phân trang">
+      <a id="prev" href="#" class="page" aria-label="Trang trước">‹</a>
+      <div id="pages"></div>
+      <a id="next" href="#" class="page" aria-label="Trang sau">›</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© 2025 Fashion Shop</div>
+      <div class="links">
+        <a href="#">Điều khoản</a>
+        <a href="#">Bảo mật</a>
+        <a href="#">Liên hệ</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/search-modal.js" defer></script>
+  <script src="/js/user-category.js"></script>
+
+  <!-- Search Popover (đồng bộ với Index) -->
+  <div id="searchOverlay" class="search-overlay" hidden></div>
+
+  <div id="searchModal" class="search-modal" hidden role="dialog" aria-labelledby="searchTitle">
+    <form id="searchForm" class="search-form" autocomplete="off">
+      <h3 id="searchTitle" class="search-title">Bạn cần gì?</h3>
+
+      <!-- Tìm kiếm cơ bản -->
+      <label class="sr-only" for="sName">Tên sản phẩm</label>
+      <input id="sName" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Tìm theo tên sản phẩm" />
+
+      <!-- Tìm kiếm nâng cao -->
+      <div class="row cat-row">
+        <span class="blocklabel">Loại sản phẩm</span>
+        <div class="cat-radios" role="radiogroup" aria-label="Loại sản phẩm">
+          <label class="radio">
+            <input type="radio" name="cat" value="" checked>
+            <span class="dot"></span><span class="text">Tất cả</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Trang phục Xuân Hè">
+            <span class="dot"></span><span class="text">Trang phục Xuân Hè</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Trang phục Thu Đông">
+            <span class="dot"></span><span class="text">Trang phục Thu Đông</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Giày dép">
+            <span class="dot"></span><span class="text">Giày dép</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Phụ kiện">
+            <span class="dot"></span><span class="text">Phụ kiện</span>
+          </label>
+        </div>
+        <input type="hidden" id="sCategory" value="">
+      </div>
+
+      <div class="row price-row">
+        <span class="blocklabel">Khoảng giá (VNĐ)</span>
+        <div class="range">
+          <input id="sMin" type="number" min="0" step="50000" placeholder="Tối thiểu" aria-label="Giá tối thiểu" />
+          <span>—</span>
+          <input id="sMax" type="number" min="0" step="50000" placeholder="Tối đa" aria-label="Giá tối đa" />
+        </div>
+      </div>
+
+      <div class="search-actions">
+        <button type="button" class="btn-ghost" id="closeSearch">Đóng</button>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  //nếu bấm vào giỏ hàng ở top bar hoặc nút thêm vào giỏ mà chưa đăng nhập thì tự động điều hướng sang login
+  (function(){
+    var u = null;
+    try { u = JSON.parse(localStorage.getItem('currentUser') || 'null'); } catch(e){}
+    var link = document.querySelector('a[href$="cart.html"]');
+    if (link && !u) link.href = './login.html?next=cart.html';
+  })();
+  </script>
+
+<script src="../js/auth-ui.js"></script>
+
+</body>
+</html>

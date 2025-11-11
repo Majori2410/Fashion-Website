@@ -1,0 +1,11 @@
+/* Modal (UI only) */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:100}
+.modal.open{display:flex}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.modal-dialog{position:relative;background:#fff;border:1px solid var(--border);border-radius:12px;width:min(640px,92vw);padding:18px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.modal-dialog h3{margin:0 0 10px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.modal-dialog label{display:block;font-size:13px;color:#444;margin:6px 0}
+.modal-dialog input[type="text"], .modal-dialog textarea, .modal-dialog select{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px}
+.modal-dialog textarea{min-height:90px}

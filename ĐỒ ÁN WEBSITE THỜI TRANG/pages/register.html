@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <title>Fashion Shop — Đăng ký</title>
+
+  <!-- Base site styles -->
+  <link rel="stylesheet" href="/css/site.css">
+  <!-- (Tuỳ chọn) Nếu có file auth.css thì mở comment dòng dưới -->
+  <!-- <link rel="stylesheet" href="/css/auth.css"> -->
+
+  <style>
+    /* Style nhẹ cho form (an toàn, không đụng layout chung) */
+    .auth-wrap { padding: 48px 0 72px; }
+    .auth-card {
+      max-width: 560px; margin: 0 auto; background: #fff;
+      border-radius: 16px; box-shadow: 0 8px 28px rgba(0,0,0,.08);
+      padding: 28px;
+    }
+    .auth-card h1 { font-size: 28px; margin: 0 0 8px; }
+    .auth-desc { color:#666; margin-bottom: 20px; }
+    .form-grid { display: grid; gap: 14px; }
+    .form-field label { display:block; font-weight:600; margin-bottom: 6px; }
+    .form-field input[type="text"],
+    .form-field input[type="email"],
+    .form-field input[type="password"],
+    .form-field input[type="tel"]{
+      width:100%; padding:12px 14px; border:1px solid #e5e7eb; border-radius:10px;
+      outline:none;
+    }
+    .form-field input:focus { border-color:#111827; box-shadow: 0 0 0 3px rgba(17,24,39,.08); }
+    .form-row { display:flex; gap:12px; }
+    .form-row .col { flex:1; }
+    .terms { display:flex; align-items:flex-start; gap:10px; font-size:14px; color:#444; }
+    .error { color:#b91c1c; font-size:14px; margin-top:6px; }
+    .success { color:#065f46; font-size:14px; margin-top:6px; }
+    .auth-actions { display:flex; align-items:center; gap:12px; margin-top: 4px; }
+    .auth-actions .btn { min-width: 140px; }
+    .auth-alt { margin-top: 12px; font-size:14px; }
+    .auth-alt a { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- Header (đồng bộ như index.html) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+
+      <nav class="main-nav" aria-label="Chính">
+        <a href="./index.html">Trang chủ</a>
+
+        <!-- Danh mục: dropdown -->
+        <div class="nav-dd">
+          <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+            Danh mục ▾
+          </button>
+          <ul class="dd-menu" role="menu" aria-label="Danh mục">
+            <li><a role="menuitem" href="./search.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+            <li><a role="menuitem" href="./search.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+            <li><a role="menuitem" href="./search.html?category=Giày%20dép">Giày dép</a></li>
+            <li><a role="menuitem" href="./search.html?category=Phụ%20kiện">Phụ kiện</a></li>
+          </ul>
+        </div>
+
+        <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+        <a href="./user-orders.html" class="orders-link">Đơn hàng</a>
+        <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+        <a href="./cart.html">Giỏ hàng</a>
+      </nav>
+
+      <a href="./login.html" class="actions account-login">
+        <span class="avatar anon" aria-hidden="true"></span>
+        <span class="account-text">Đăng nhập</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Search Overlay & Modal (đồng bộ như index.html) -->
+  <div id="searchOverlay" class="search-overlay" hidden></div>
+
+  <div id="searchModal" class="search-modal" hidden role="dialog" aria-labelledby="searchTitle">
+    <form id="searchForm" class="search-form" autocomplete="off">
+      <h3 id="searchTitle" class="search-title">Bạn cần gì?</h3>
+
+      <label class="sr-only" for="sName">Tên sản phẩm</label>
+      <input id="sName" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Tìm theo tên sản phẩm" />
+
+      <div class="row cat-row">
+        <span class="blocklabel">Loại sản phẩm</span>
+        <div class="cat-radios" role="radiogroup" aria-label="Loại sản phẩm">
+          <label class="radio">
+            <input type="radio" name="cat" value="" checked>
+            <span class="dot"></span><span class="text">Tất cả</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Trang phục Xuân Hè">
+            <span class="dot"></span><span class="text">Trang phục Xuân Hè</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Trang phục Thu Đông">
+            <span class="dot"></span><span class="text">Trang phục Thu Đông</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Giày dép">
+            <span class="dot"></span><span class="text">Giày dép</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="cat" value="Phụ kiện">
+            <span class="dot"></span><span class="text">Phụ kiện</span>
+          </label>
+        </div>
+        <input type="hidden" id="sCategory" value="">
+      </div>
+
+      <div class="row price-row">
+        <span class="blocklabel">Khoảng giá (VNĐ)</span>
+        <div class="range">
+          <input id="sMin" type="number" min="0" step="50000" placeholder="Tối thiểu" aria-label="Giá tối thiểu" />
+          <span>—</span>
+          <input id="sMax" type="number" min="0" step="50000" placeholder="Tối đa" aria-label="Giá tối đa" />
+        </div>
+      </div>
+
+      <div class="search-actions">
+        <button type="button" class="btn-ghost" id="closeSearch">Đóng</button>
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+      </div>
+    </form>
+  </div>
+
+  <main>
+    <section class="container auth-wrap">
+      <div class="auth-card">
+        <h1>Tạo tài khoản</h1>
+        <p class="auth-desc">Đăng ký để mua sắm nhanh hơn, theo dõi đơn hàng và nhận ưu đãi.</p>
+
+        <form id="registerForm" class="form-grid" autocomplete="off" novalidate>
+          <div class="form-field">
+            <label for="fullName">Họ và tên</label>
+            <input id="fullName" name="fullName" type="text" placeholder="Nguyễn Văn A" required>
+            <div class="error" id="errName" hidden>Vui lòng nhập họ tên.</div>
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="name@example.com" required>
+            <div class="error" id="errEmail" hidden>Email không hợp lệ hoặc đã tồn tại.</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field col">
+              <label for="password">Mật khẩu</label>
+              <input id="password" name="password" type="password" placeholder="Tối thiểu 6 ký tự" minlength="6" required>
+            </div>
+            <div class="form-field col">
+              <label for="confirm">Nhập lại mật khẩu</label>
+              <input id="confirm" name="confirm" type="password" placeholder="Nhập lại" minlength="6" required>
+            </div>
+          </div>
+          <div class="error" id="errPwd" hidden>Mật khẩu không khớp hoặc quá ngắn.</div>
+
+          <label class="terms">
+            <input type="checkbox" id="agree"> <span>Tôi đồng ý với <a href="#">Điều khoản</a> và <a href="#">Chính sách bảo mật</a>.</span>
+          </label>
+          <div class="error" id="errAgree" hidden>Bạn cần đồng ý điều khoản.</div>
+
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+            <a class="btn btn-ghost" href="./index.html">Huỷ</a>
+          </div>
+
+          <div class="auth-alt">
+            Đã có tài khoản? <a href="./login.html">Đăng nhập</a>
+          </div>
+
+          <div class="success" id="okMsg" hidden>Đăng ký thành công! Đang chuyển hướng…</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© 2025 Fashion Shop</div>
+      <div class="links">
+        <a href="#">Điều khoản</a>
+        <a href="#">Bảo mật</a>
+        <a href="#">Liên hệ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Giỏ hàng chuyển qua login nếu chưa đăng nhập (giữ đúng hành vi như index) -->
+  <script>
+  (function(){
+    var u = null;
+    try { u = JSON.parse(localStorage.getItem('currentUser') || 'null'); } catch(e){}
+    var link = document.querySelector('a[href$="cart.html"]');
+    if (link && !u) link.href = './login.html?next=cart.html';
+  })();
+  </script>
+
+  <!-- Search modal + Dropdown Danh mục + Submit Query (đồng bộ như index) -->
+  <script>
+  (function(){
+    const openBtn = document.getElementById('openSearch');
+    const modal = document.getElementById('searchModal');
+    const overlay = document.getElementById('searchOverlay');
+    const closeBtn = document.getElementById('closeSearch');
+    const form = document.getElementById('searchForm');
+
+    function openModal(){
+      modal.hidden = false; overlay.hidden = false;
+      document.getElementById('sName').focus();
+    }
+    function closeModal(){
+      modal.hidden = true; overlay.hidden = true;
+    }
+
+    openBtn?.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+    overlay?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+    const hiddenCat = document.getElementById('sCategory');
+    document.querySelectorAll('.cat-radios input[name="cat"]').forEach(r=>{
+      r.addEventListener('change', ()=>{ hiddenCat.value = r.value; });
+    });
+
+    form?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const q = document.getElementById('sName').value.trim();
+      const category = document.getElementById('sCategory').value.trim();
+      const min = document.getElementById('sMin')?.value.trim();
+      const max = document.getElementById('sMax')?.value.trim();
+
+      const params = new URLSearchParams();
+      if(q) params.append('q', q);
+      if(category) params.append('category', category);
+      if(min) params.append('min', min);
+      if(max) params.append('max', max);
+
+      window.location.href = './search.html?' + params.toString();
+    });
+
+    // Dropdown "Danh mục"
+    const dd = document.querySelector('.nav-dd');
+    const ddBtn = dd?.querySelector('.dd-trigger');
+    const ddMenu = dd?.querySelector('.dd-menu');
+    let closeTimeout;
+
+    dd.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimeout);
+      ddMenu.style.display = 'block';
+      ddBtn.setAttribute('aria-expanded', 'true');
+    });
+    dd.addEventListener('mouseleave', () => {
+      closeTimeout = setTimeout(() => {
+        ddMenu.style.display = 'none';
+        ddBtn.setAttribute('aria-expanded', 'false');
+      }, 200);
+    });
+
+    ddBtn?.addEventListener('click', (e) => {
+      const isOpen = ddMenu.style.display === 'block';
+      ddMenu.style.display = isOpen ? 'none' : 'block';
+      ddBtn.setAttribute('aria-expanded', String(!isOpen));
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dd.contains(e.target)) {
+        ddMenu.style.display = 'none';
+        ddBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+  </script>
+
+  <!-- Xử lý Đăng ký (localStorage) -->
+  <script>
+  (function(){
+    const f = document.getElementById('registerForm');
+    const errName  = document.getElementById('errName');
+    const errEmail = document.getElementById('errEmail');
+    const errPwd   = document.getElementById('errPwd');
+    const errAgree = document.getElementById('errAgree');
+    const okMsg    = document.getElementById('okMsg');
+
+    function show(el, on){ el.hidden = !on; }
+
+    function validEmail(email){
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const email    = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const confirm  = document.getElementById('confirm').value;
+      const agree    = document.getElementById('agree').checked;
+
+      // Reset lỗi
+      [errName, errEmail, errPwd, errAgree].forEach(x=>show(x,false));
+      show(okMsg,false);
+
+      let bad = false;
+      if(!fullName){ show(errName,true); bad = true; }
+      if(!validEmail(email)){ show(errEmail,true); bad = true; }
+      if(password.length < 6 || password !== confirm){ show(errPwd,true); bad = true; }
+      if(!agree){ show(errAgree,true); bad = true; }
+      if(bad) return;
+
+      // Lưu vào localStorage
+      let users = [];
+      try{ users = JSON.parse(localStorage.getItem('users')||'[]'); }catch(_){ users = []; }
+
+      // Check trùng email
+      if(users.some(u => (u.email||'').toLowerCase() === email)){
+        show(errEmail,true);
+        return;
+      }
+
+      const uid = Date.now();
+      users.push({ id: uid, name: fullName, email, password }); // NOTE: demo – sản phẩm thật cần mã hoá!
+      localStorage.setItem('users', JSON.stringify(users));
+
+      // set session "đã đăng nhập"
+      localStorage.setItem('currentUser', JSON.stringify({ id: uid, name: fullName, email }));
+
+      show(okMsg,true);
+
+      // Điều hướng: ưu tiên ?next=..., mặc định về Trang chủ
+      const p = new URLSearchParams(location.search);
+      const next = p.get('next') || './index.html';
+      setTimeout(()=>{ window.location.href = next; }, 600);
+    });
+  })();
+  </script>
+
+  <!-- Nếu bạn có các widget hiển thị avatar/username theo currentUser, để file này ở cuối -->
+  <script src="../js/auth-ui.js"></script>
+</body>
+</html>

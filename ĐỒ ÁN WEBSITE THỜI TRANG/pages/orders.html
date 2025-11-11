@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin Panel — Đơn hàng</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/orders.css">
+</head>
+<body>
+  <div class="wrap">
+    <!-- Sidebar (giữ nguyên như products.html, chỉ đổi active) -->
+    <aside class="sidebar">
+      <div class="brand"><span class="dot"></span><span class="txt">Fashion Admin</span></div>
+      <nav class="menu">
+        <a href="dashboard.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+            </svg>
+          </span><span class="txt">Tổng quan</span>
+        </a>
+
+        <a href="users.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a3 3 0 0 1 0 5.74"/>
+            </svg>
+          </span><span class="txt">Người dùng</span>
+        </a>
+
+        <a href="categories.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/>
+            </svg>
+          </span><span class="txt">Loại sản phẩm</span>
+        </a>
+
+        <a href="receipts.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v14"/><path d="M19 10l-7 7-7-7"/>
+            </svg>
+          </span><span class="txt">Nhập kho</span>
+        </a>
+
+        <a href="pricelist.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span><span class="txt">Bảng giá</span>
+        </a>
+
+        <!-- ĐƠN HÀNG: trang hiện tại => active -->
+        <a href="orders.html" class="active">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 2h14a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2-3-2-1 0V4a2 2 0 0 1 2-2z"/>
+              <path d="M8 7h8M8 11h8M8 15h5"/>
+            </svg>
+          </span><span class="txt">Đơn hàng</span>
+        </a>
+
+        <a href="inventory.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
+              <path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/>
+            </svg>
+          </span><span class="txt">Tồn kho</span>
+        </a>
+
+        <a href="products.html">
+          <span class="ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 7l1-3h10l1 3"></path>
+              <path d="M6 7h12l-1 13H7L6 7z"></path>
+              <path d="M9 10a3 3 0 0 0 6 0"></path>
+            </svg>
+          </span><span class="txt">Sản phẩm</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">Fashion Admin • v1.0</div>
+    </aside>
+
+    <main>
+    <div class="topbar">
+      <div class="title">Đơn hàng</div>
+      <div class="top-actions">
+        <div class="avatar">
+          <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+        </div>
+        <div class="account">
+          <div class="name" data-admin-name>Nguyễn Admin</div>
+          <div class="role">Quản trị viên</div>
+        </div>
+        <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
+      </div>
+    </div>
+
+      <div class="container grid">
+        <!-- BỘ LỌC: theo khoảng thời gian & trạng thái (theo yêu cầu) -->
+        <!-- BỘ LỌC -->
+        <div class="card orders-filter">
+        <div class="field">
+            <label for="fromDate">Từ ngày</label>
+            <input id="fromDate" type="date">
+        </div>
+
+        <div class="field">
+            <label for="toDate">Đến ngày</label>
+            <input id="toDate" type="date">
+        </div>
+
+        <div class="field">
+            <label for="status">Trạng thái</label>
+            <select id="status">
+            <option value="">Tất cả</option>
+            <option value="NEW">Mới đặt</option>
+            <option value="PROCESSED">Đã xử lý</option>
+            <option value="DELIVERED">Đã giao</option>
+            <option value="CANCELLED">Hủy</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="q">Tìm theo mã đơn</label>
+            <input id="q" type="text" placeholder="VD: OD-2025...">
+        </div>
+
+        <div class="btns">
+            <button class="btn btn-ghost" id="reset">Đặt lại</button>
+            <button class="btn btn-primary" id="apply">Lọc</button>
+        </div>
+        </div>
+
+
+        <!-- BẢNG ĐƠN HÀNG -->
+        <div class="card">
+          <h3 style="margin:0 0 8px">Tất cả đơn hàng</h3>
+          <table id="ordersTable">
+            <thead>
+              <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Khách hàng</th>
+                <th class="num">Sản phẩm</th>
+                <th class="num">Tổng tiền</th>
+                <th>Trạng thái</th>
+                <th style="width:260px">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div id="pager" class="pager"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal chi tiết -->
+  <div id="orderModal" class="modal">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-dialog">
+      <h3>Chi tiết đơn hàng</h3>
+      <div id="orderDetail" class="order-detail"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" data-close>Đóng</button>
+        <button class="btn btn-primary" id="saveStatus" title="Demo local">Lưu trạng thái</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/orders.js" defer></script>
+</body>
+
+<script src="../js/admin-session.js" defer></script>
+
+</html>

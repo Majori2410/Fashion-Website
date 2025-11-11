@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <title>Chi tiết sản phẩm</title>
+
+  <!-- Base -->
+  <link rel="stylesheet" href="../css/site.css">
+  <!-- Page-only -->
+  <link rel="stylesheet" href="../css/product-detail.css">
+</head>
+<body class="page-product-detail">
+  <!-- Header (copy đúng từ index/user-category để đồng bộ) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+      <nav class="main-nav" aria-label="Chính">
+        <a href="./index.html">Trang chủ</a>
+        <div class="dd">
+          <button type="button" class="dd-trigger">Danh mục ▾</button>
+          <ul class="dd-menu">
+            <li><a href="./user-category.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+            <li><a href="./user-category.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+            <li><a href="./user-category.html?category=Giày%20dép">Giày dép</a></li>
+            <li><a href="./user-category.html?category=Phụ%20kiện">Phụ kiện</a></li>
+          </ul>
+        </div>
+        <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+        <a href="./user-orders.html" class="orders-link">Đơn hàng</a>
+        <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+        <a href="./cart.html">Giỏ hàng</a>
+      </nav>
+      <a href="./login.html" class="actions account-login">
+        <span class="avatar anon" aria-hidden="true"></span>
+        <span class="account-text">Đăng nhập</span>
+      </a>
+    </div>
+  </header>
+
+<main class="container pd-wrap">
+  <nav class="breadcrumbs">
+    <a href="./index.html">Trang chủ</a>
+    <span id="crumbCat"></span>
+  </nav>
+
+  <section class="pd" id="pdRoot" hidden>
+    <!-- Gallery -->
+    <div class="pd-gallery">
+      <div class="pd-hero"><img id="pdHero" src="" alt=""></div>
+      <div class="pd-thumbs"></div>
+    </div>
+
+    <!-- Info -->
+    <div class="pd-info">
+      <h1 class="pd-title"></h1>
+      <div class="pd-price"><b></b></div>
+      <p class="pd-desc"></p>
+
+      <!-- Chọn size (ẩn nếu không có) -->
+      <div class="pd-block" id="pdSizes" hidden>
+        <div class="lbl">Chọn size</div>
+        <div class="size-pills size-group" id="sizePills"></div>
+      </div>
+
+      <!-- Số lượng -->
+      <div class="pd-block qty">
+        <div class="lbl">Số lượng</div>
+        <div class="qty-ctrl">
+          <button class="qt btn-dec" aria-label="Giảm">−</button>
+          <input id="qtyInput" type="number" value="1" min="1">
+          <button class="qt btn-inc" aria-label="Tăng">+</button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="pd-actions">
+        <button id="btnAddCart" class="btn btn-primary add-to-cart-btn" disabled>Thêm vào giỏ</button>
+        <p id="btnHint" class="btn-hint">Vui lòng chọn size để thêm vào giỏ</p>
+      </div>
+
+      <ul class="pd-meta" id="pdMeta"></ul>
+    </div>
+  </section>
+
+  <!-- Thông báo khi không tìm thấy -->
+  <div id="notFound" hidden>
+    <p>Không tìm thấy sản phẩm.</p>
+    <a class="btn" href="./user-category.html">Quay lại danh sách</a>
+  </div>
+</main>
+
+<!-- Popup tìm kiếm (nếu bạn đang dùng chung) -->
+<script src="../js/search-modal.js" defer></script>
+<script src="../js/product-detail.js" defer></script>
+
+
+  <!-- Popup tìm kiếm (dùng chung) -->
+  <div id="searchOverlay" class="search-overlay" hidden></div>
+  <div id="searchModal" class="search-modal" hidden role="dialog" aria-labelledby="searchTitle">
+    <!-- bạn đã có markup chuẩn popup; chép giống index để đồng bộ -->
+    <!-- ... giữ nguyên như ở index ... -->
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script>
+  //nếu bấm vào giỏ hàng ở top bar hoặc nút thêm vào giỏ mà chưa đăng nhập thì tự động điều hướng sang login
+  (function(){
+    var u = null;
+    try { u = JSON.parse(localStorage.getItem('currentUser') || 'null'); } catch(e){}
+    var link = document.querySelector('a[href$="cart.html"]');
+    if (link && !u) link.href = './login.html?next=cart.html';
+  })();
+  </script>
+
+</body>
+
+<script src="../js/auth-ui.js"></script>
+
+</html>

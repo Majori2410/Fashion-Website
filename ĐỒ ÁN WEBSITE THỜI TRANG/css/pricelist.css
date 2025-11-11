@@ -1,0 +1,494 @@
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
+.num{text-align:right}
+.pager{display:flex;gap:6px;justify-content:flex-end;margin-top:12px}
+.pager .page{border:1px solid var(--border);padding:6px 10px;border-radius:8px;background:#fff;cursor:pointer}
+.pager .page.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+.price-filter{
+  display:grid;grid-template-columns:1fr 220px 200px auto;gap:14px;align-items:end
+}
+.price-filter .field{display:flex;flex-direction:column;gap:6px}
+.price-filter input,.price-filter select{height:36px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#fff}
+.price-filter .btns{display:flex;gap:10px;justify-content:flex-end}
+
+.cat-margin .row{display:grid;grid-template-columns: 260px 220px auto;gap:14px;align-items:end}
+.cat-margin .field{display:flex;flex-direction:column;gap:6px}
+.cat-margin input,.cat-margin select{height:36px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#fff}
+.cat-margin .inline{position:relative}
+.cat-margin .inline .suf{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:#666}
+
+.table img.thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--border)}
+td .pct{width:84px;text-align:right}
+td .pct::-webkit-outer-spin-button, td .pct::-webkit-inner-spin-button{ -webkit-appearance: none; margin: 0; }
+td .pct{ -moz-appearance: textfield; }
+
+@media (max-width: 960px){
+  .price-filter{grid-template-columns:1fr 1fr; }
+  .price-filter .btns{grid-column:1/-1;justify-content:flex-start}
+  .cat-margin .row{grid-template-columns:1fr 1fr; }
+}
+
+/* Tabs */
+.tabs{ display:flex; gap:8px; border-bottom:1px solid var(--border); margin:-8px -8px 12px; padding:8px; }
+.tab{ padding:8px 14px; border-radius:10px; border:1px solid transparent; background:#fff; cursor:pointer; }
+.tab.active{ background:#f5f3ff; border-color:#e9d5ff; }
+.tabpane{ animation: fade .12s ease; }
+@keyframes fade{ from{opacity:.6; transform:translateY(2px)} to{opacity:1; transform:none} }
+
+/* Nhỏ gọn form theo loại */
+.grid2{ display:grid; grid-template-columns: 260px 220px; gap:14px; align-items:end; }
+.tabpane .field{ display:flex; flex-direction:column; gap:6px; }
+.tabpane input,.tabpane select{ height:36px; padding:6px 10px; border:1px solid var(--border); border-radius:8px; background:#fff; }
+.tabpane .inline{ position:relative }
+.tabpane .inline .suf{ position:absolute; right:10px; top:50%; transform:translateY(-50%); color:#666 }
+@media (max-width: 720px){ .grid2{ grid-template-columns: 1fr; } }
+
+/* ===== Bảng theo loại ===== */
+#catTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+#catTable th, #catTable td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 12px;
+}
+#catTable th {
+  text-align: left;
+  color: #374151;
+  background: #fafafa;
+  font-weight: 600;
+}
+#catTable td.num, #catTable th.num {
+  text-align: right;
+}
+#catTable tr:hover {
+  background: #f9fafb;
+}
+#catTable button.btn-edit {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+#catTable button.btn-edit:hover {
+  background: #f3f4f6;
+}
+
+#catTable th, #catTable td {
+  text-align: left;
+  padding: 8px 12px;
+}
+#catTable td.num {
+  text-align: right;
+}
+
+/* Ô nhập % lợi nhuận trong bảng loại */
+#catTable input.cat-pct {
+  width: 80px;
+  text-align: right;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 15px;
+  height: 34px;
+  line-height: 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Hiệu ứng hover + focus */
+#catTable input.cat-pct:hover {
+  border-color: #b4b4b4;
+}
+#catTable input.cat-pct:focus {
+  border-color: #222;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+  outline: none;
+}
+
+/* Căn giữa ô theo hàng */
+#catTable td.num {
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 16px;
+}
+#catTable td:first-child {
+  padding-left: 16px;
+}
+
+/* Căn giữa hàng & căn phải cột % */
+#catTable td { vertical-align: middle; }
+#catTable th.num, #catTable td.num { text-align: right; }
+
+/* Cố định bề rộng cột % để không xô lệch */
+#catTable th:nth-child(2),
+#catTable td:nth-child(2) { width: 120px; }
+
+/* Ô nhập % gọn, đồng bộ chiều cao */
+#catTable input.cat-pct{
+  width: 84px;
+  height: 36px;               /* khớp các input khác */
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: right;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+/* Ẩn spin button để không bị trồi lệch giữa các browser */
+#catTable input.cat-pct{
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+#catTable input.cat-pct::-webkit-outer-spin-button,
+#catTable input.cat-pct::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hover/Focus nhẹ nhàng */
+#catTable input.cat-pct:hover{ border-color:#b4b4b4; }
+#catTable input.cat-pct:focus{
+  border-color:#222;
+  box-shadow:0 0 0 2px rgba(0,0,0,.08);
+  outline:none;
+}
+
+/* Gọn layout bảng loại */
+#catTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;   /* 👈 Cho cột tự co lại vừa nội dung */
+}
+
+/* Căn chỉnh hàng, giảm khoảng cách 2 cột */
+#catTable th,
+#catTable td {
+  vertical-align: middle;
+  padding: 10px 12px;
+}
+
+/* Cột % lợi nhuận nhỏ hơn một chút, không cách xa */
+#catTable th.num,
+#catTable td.num {
+  text-align: right;
+  width: 100px;         /* 👈 Thu hẹp lại, thay vì 120–150px */
+  padding-right: 8px;   /* 👈 Giảm padding phải */
+}
+
+/* Ô nhập % lợi nhuận */
+#catTable input.cat-pct {
+  width: 70px;          /* 👈 Gọn lại */
+  height: 34px;
+  padding: 6px 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: right;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+/* Hover/focus tinh tế */
+#catTable input.cat-pct:hover {
+  border-color: #b4b4b4;
+}
+#catTable input.cat-pct:focus {
+  border-color: #222;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
+  outline: none;
+}
+
+/* ===== Bảng theo loại ===== */
+#catTable {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto; /* 👈 cho phép tự chia tỉ lệ */
+}
+
+#catTable th, #catTable td {
+  border-bottom: 1px solid var(--border);
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+#catTable th {
+  text-align: left;
+  color: #374151;
+  background: #fafafa;
+  font-weight: 600;
+}
+
+/* căn phải cho cột % */
+#catTable th.num,
+#catTable td.num {
+  text-align: right;
+}
+
+/* Ô nhập % lợi nhuận */
+#catTable input.cat-pct {
+  width: 70px;
+  height: 34px;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: right;
+  box-sizing: border-box;
+  transition: border-color .2s, box-shadow .2s;
+  background: #fff;
+}
+
+/* Ẩn spin button */
+#catTable input.cat-pct {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+#catTable input.cat-pct::-webkit-outer-spin-button,
+#catTable input.cat-pct::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hover/focus tinh tế */
+#catTable input.cat-pct:hover {
+  border-color: #b4b4b4;
+}
+#catTable input.cat-pct:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
+  outline: none;
+}
+
+/* Giảm khoảng cách giữa hai cột */
+#catTable th:first-child,
+#catTable td:first-child {
+  padding-right: 8px; /* 👈 giảm khoảng trống */
+}
+#catTable th.num,
+#catTable td.num {
+  padding-left: 0; /* 👈 bỏ thụt trái của cột % */
+}
+
+/* ===== Fix khoảng cách bảng theo loại (ghi đè) ===== */
+#catTable{ table-layout:auto !important; }
+#catTable th, #catTable td{ min-width:0 !important; padding:10px 12px; vertical-align:middle; }
+#catTable th{ background:#fafafa; font-weight:600; color:#374151; }
+
+#catTable th:first-child, #catTable td:first-child{ padding-right:8px !important; }
+#catTable th.num, #catTable td.num{ text-align:right; padding-left:6px !important; padding-right:6px !important; }
+
+/* Bỏ mọi width cố định trước đó cho cột 2 (nếu có) */
+#catTable th:nth-child(2), #catTable td:nth-child(2){ width:auto !important; }
+
+/* Input % gọn, không đẩy rộng cột */
+#catTable input.cat-pct{
+  width:68px !important;
+  height:34px;
+  padding:6px 8px;
+  text-align:right;
+  border:1px solid #d6d6d6;
+  border-radius:8px;
+  box-sizing:border-box;
+  appearance:textfield;
+}
+#catTable input.cat-pct::-webkit-inner-spin-button,
+#catTable input.cat-pct::-webkit-outer-spin-button{ -webkit-appearance: none; margin:0; }
+
+/* ===== Fix khoảng cách bảng theo loại (ghi đè) ===== */
+#catTable{ table-layout:auto !important; }
+#catTable th, #catTable td{ min-width:0 !important; padding:10px 12px; vertical-align:middle; }
+#catTable th{ background:#fafafa; font-weight:600; color:#374151; }
+
+#catTable th:first-child, #catTable td:first-child{ padding-right:8px !important; }
+#catTable th.num, #catTable td.num{ text-align:right; padding-left:6px !important; padding-right:6px !important; }
+
+/* Bỏ mọi width cố định trước đó cho cột 2 (nếu có) */
+#catTable th:nth-child(2), #catTable td:nth-child(2){ width:auto !important; }
+
+/* Input % gọn, không đẩy rộng cột */
+#catTable input.cat-pct{
+  width:68px !important;
+  height:34px;
+  padding:6px 8px;
+  text-align:right;
+  border:1px solid #d6d6d6;
+  border-radius:8px;
+  box-sizing:border-box;
+  appearance:textfield;
+}
+#catTable input.cat-pct::-webkit-inner-spin-button,
+#catTable input.cat-pct::-webkit-outer-spin-button{ -webkit-appearance: none; margin:0; }
+
+/* === Compact cho tab 'Theo loại' (ghi đè) === */
+.tabpane[data-pane="bycat"] #catTable{
+  width: auto !important;        /* không dãn 100% */
+  display: inline-table;         /* co theo nội dung */
+  table-layout: auto !important;
+}
+
+.tabpane[data-pane="bycat"] #catTable colgroup col:nth-child(2){
+  width: 88px !important;        /* cột % thật hẹp */
+}
+
+/* padding nhỏ để hai cột sát nhau */
+.tabpane[data-pane="bycat"] #catTable th,
+.tabpane[data-pane="bycat"] #catTable td{
+  padding: 10px 10px !important;
+  vertical-align: middle;
+}
+.tabpane[data-pane="bycat"] #catTable th.num,
+.tabpane[data-pane="bycat"] #catTable td.num{
+  text-align: right;
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+/* input % gọn để không đẩy rộng cột */
+.tabpane[data-pane="bycat"] #catTable input.cat-pct{
+  width: 64px !important;
+  height: 34px;
+  padding: 6px 8px;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+/* ===== Layout hợp lý cho tab Theo loại ===== */
+.tabpane[data-pane="bycat"] .bycat-wrap{
+  /* Rộng tối thiểu 560px, tối đa 820px, mặc định khoảng 58% viewport */
+  width: clamp(560px, 58vw, 820px);
+}
+
+/* Bảng chiếm hết khung, không bị inline-table thu nhỏ nữa */
+.tabpane[data-pane="bycat"] .bycat-wrap #catTable{
+  width: 100% !important;
+  display: table !important;
+  table-layout: auto !important;
+  border-collapse: collapse;
+}
+
+/* Hàng & ô gọn gàng */
+#catTable th, #catTable td{
+  padding: 10px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+#catTable th{ background: #fafafa; color:#374151; font-weight:600; }
+#catTable th.num, #catTable td.num{ text-align:right; }
+
+/* Input % gọn để không đẩy cột */
+#catTable input.cat-pct{
+  width: 72px;
+  height: 34px;
+  padding: 6px 8px;
+  text-align: right;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  appearance: textfield;
+}
+#catTable input.cat-pct::-webkit-inner-spin-button,
+#catTable input.cat-pct::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+
+/* Hover/focus nhẹ */
+#catTable input.cat-pct:hover{ border-color:#b4b4b4; }
+#catTable input.cat-pct:focus{ border-color:#222; box-shadow:0 0 0 2px rgba(0,0,0,.08); outline:none; }
+
+/* Mobile: khung full chiều ngang cho dễ thao tác */
+@media (max-width: 768px){
+  .tabpane[data-pane="bycat"] .bycat-wrap{ width: 100%; }
+}
+
+/* Bảng theo loại: full width + 2 cột */
+.tabpane[data-pane="bycat"] #catTable{
+  width: 100% !important;
+  table-layout: fixed;           /* để colgroup điều khiển width cột 2 */
+  border-collapse: collapse;
+}
+
+/* Hàng/ô chuẩn */
+#catTable th, #catTable td{
+  padding: 10px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border);
+}
+#catTable th{ background:#fafafa; color:#374151; font-weight:600; }
+
+/* Cột 2: căn TRÁI như yêu cầu */
+#catTable th.num, 
+#catTable td.num{
+  text-align: left !important;
+}
+
+/* Input % gọn, không đẩy rộng ô */
+#catTable input.cat-pct{
+  width: 84px;                   /* bạn có thể đổi 84 → 96 nếu muốn to hơn */
+  height: 34px;
+  padding: 6px 8px;
+  text-align: right;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+  appearance: textfield;
+}
+#catTable input.cat-pct::-webkit-inner-spin-button,
+#catTable input.cat-pct::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+#catTable input.cat-pct:hover{ border-color:#b4b4b4; }
+#catTable input.cat-pct:focus{ border-color:#222; box-shadow:0 0 0 2px rgba(0,0,0,.08); outline:none; }
+
+.tabpane[data-pane="bycat"] .bycat-wrap{ width: 100% !important; }
+
+.tabpane[data-pane="bycat"] #catTable th:last-child,
+.tabpane[data-pane="bycat"] #catTable td:last-child{
+  text-align: left !important;
+}
+
+/* ===== Bảng Theo sản phẩm (pricelist) ===== */
+.tbl-prod {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+.tbl-prod th, .tbl-prod td{
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.tbl-prod th{ background:#fafafa; color:#374151; font-weight:600; }
+.tbl-prod .thumb{
+  width: 48px; height: 48px; object-fit: cover; border-radius: 10px;
+  display: block; box-shadow: 0 0 0 1px rgba(0,0,0,.06) inset;
+}
+.tbl-prod .name{
+  font-weight: 600; margin-bottom: 2px;
+}
+.tbl-prod .sku{
+  font-size: 12px; color:#6b7280;
+}
+
+/* Ô nhập % trong bảng sản phẩm */
+.tbl-prod input.prod-pct{
+  width: 84px; height: 34px; padding: 6px 8px; text-align: right;
+  border: 1px solid #d6d6d6; border-radius: 8px; box-sizing: border-box;
+  appearance: textfield;
+  transition: border-color .2s, box-shadow .2s;
+}
+.tbl-prod input.prod-pct::-webkit-inner-spin-button,
+.tbl-prod input.prod-pct::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+.tbl-prod input.prod-pct:hover{ border-color:#b4b4b4; }
+.tbl-prod input.prod-pct:focus{ border-color:#222; box-shadow:0 0 0 2px rgba(0,0,0,.08); outline:none; }
+
+#catTable tr.clickable { cursor: pointer; }
+#catTable tr.clickable .cat-link { display: inline-flex; align-items: center; gap: 8px; }
+#catTable tr.clickable .chev { opacity: .6; transition: transform .15s ease, opacity .15s; }
+#catTable tr.clickable:hover .chev { transform: translateX(2px); opacity: 1; }
+#catTable tr.clickable .hint { font-size:12px; color:#6b7280; margin-left:6px; }
+#catTable tr.clickable:hover .hint { color:#111; }

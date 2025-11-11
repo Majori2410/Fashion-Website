@@ -1,0 +1,87 @@
+/* Home-only styles. Vẫn kế thừa grid/card/pagination… từ site.css */
+
+/* HERO */
+.hero{
+  background: linear-gradient(135deg, #fff 0%, #f7f7ff 100%);
+  border-bottom: 1px solid #eee;
+}
+.hero-inner{
+  display:grid; grid-template-columns: 1.1fr .9fr; gap: 24px;
+  padding: 28px 0;
+}
+.hero-copy h1{ font-size: clamp(28px, 3.2vw, 44px); margin: 0 0 8px 0; }
+.hero-copy p{ color:#555; margin:0 0 14px 0; }
+.hero-actions{ display:flex; gap:10px; }
+.btn{ background:#111; color:#fff; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700; }
+.btn:hover{ opacity:.92; }
+.btn-ghost{ background:#fff; color:#111; border:1px solid #e6e6e6; }
+.btn-ghost:hover{ background:#f9f9f9; }
+.hero-visual img{ width:100%; border-radius:16px; object-fit:cover; }
+
+/* SECTION */
+.section{ padding: 20px 0; }
+.section-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.section-head h2{ margin:0; font-size:22px; }
+.section-head .link{ color:#333; text-decoration:none; }
+.section-head .link:hover{ text-decoration:underline; }
+
+/* CATEGORY TILES */
+.tiles{
+  display:grid; grid-template-columns: repeat(4, 1fr); gap:16px;
+}
+.tile{ position:relative; display:block; border-radius:14px; overflow:hidden; }
+.tile img{ width:100%; height:100%; aspect-ratio:3/2; object-fit:cover; display:block; }
+.tile-label{
+  position:absolute; left:10px; bottom:10px; background:rgba(255,255,255,.9);
+  padding:6px 10px; border-radius:999px; font-weight:700;
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+
+/* PRODUCT GRID */
+.product-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+.card{ background:#fff; border:1px solid #eee; border-radius:14px; overflow:hidden; display:flex; flex-direction:column; }
+.thumb img{ width:100%; aspect-ratio: 4/3; object-fit:cover; background:#f1f1f4; display:block; }
+.info{ padding:12px; display:grid; gap:6px; }
+.name a{ color:#111; text-decoration:none; font-weight:700; }
+.name a:hover{ text-decoration:underline; }
+.price{ color:#111; }
+.actions{ margin-top:4px; }
+.btn-add{
+  appearance:none; border:1px solid #e6e6e6; background:#fff; padding:9px 12px; border-radius:10px; font-weight:600; cursor:pointer;
+}
+.btn-add:hover{ background:#f6f6f6; }
+
+/* INFO STRIP */
+.info-strip{ background:#111; color:#fff; margin-top:20px; }
+.strip-inner{ display:grid; grid-template-columns: repeat(3,1fr); gap:10px; padding:14px 0; }
+.strip-item{ display:flex; flex-direction:column; line-height:1.2; }
+.strip-item span{ opacity:.8; font-size:13px; }
+
+/* RESPONSIVE */
+@media (max-width: 760px){
+  /* chỉ thu nhỏ khi cực hẹp (điện thoại) */
+  .hero-inner{ grid-template-columns:1fr; }
+  .hero-visual{ order:-1; margin-bottom:16px; } /* cho ảnh lên trên chữ */
+  .tiles{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px){
+  .product-grid{ grid-template-columns: 1fr; }
+  .tiles{ grid-template-columns: 1fr; }
+}
+
+.hero-actions .btn,
+.hero-actions .btn-ghost {
+  min-width: 120px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Home: dùng grid chung và khoảng cách hài hòa */
+.section .product-grid{ margin-top: 8px; }
+.section-head h2{ letter-spacing:.2px; }
+
+@media (max-width: 980px){
+  .section .product-grid{ gap:22px; }
+}
+

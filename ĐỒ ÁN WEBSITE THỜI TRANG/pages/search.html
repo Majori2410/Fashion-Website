@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kết quả tìm kiếm</title>
+  <link rel="stylesheet" href="../css/site.css">
+  <link rel="stylesheet" href="../css/search.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+    <nav class="main-nav" aria-label="Chính">
+      <a href="./index.html">Trang chủ</a>
+
+      <!-- Danh mục (dropdown) -->
+      <div class="nav-dd">
+        <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+          Danh mục ▾
+        </button>
+        <ul class="dd-menu" role="menu" aria-label="Danh mục">
+        <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+        <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+        <li><a role="menuitem" href="./user-category.html?category=Giày%20dép">Giày dép</a></li>
+        <li><a role="menuitem" href="./user-category.html?category=Phụ%20kiện">Phụ kiện</a></li>
+        </ul>
+      </div>
+
+      <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+      <a href="./user-orders.html" class="orders-link">Đơn hàng</a>
+      <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+      <a href="./cart.html">Giỏ hàng</a>
+    </nav>
+
+    <!-- Tài khoản: auth-ui.js sẽ thay nội dung khi đã đăng nhập -->
+    <a href="./login.html" class="actions account-login">
+      <span class="avatar anon" aria-hidden="true"></span>
+      <span class="account-text">Đăng nhập</span>
+    </a>
+  </div>
+</header>
+
+<!-- Search Overlay + Modal -->
+<div id="searchOverlay" class="search-overlay" hidden></div>
+
+<div id="searchModal" class="search-modal" hidden role="dialog" aria-labelledby="searchTitle">
+  <form id="searchForm" class="search-form" autocomplete="off">
+    <h3 id="searchTitle" class="search-title">Bạn cần gì?</h3>
+
+    <!-- Tên sản phẩm -->
+    <label class="sr-only" for="sName">Tên sản phẩm</label>
+    <input id="sName" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Tìm theo tên sản phẩm" />
+
+    <!-- Loại sản phẩm -->
+    <div class="row cat-row">
+      <span class="blocklabel">Loại sản phẩm</span>
+      <div class="cat-radios" role="radiogroup" aria-label="Loại sản phẩm">
+        <label class="radio">
+          <input type="radio" name="cat" value="" checked>
+          <span class="dot"></span><span class="text">Tất cả</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="cat" value="Trang phục Xuân Hè">
+          <span class="dot"></span><span class="text">Trang phục Xuân Hè</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="cat" value="Trang phục Thu Đông">
+          <span class="dot"></span><span class="text">Trang phục Thu Đông</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="cat" value="Giày dép">
+          <span class="dot"></span><span class="text">Giày dép</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="cat" value="Phụ kiện">
+          <span class="dot"></span><span class="text">Phụ kiện</span>
+        </label>
+      </div>
+      <input type="hidden" id="sCategory" value="">
+    </div>
+
+    <!-- Khoảng giá -->
+    <div class="row price-row">
+      <span class="blocklabel">Khoảng giá (VNĐ)</span>
+      <div class="range">
+        <input id="sMin" type="number" min="0" step="50000" placeholder="Tối thiểu" aria-label="Giá tối thiểu" />
+        <span>—</span>
+        <input id="sMax" type="number" min="0" step="50000" placeholder="Tối đa" aria-label="Giá tối đa" />
+      </div>
+    </div>
+
+    <div class="search-actions">
+      <button type="button" class="btn-ghost" id="closeSearch">Đóng</button>
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </form>
+</div>
+
+
+  <main class="container search-page">
+    <h1>Kết quả tìm kiếm</h1>
+    <p id="searchInfo" class="muted">Đang tải...</p>
+
+    <div id="productGrid" class="product-grid"></div>
+
+    <nav id="pagination" class="pagination" aria-label="Phân trang"></nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>© 2025 Fashion Shop</div>
+    </div>
+  </footer>
+
+  <script src="../js/search.js"></script>
+  <script src="../js/auth-ui.js"></script>
+
+  <script>
+(function(){
+  const openBtn = document.getElementById('openSearch');
+  const modal = document.getElementById('searchModal');
+  const overlay = document.getElementById('searchOverlay');
+  const closeBtn = document.getElementById('closeSearch');
+  const form = document.getElementById('searchForm');
+
+  function openModal(){ modal.hidden = false; overlay.hidden = false; document.getElementById('sName').focus(); }
+  function closeModal(){ modal.hidden = true; overlay.hidden = true; }
+
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  overlay?.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+  // đồng bộ radio -> hidden input
+  const hiddenCat = document.getElementById('sCategory');
+  document.querySelectorAll('.cat-radios input[name="cat"]').forEach(r=>{
+    r.addEventListener('change', ()=> hiddenCat.value = r.value);
+  });
+
+  // submit: điều hướng lại chính trang này (search.html) với query string
+  form?.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const q = document.getElementById('sName').value.trim();
+    const category = document.getElementById('sCategory').value.trim();
+    const min = document.getElementById('sMin').value.trim();
+    const max = document.getElementById('sMax').value.trim();
+
+    const params = new URLSearchParams();
+    if(q) params.append('q', q);
+    if(category) params.append('category', category);
+    if(min) params.append('min', min);
+    if(max) params.append('max', max);
+
+    // thay vì sang trang khác, load lại search.html để search.js đọc tham số và phân trang
+    window.location.replace('./search.html?' + params.toString());
+  });
+
+  // Dropdown “Danh mục” giống index
+  const dd = document.querySelector('.nav-dd');
+  const ddBtn = dd?.querySelector('.dd-trigger');
+  const ddMenu = dd?.querySelector('.dd-menu');
+  let closeTimeout;
+
+  dd?.addEventListener('mouseenter', () => {
+    clearTimeout(closeTimeout);
+    ddMenu.style.display = 'block';
+    ddBtn.setAttribute('aria-expanded','true');
+  });
+  dd?.addEventListener('mouseleave', () => {
+    closeTimeout = setTimeout(()=> {
+      ddMenu.style.display = 'none';
+      ddBtn.setAttribute('aria-expanded','false');
+    }, 200);
+  });
+
+  ddBtn?.addEventListener('click', (e)=>{
+    const open = ddMenu.style.display === 'block';
+    ddMenu.style.display = open ? 'none' : 'block';
+    ddBtn.setAttribute('aria-expanded', String(!open));
+    e.stopPropagation();
+  });
+  document.addEventListener('click', (e)=>{
+    if (!dd?.contains(e.target)){
+      if(ddMenu) ddMenu.style.display = 'none';
+      if(ddBtn) ddBtn.setAttribute('aria-expanded','false');
+    }
+  });
+
+  // Nếu chưa đăng nhập, đổi link giỏ hàng -> login
+  (function(){
+    var u = null;
+    try { u = JSON.parse(localStorage.getItem('currentUser') || 'null'); } catch(e){}
+    var link = document.querySelector('a[href$="cart.html"]');
+    if (link && !u) link.href = './login.html?next=cart.html';
+  })();
+})();
+</script>
+
+<!-- auth-ui để đồng bộ avatar + tên -->
+<script src="../js/auth-ui.js"></script>
+
+</body>
+</html>

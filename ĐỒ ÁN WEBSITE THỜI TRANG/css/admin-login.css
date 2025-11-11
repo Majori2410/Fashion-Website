@@ -1,0 +1,29 @@
+:root{
+  --bg:#f7f7f8; --card:#fff; --text:#111827; --muted:#6b7280;
+  --primary:#7c3aed; --primary-600:#6d28d9; --border:#e5e7eb;
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;background:linear-gradient(180deg,#fafafa,#f2f2f7);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto}
+.login-wrap{min-height:100%;display:grid;place-items:center;padding:40px 16px}
+.card{
+  width:min(480px,100%); background:var(--card); border:1px solid var(--border);
+  border-radius:16px; padding:28px 24px; box-shadow:0 10px 30px rgba(0,0,0,.06)
+}
+h1{margin:0 0 4px 0;font-weight:800;letter-spacing:.2px}
+.muted{color:var(--muted);margin:0 0 18px 0}
+.form{display:grid;gap:14px}
+.form label{display:grid;gap:6px}
+.form input{
+  width:100%; padding:12px 12px; border:1px solid var(--border);
+  border-radius:10px; outline:none; background:#fff; font:inherit
+}
+.form input:focus{border-color:#d0c9ff; box-shadow:0 0 0 3px rgba(124,58,237,.12)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn-primary{
+  margin-top:8px; padding:12px 14px; border:0; border-radius:12px;
+  background:var(--primary); color:#fff; font-weight:700; cursor:pointer
+}
+.btn-primary:hover{background:var(--primary-600)}
+.hint{color:var(--muted); margin-top:16px; font-size:13px}
+code{background:#f3f4f6;border:1px solid var(--border);border-radius:6px;padding:1px 6px}
+@media (max-width:640px){ .row{grid-template-columns:1fr} }

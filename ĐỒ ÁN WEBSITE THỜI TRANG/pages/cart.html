@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giỏ hàng | FashionShop</title>
+
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/cart.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+</head>
+
+<body class="page-cart">
+  <header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="./index.html">Fashion<span>Shop</span></a>
+        <nav class="main-nav" aria-label="Chính">
+        <a href="./index.html">Trang chủ</a>
+
+        <!-- Dropdown Danh mục (giống user-category.html) -->
+        <div class="nav-dd">
+            <button class="dd-trigger" type="button" aria-haspopup="true" aria-expanded="false">Danh mục ▾</button>
+            <ul class="dd-menu" role="menu" aria-label="Danh mục">
+            <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Xuân%20Hè">Trang phục Xuân Hè</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Trang%20phục%20Thu%20Đông">Trang phục Thu Đông</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Giày%20dép">Giày dép</a></li>
+            <li><a role="menuitem" href="./user-category.html?category=Phụ%20kiện">Phụ kiện</a></li>
+            </ul>
+        </div>
+
+        <a href="./user-category.html" class="all-products-link">Tất cả sản phẩm</a>
+
+        <!-- NEW: Đơn hàng -->
+        <a href="./user-orders.html" class="orders-link">Đơn hàng</a>
+
+        <button type="button" class="icon-btn" id="openSearch">Tìm kiếm</button>
+        <a href="./cart.html" class="active">Giỏ hàng</a>
+        </nav>
+
+        <a href="./login.html" class="actions account-login">
+        <span class="avatar anon" aria-hidden="true"></span>
+        <span class="account-text">Đăng nhập</span>
+        </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="breadcrumb">
+        <a href="./index.html">Trang chủ</a><span></span>
+        <span>Giỏ hàng</span>
+      </nav>
+      <h1>Giỏ hàng của bạn</h1>
+    </div>
+  </section>
+
+
+  <main class="container cart-page cart-wrap">
+
+    <!-- Cart tools: chọn tất cả -->
+  <div class="cart-tools">
+  <label class="chk-all">
+    <input type="checkbox" id="chkAll" />
+    <span id="chkAllText">Chọn tất cả</span>
+  </label>
+
+  <span class="sep-dot" aria-hidden="true"></span>
+
+  <span class="selcount muted">Đã chọn <b id="selCount">0</b></span>
+</div>
+
+    <section id="cartItems" class="cart-items"></section>
+
+    <div class="cart-summary">
+      <div class="sum-line">
+        <span>Tạm tính:</span>
+        <strong id="subtotal">0₫</strong>
+      </div>
+      <div class="sum-line total">
+        <span>Tổng cộng:</span>
+        <strong id="total">0₫</strong>
+      </div>
+      <button id="checkoutBtn" class="btn btn-primary">Thanh toán</button>
+    </div>
+  </main>
+
+  <!-- Sticky total bar (desktop) -->
+  <div class="cart-sticky-total" id="cartStickyTotal" hidden>
+    <div class="inner">
+      <span class="label">Tổng:</span>
+      <strong class="value" id="totalBottom">0₫</strong>
+      <button class="btn btn-primary" id="checkoutBtnBottom">Thanh toán</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      © 2025 FashionShop
+    </div>
+  </footer>
+
+  <!-- Guard: yêu cầu đăng nhập mới vào cart -->
+  <script>
+  (function () {
+    try {
+      var user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+      if (!user) {
+        // quay về login, rồi trở lại cart sau khi đăng nhập
+        location.href = './login.html?next=cart.html';
+      }
+    } catch (e) {
+      location.href = './login.html?next=cart.html';
+    }
+  })();
+  </script>
+
+  <script src="/js/cart.js"></script>
+
+  <script src="/js/search-modal.js" defer></script>
+
+<!-- Search Popover -->
+<div id="searchOverlay" class="search-overlay" hidden></div>
+<div id="searchModal" class="search-modal" hidden role="dialog" aria-labelledby="searchTitle">
+  <form id="searchForm" class="search-form" autocomplete="off">
+    <h3 id="searchTitle" class="search-title">Bạn cần gì?</h3>
+
+    <label class="sr-only" for="sName">Tên sản phẩm</label>
+    <input id="sName" type="text" placeholder="Nhập tên sản phẩm..." aria-label="Tìm theo tên sản phẩm" />
+
+    <div class="row cat-row">
+      <span class="blocklabel">Loại sản phẩm</span>
+      <div class="cat-radios" role="radiogroup" aria-label="Loại sản phẩm">
+        <label class="radio"><input type="radio" name="cat" value="" checked><span class="dot"></span><span class="text">Tất cả</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Trang phục Xuân Hè"><span class="dot"></span><span class="text">Trang phục Xuân Hè</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Trang phục Thu Đông"><span class="dot"></span><span class="text">Trang phục Thu Đông</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Giày dép"><span class="dot"></span><span class="text">Giày dép</span></label>
+        <label class="radio"><input type="radio" name="cat" value="Phụ kiện"><span class="dot"></span><span class="text">Phụ kiện</span></label>
+      </div>
+      <input type="hidden" id="sCategory" value="">
+    </div>
+
+    <div class="row price-row">
+      <span class="blocklabel">Khoảng giá (VNĐ)</span>
+      <div class="range">
+        <input id="sMin" type="number" min="0" step="50000" placeholder="Tối thiểu" aria-label="Giá tối thiểu" />
+        <span>—</span>
+        <input id="sMax" type="number" min="0" step="50000" placeholder="Tối đa" aria-label="Giá tối đa" />
+      </div>
+    </div>
+
+    <div class="search-actions">
+      <button type="button" class="btn-ghost" id="closeSearch">Đóng</button>
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  //nếu bấm vào giỏ hàng ở top bar hoặc nút thêm vào giỏ mà chưa đăng nhập thì tự động điều hướng sang login
+  (function(){
+    var u = null;
+    try { u = JSON.parse(localStorage.getItem('currentUser') || 'null'); } catch(e){}
+    var link = document.querySelector('a[href$="cart.html"]');
+    if (link && !u) link.href = './login.html?next=cart.html';
+  })();
+</script>
+
+<script src="../js/auth-ui.js"></script>
+
+</body>
+</html>
