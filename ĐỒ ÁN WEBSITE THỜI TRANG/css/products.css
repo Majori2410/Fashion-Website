@@ -1,21 +1,37 @@
 /* Card mặc định */
 .card{
-  background:#fff;border:1px solid var(--border);border-radius:14px;
-  padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.05);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
 }
 
 /* Hàng tiêu đề + hành động trong card */
-.card h3{margin:0 0 10px;font-size:18px}
+.card h3{
+  margin:0 0 10px;
+  font-size:18px;
+}
 
 /* Field label đồng nhất */
-label{display:block;font-size:13px;color:#444;margin:0 0 6px}
+label{
+  display:block;
+  font-size:13px;
+  color:#444;
+  margin:0 0 6px;
+}
 
 /* Form controls mặc định */
 input[type="text"], input[type="number"], input[type="file"],
 select, textarea{
-  width:100%; box-sizing:border-box;
-  padding:10px 12px; border:1px solid var(--border);
-  border-radius:10px; background:#fff; font-size:14px; outline:none;
+  width:100%;
+  box-sizing:border-box;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+  font-size:14px;
+  outline:none;
   transition: box-shadow .15s ease, border-color .15s ease;
 }
 
@@ -29,89 +45,152 @@ input:focus, select:focus, textarea:focus{
 .btn-ghost{border-radius:10px}
 .btn-primary{border-radius:10px}
 
-/* Bảng gọn gàng */
-table{border-collapse:separate;border-spacing:0;width:100%;font-size:14px}
+/* Bảng mặc định (cho các trang khác nếu dùng) */
+table{
+  border-collapse:separate;
+  border-spacing:0;
+  width:100%;
+  font-size:14px;
+}
 thead th{
-  background:#fafafa;border-bottom:1px solid var(--border);
-  color:#444;font-weight:600;padding:12px
+  background:#fafafa;
+  border-bottom:1px solid var(--border);
+  color:#444;
+  font-weight:600;
+  padding:12px;
 }
 tbody td{
-  padding:12px;border-bottom:1px solid var(--border);vertical-align:middle
+  padding:12px;
+  border-bottom:1px solid var(--border);
+  vertical-align:middle;
 }
 
 /* Hover từng hàng */
-tbody tr:hover{background:#fcfcfc}
+tbody tr:hover{
+  background:#fcfcfc;
+}
 
 /* Ảnh sản phẩm nhỏ gọn */
 .thumb{
-  width:46px;height:46px;border-radius:10px;object-fit:cover;display:block
+  width:46px;
+  height:46px;
+  border-radius:10px;
+  object-fit:cover;
+  display:block;
 }
 
 /* Nhóm nút thao tác */
 .icon-btn{
-  padding:8px 12px;border-radius:10px;
-  border:1px solid var(--border);background:#fff;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fff;
   box-shadow:0 1px 0 rgba(0,0,0,.02);
 }
 .icon-btn + .icon-btn{margin-left:6px}
 
-.tag{padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600}
-.tag.ok{background:#eaf6ee;color:#1f7a2e;border:1px solid #cfe9d6}
-.tag.hidden{background:#f6f6f6;color:#666;border:1px dashed #ddd}
+.tag{
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+}
+.tag.ok{
+  background:#eaf6ee;
+  color:#1f7a2e;
+  border:1px solid #cfe9d6;
+}
+.tag.hidden{
+  background:#f6f6f6;
+  color:#666;
+  border:1px dashed #ddd;
+}
 
-.topbar{backdrop-filter:saturate(150%) blur(2px)}
+.topbar{
+  backdrop-filter:saturate(150%) blur(2px);
+}
 .topbar .title{font-size:20px}
 
-/* ==== Bố cục bảng sản phẩm: nới cột Loại & Trạng thái, thu gọn Thao tác ==== */
+/* ==== BỐ CỤC RIÊNG CHO BẢNG SẢN PHẨM ==== */
 .tbl-products{
   width:100%;
-  border-collapse:separate;
+  border-collapse:collapse;      /* <— dùng collapse duy nhất */
   border-spacing:0;
-  table-layout: fixed;           /* ép theo width từng cột bên dưới */
+  table-layout:fixed;
   font-size:14px;
 }
 
-/* Giới hạn/ellipsis để không vỡ layout khi tên dài */
 .tbl-products th,
 .tbl-products td{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: middle;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  vertical-align:middle;
 }
 
 /* Ảnh */
 .tbl-products th:nth-child(1),
-.tbl-products td:nth-child(1){ width:70px; }
+.tbl-products td:nth-child(1){
+  width:70px;
+}
 
 /* Mã (SKU) */
 .tbl-products th:nth-child(2),
-.tbl-products td:nth-child(2){ width:120px; }
-
-/* Tên sản phẩm để auto (chiếm phần còn lại) – KHÔNG set width cho cột 3 */
-
-/* Loại sản phẩm – nới rộng */
-.tbl-products th:nth-child(4),
-.tbl-products td:nth-child(4){ width:220px; }
-
-/* Trạng thái – nới vừa phải + canh giữa */
-.tbl-products th:nth-child(5),
-.tbl-products td:nth-child(5){ width:140px; text-align:center; }
-
-/* Thao tác – thu gọn bớt */
-.tbl-products th:nth-child(6),
-.tbl-products td:nth-child(6){ width:210px; }
-
-/* Nhóm nút gọn gàng, không tràn */
-.tbl-products td:nth-child(6){
-  display:flex;
-  gap:8px;
-  justify-content:flex-end;      /* kéo sát phải hàng */
-  flex-wrap:wrap;                /* nếu thiếu chỗ thì xuống dòng */
+.tbl-products td:nth-child(2){
+  width:120px;
 }
+
+/* Cột tên sản phẩm (3) để auto width */
+
+/* Loại sản phẩm */
+.tbl-products th:nth-child(4),
+.tbl-products td:nth-child(4){
+  width:220px;
+}
+
+/* Trạng thái – canh giữa */
+.tbl-products th:nth-child(5),
+.tbl-products td:nth-child(5){
+  width:140px;
+  text-align:center;
+}
+
+/* Cột Thao tác – rộng vừa phải */
+.tbl-products th:nth-child(6),
+.tbl-products td:nth-child(6){
+  width:220px;
+}
+
+/* TD cột Thao tác: chỉ chỉnh padding, vẫn là table-cell */
+.tbl-products td.col-actions{
+  padding-right:16px;
+}
+
+/* Bên trong là flex container cho các nút */
+.tbl-products td.col-actions .actions{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
 
 /* Nút thao tác nhỏ hơn một chút cho đỡ chiếm chỗ */
 .tbl-products .icon-btn{
   padding:7px 10px;
   border-radius:10px;
+}
+
+/* Header của card Tất cả sản phẩm: tiêu đề + nút Thêm */
+.card-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+}
+.card-header h3{
+  margin:0;
+  font-size:18px;
 }

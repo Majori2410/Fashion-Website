@@ -85,3 +85,30 @@
   .section .product-grid{ gap:22px; }
 }
 
+/* Nút "Xem chi tiết" ở Sản phẩm mới (đồng bộ với user-category) */
+.section .product-grid .view-detail {
+  display: inline-block;
+  background-color: #111;      /* nền đen */
+  color: #fff;                 /* chữ trắng */
+  text-decoration: none;       /* bỏ gạch chân */
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Hover: hơi nổi lên, giống bên user-category */
+.section .product-grid .view-detail:hover {
+  background-color: #222;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.16);
+}
+
+/* Active: nhún xuống nhẹ */
+.section .product-grid .view-detail:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
