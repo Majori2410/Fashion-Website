@@ -93,8 +93,6 @@
       <div class="topbar">
         <div class="title" id="pageTitle">LOẠI SẢN PHẨM</div>
         <div class="top-actions">
-          <button class="btn btn-primary" id="btnAddType">+ Thêm loại sản phẩm</button>
-
           <div class="avatar">
             <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
           </div>
@@ -106,9 +104,26 @@
         </div>
       </div>
 
+
       <div class="container">
         <!-- LOẠI SẢN PHẨM -->
         <section id="categories" class="grid" style="display:none">
+
+          <!-- Toolbar: Tìm kiếm + Thêm loại (giống receipts) -->
+          <div class="card cat-toolbar toolbar-card">
+            <div class="search-box">
+              <input id="typeSearch" type="search"
+                    placeholder="Tìm theo mã loại / tên loại..."
+                    autocomplete="off" />
+              <button id="btnClearTypeSearch" class="clear" title="Xóa">✕</button>
+            </div>
+
+            <div class="toolbar-right">
+              <button class="btn btn-primary" id="btnAddType">+ Thêm loại sản phẩm</button>
+            </div>
+        </div>
+
+
           <div class="card">
             <table id="typeTable">
               <thead>
@@ -213,6 +228,8 @@
       </div>
     </div>
   </div>
+
+   <script src="../js/admin-session.js"></script>
 
   <script>
     // Router: mở Loại sản phẩm mặc định, bôi sáng menu chính xác

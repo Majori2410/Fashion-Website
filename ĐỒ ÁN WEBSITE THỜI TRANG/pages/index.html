@@ -564,18 +564,6 @@
 
   const fmtVND = n => (n || 0).toLocaleString('vi-VN') + 'đ';
 
-  function handleAddToCart(prod){
-    try {
-      const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
-      if (!user) { window.location.href = './login.html?next=cart.html'; return; }
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const found = cart.find(it => it.id === prod.id);
-      if (found) found.qty = (found.qty || 1) + 1;
-      else cart.push({ id: prod.id, name: prod.name, price: prod.price, img: prod.img, qty: 1 });
-      localStorage.setItem('cart', JSON.stringify(cart));
-    } catch(e){ console.error(e); }
-  }
-
   function loadEmbeddedProducts(){
     const el = document.getElementById('products-data');
     if (!el || !el.textContent || !el.textContent.trim) return [];
@@ -596,6 +584,7 @@
     return;
   }
 
+  // Lấy 6 sản phẩm mới nhất (id lớn nhất)
   const newest = [...items].sort((a,b) => (b.id||0) - (a.id||0)).slice(0,6);
 
   grid.innerHTML = newest.map(p => `
@@ -611,21 +600,15 @@
         </div>
         <div class="price"><b>${fmtVND(p.price)}</b></div>
         <div class="actions">
-          <button class="btn-add" data-id="${p.id}">Thêm giỏ</button>
+          <!-- Nút chỉ để nhìn giống bên user-category, không gắn link JS -->
+          <button type="button" class="view-detail">Xem chi tiết</button>
         </div>
       </div>
     </article>
   `).join('');
-
-  grid.querySelectorAll('.btn-add').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = Number(btn.dataset.id);
-      const prod = newest.find(x => x.id === id);
-      if (prod) handleAddToCart(prod);
-    });
-  });
 })();
 </script>
+
 
 </script>
 

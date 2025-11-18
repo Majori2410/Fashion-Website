@@ -4,8 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin • Người dùng</title>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap&subset=vietnamese" rel="stylesheet">
+
   <!-- CSS chung của Admin (giống các trang khác) -->
   <link rel="stylesheet" href="../css/admin.css">
   <!-- CSS riêng của trang Users -->
@@ -19,7 +20,7 @@
         <span class="dot"></span><span class="txt">Fashion Admin</span>
       </div>
       <nav class="menu">
-        <a href="dashboard.html" data-nav="dashboard">
+        <a href="./dashboard.html" data-nav="dashboard">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
@@ -29,7 +30,7 @@
           <span class="txt">Tổng quan</span>
         </a>
 
-        <a href="users.html" data-nav="users" class="active">
+        <a href="./users.html" data-nav="users" class="active">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/>
@@ -39,7 +40,7 @@
           <span class="txt">Người dùng</span>
         </a>
 
-        <a href="categories.html" data-nav="categories">
+        <a href="./categories.html" data-nav="categories">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.59 13.41 11 3H4v7l9.59 9.59a2 2 0 0 0 2.82 0l4.18-4.18a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.5"/>
@@ -48,7 +49,7 @@
           <span class="txt">Loại sản phẩm</span>
         </a>
 
-        <a href="receipts.html" data-nav="receipts">
+        <a href="./receipts.html" data-nav="receipts">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3v14"/><path d="M19 10l-7 7-7-7"/>
@@ -57,7 +58,7 @@
           <span class="txt">Nhập kho</span>
         </a>
 
-        <a href="pricelist.html" data-nav="pricelist">
+        <a href="./pricelist.html" data-nav="pricelist">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/>
@@ -66,7 +67,7 @@
           <span class="txt">Bảng giá</span>
         </a>
 
-        <a href="orders.html" data-nav="orders">
+        <a href="./orders.html" data-nav="orders">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 2h14a2 2 0 0 1 2 2v16l-3-2-3 2-3-2-3 2-3-2-1 0V4a2 2 0 0 1 2-2z"/>
@@ -76,7 +77,7 @@
           <span class="txt">Đơn hàng</span>
         </a>
 
-        <a href="inventory.html" data-nav="inventory">
+        <a href="./inventory.html" data-nav="inventory">
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/>
@@ -85,7 +86,8 @@
           </span>
           <span class="txt">Tồn kho</span>
         </a>
-        <a href="products.html">
+
+        <a href="./products.html" data-nav="products">
           <span class="ico">
             <!-- icon túi mua hàng -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -93,7 +95,8 @@
               <path d="M6 7h12l-1 13H7L6 7z"></path>
               <path d="M9 10a3 3 0 0 0 6 0"></path>
             </svg>
-          </span><span class="txt">Sản phẩm</span>
+          </span>
+          <span class="txt">Sản phẩm</span>
         </a>
       </nav>
       <div class="sidebar-footer">Fashion Admin • v1.0</div>
@@ -102,19 +105,19 @@
     <!-- ========== MAIN ========== -->
     <main>
       <!-- TOPBAR (đồng bộ) -->
-    <div class="topbar">
-      <div class="title">NGƯỜI DÙNG</div>
-      <div class="top-actions">
-        <div class="avatar">
-          <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+      <div class="topbar">
+        <div class="title">NGƯỜI DÙNG</div>
+        <div class="top-actions">
+          <div class="avatar">
+            <img data-admin-avatar src="https://i.pravatar.cc/100?img=13" alt="Nguyễn Admin">
+          </div>
+          <div class="account">
+            <div class="name" data-admin-name>Nguyễn Admin</div>
+            <div class="role">Quản trị viên</div>
+          </div>
+          <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
         </div>
-        <div class="account">
-          <div class="name" data-admin-name>Nguyễn Admin</div>
-          <div class="role">Quản trị viên</div>
-        </div>
-        <button class="btn-logout" data-admin-logout title="Đăng xuất">Đăng xuất</button>
       </div>
-    </div>
 
       <div class="container grid">
         <!-- TOOLBAR: Tìm kiếm -->
@@ -129,7 +132,6 @@
         <!-- BẢNG USERS -->
         <div class="card users-table-wrap">
           <h3 style="margin:0 0 8px">Tất cả người dùng</h3>
-          <p class="muted" style="margin:0 0 10px">Demo UI: Đổi mật khẩu / Khóa–Mở khóa (hiệu ứng giao diện, không lưu DB).</p>
           <table class="users">
             <thead>
               <tr>
@@ -154,15 +156,14 @@
   <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- JS riêng của Users -->
-    <script src="../js/users.js"></script>
-    <script>
+  <!-- JS: session admin + trang Users -->
+  <script src="../js/admin-session.js"></script>
+  <script src="../js/users.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const link = document.querySelector('[data-nav="users"]');
-        if (link) link.classList.add('active');
+      const link = document.querySelector('[data-nav="users"]');
+      if (link) link.classList.add('active');
     });
-    </script>
+  </script>
 </body>
-
-
 </html>
