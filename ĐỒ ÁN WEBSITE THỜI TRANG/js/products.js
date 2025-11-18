@@ -2,6 +2,45 @@
 (() => {
   // ====== Config đường dẫn JSON (điều chỉnh nếu thư mục khác) ======
   const PRODUCTS_JSON = '../mock-data/products.json'; // đổi sang đúng path bạn đang dùng
+  // Dữ liệu fallback: dùng khi không fetch được products.json (thầy mở file://)
+  const FALLBACK_PRODUCTS = [
+    {
+      id: 1,
+      name: 'Đầm nữ sơ mi cotton tay ngắn',
+      category: 'Trang phục Xuân Hè',
+      img: '../assets/products/1.webp',
+      description: ['Đầm dáng suông, chất liệu cotton thoáng mát.']
+    },
+    {
+      id: 2,
+      name: 'Áo khoác len dệt basic',
+      category: 'Trang phục Thu Đông',
+      img: '../assets/products/2.webp',
+      description: ['Áo khoác len nhẹ, phù hợp mùa thu đông.']
+    },
+    {
+      id: 3,
+      name: 'Giày sneaker trắng basic',
+      category: 'Giày dép',
+      img: '../assets/products/3.webp',
+      description: ['Sneaker đơn giản, dễ phối đồ hằng ngày.']
+    },
+    {
+      id: 4,
+      name: 'Túi xách mini da tổng hợp',
+      category: 'Phụ kiện',
+      img: '../assets/products/4.webp',
+      description: ['Túi xách mini, phù hợp đi chơi / dạo phố.']
+    },
+    {
+      id: 5,
+      name: 'Áo thun unisex in chữ',
+      category: 'Trang phục Xuân Hè',
+      img: '../assets/products/5.webp',
+      description: ['Áo thun tay ngắn, form rộng.']
+    }
+  ];
+
 
   // ====== State ======
   let products = [];        // danh sách gốc từ JSON
@@ -39,7 +78,7 @@
   });
 
   // ====== Helpers ======
-  const toRowHTML = (p) => {
+    const toRowHTML = (p) => {
     const status = uiStatus.get(p.id) || 'show';
     const tag = status === 'show'
       ? '<span class="tag ok">Hiển thị</span>'
@@ -55,14 +94,17 @@
         <td>${p.name}</td>
         <td>${p.category}</td>
         <td>${tag}</td>
-        <td>
-          <button class="icon-btn" data-edit>Sửa</button>
-          <button class="icon-btn" data-toggle>${status === 'show' ? 'Ẩn' : 'Hiện'}</button>
-          <button class="icon-btn" data-del>Xóa</button>
+        <td class="col-actions">
+          <div class="actions">
+            <button class="icon-btn" data-edit>Sửa</button>
+            <button class="icon-btn" data-toggle>${status === 'show' ? 'Ẩn' : 'Hiện'}</button>
+            <button class="icon-btn" data-del>Xóa</button>
+          </div>
         </td>
       </tr>
     `;
   };
+
 
   function render(list){
     if (!tbody) return;
@@ -167,17 +209,25 @@
     try{
       const res = await fetch(PRODUCTS_JSON, { cache: 'no-store' });
       if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      products = await res.json();
+      const data = await res.json();
 
-      // Khởi tạo trạng thái UI: mặc định show
-      products.forEach(p => uiStatus.set(p.id, 'show'));
-
-      applyFilter();
+      if (Array.isArray(data) && data.length){
+        products = data;
+      } else {
+        console.warn('products.json rỗng hoặc sai định dạng, dùng FALLBACK_PRODUCTS');
+        products = FALLBACK_PRODUCTS.slice();
+      }
     }catch(err){
-      console.error(err);
-      if (tbody) tbody.innerHTML = `<tr><td colspan="6" class="muted">Không thể tải dữ liệu (${err.message}).</td></tr>`;
+      console.error('Không thể fetch products.json, dùng FALLBACK_PRODUCTS:', err);
+      products = FALLBACK_PRODUCTS.slice();
+      // Không ghi thông báo lỗi ra bảng nữa, để UI trông sạch
     }
+
+    // Khởi tạo trạng thái UI: mặc định show
+    products.forEach(p => uiStatus.set(p.id, 'show'));
+    applyFilter();
   }
+
 
   init();
 })();

@@ -4,7 +4,7 @@
   const fmtVND  = (n) => (n || 0).toLocaleString("vi-VN") + "đ";
   const fmtDate = (iso) => new Date(iso).toLocaleString("vi-VN");
 
-   // ⬇️ THÊM MỚI: chuẩn hoá đường dẫn ảnh về /assets/orders/
+  // chuẩn hoá đường dẫn ảnh về /assets/orders/
   const IMG_BASE = "../assets/orders/";
   function imgPath(p) {
     if (!p) return "";
@@ -58,7 +58,7 @@
     const { slice } = paginate(filtered);
 
     ordersListEl.innerHTML = slice.map(order => {
-      // --- customer box (đặt ĐÚNG CHỖ: bên trong .map với biến order đã có) ---
+      // --- customer box ---
       const c = order.customer || {};
       const telHref  = c.phone ? `tel:${c.phone.replace(/\s+/g,'')}` : null;
       const mailHref = c.email ? `mailto:${c.email}` : null;
@@ -80,7 +80,6 @@
           </div>
         </div>
       `;
-      // -------------------------------------------------------------------------
 
       const totalAmount = computeTotal(order);
       const itemsHtml = (order.items || []).map(it => `
@@ -186,17 +185,26 @@
     render();
   });
 
-  // load data
-  fetch("../mock-data/user-orders.json")
-    .then(r => r.json())
-    .then(data => {
+  // 🔁 Load dữ liệu từ JSON nhúng trong HTML (thay cho fetch)
+  function loadEmbeddedOrders() {
+    const el = document.getElementById("user-orders-data");
+    if (!el || !el.textContent || !el.textContent.trim) {
+      ALL = [];
+      ordersListEl.innerHTML = `<div class="empty">Không tải được dữ liệu đơn hàng.</div>`;
+      return;
+    }
+    const txt = el.textContent.trim();
+    try {
+      const data = JSON.parse(txt);
       ALL = Array.isArray(data) ? data : (data.orders || []);
       render();
       const firstBody = document.querySelector(".order-card .order-body");
       if (firstBody) firstBody.classList.add("is-open");
-    })
-    .catch(err => {
-      console.error("Load orders.json lỗi:", err);
+    } catch (err) {
+      console.error("Parse user-orders-data lỗi:", err);
       ordersListEl.innerHTML = `<div class="empty">Không tải được dữ liệu đơn hàng.</div>`;
-    });
+    }
+  }
+
+  loadEmbeddedOrders();
 })();

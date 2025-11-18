@@ -28,7 +28,7 @@
   const avatarEls = document.querySelectorAll('[data-admin-avatar]');
 
   const name = profile?.displayName || 'Nguyễn Admin';
-  const avatar = profile?.avatarUrl || '../assets/img/avatar-default.png';
+  const avatar = profile?.avatarUrl || '../assets/images/avatar-default.png';
 
   nameEls.forEach(el => { el.textContent = name; });
   avatarEls.forEach(img => {

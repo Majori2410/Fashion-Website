@@ -67,6 +67,6 @@
     // } catch(_) {}
 
     alert('Đã lưu hồ sơ!');
-window.location.href = './index.html';   // hoặc './index.html' nếu profile.html cùng cấp
+    window.location.href = './index.html';   // quay về trang chủ user
   });
 })();

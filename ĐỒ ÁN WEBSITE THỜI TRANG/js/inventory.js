@@ -48,13 +48,6 @@
     toastEl._t = setTimeout(()=> toastEl.classList.remove('show'), ms);
   }
 
-  // ===== Load data
-  async function loadJSON(url){
-    const res = await fetch(url, { cache: 'no-store' });
-    if(!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
-    return await res.json();
-  }
-
   function indexProducts(list){
     byId.clear(); byCat.clear();
     products = list || [];
@@ -161,43 +154,42 @@
     });
   }
 
-function openCategory(catName){
+  function openCategory(catName){
     const list = byCat.get(catName) || [];
     catTitle.textContent = catName;
 
     // render cards
     catProducts.innerHTML = list.map(p => {
-        const { stock } = calcForProduct(p.id, null);
-        const oos = (stock === 0);
-        const low = (stock > 0 && stock <= LOW_STOCK);
+      const { stock } = calcForProduct(p.id, null);
+      const oos = (stock === 0);
+      const low = (stock > 0 && stock <= LOW_STOCK);
 
-        return `
+      return `
         <div class="prod-card">
-            <div class="thumb">
+          <div class="thumb">
             ${p.img ? `<img src="${p.img}" alt="">` : `<span class="muted" style="font-size:12px">No image</span>`}
-            </div>
+          </div>
 
-            <div class="body">
+          <div class="body">
             <h4 class="title">${p.name}</h4>
             <div class="meta">Tồn: <b>${stock}</b></div>
-            </div>
+          </div>
 
-            <div class="badge-wrap">
+          <div class="badge-wrap">
             ${
-                oos
-                ? `<span class="badge-oos">Hết hàng</span>`
-                : (low ? `<span class="badge-low">Sắp hết</span>` : ``)
+              oos
+              ? `<span class="badge-oos">Hết hàng</span>`
+              : (low ? `<span class="badge-low">Sắp hết</span>` : ``)
             }
-            </div>
+          </div>
         </div>
-        `;
+      `;
     }).join('');
 
     // show detail view
     catGrid.innerHTML = '';
     catDetail.hidden = false;
-    }
-
+  }
 
   function renderProducts(range, query, state){
     // range {from,to}, query string, state: 'all'|'low'|'oos'
@@ -264,28 +256,54 @@ function openCategory(catName){
     renderProducts(range, qSearch.value||'', statusFilter.value||'all');
   }
 
-  // ===== Init
+    // ===== Init
   let movements = new Map();
 
-  async function init(){
+  // Đọc JSON từ <script type="application/json">
+  function loadEmbeddedJSON(id, fallback){
+    const el = document.getElementById(id);
+    if(!el || !el.textContent || !el.textContent.trim) return fallback;
+    const txt = el.textContent.trim();
+    if(!txt) return fallback;
     try{
-      const [pList, rList, seed] = await Promise.all([
-        loadJSON('../mock-data/products.json'),
-        loadJSON('../mock-data/receipts.json'),
-        loadJSON('../mock-data/inventory.json')
-      ]);
-      products = pList; receipts = rList; invSeed = seed||{};
+      const json = JSON.parse(txt);
+      return json;
+    }catch(err){
+      console.error('Không parse được', id, err);
+      return fallback;
+    }
+  }
+
+  function init(){
+    try{
+      const pList = loadEmbeddedJSON('products-data', []);
+      const rList = loadEmbeddedJSON('receipts-data', []);
+      const seed  = loadEmbeddedJSON('inventory-data', {});
+
+      products = Array.isArray(pList) ? pList : [];
+      receipts = Array.isArray(rList) ? rList : [];
+      invSeed  = seed || {};
+
       indexProducts(products);
       movements = buildMovements();
 
-      // tab default: Theo loại
+      // tab mặc định: Theo loại
       renderCategories();
     }catch(err){
       console.error(err);
-      if(invTbody) invTbody.innerHTML = '<tr><td colspan="5" class="muted">Không thể tải dữ liệu</td></tr>';
+      if(invTbody){
+        invTbody.innerHTML =
+          '<tr><td colspan="5" class="muted">Không thể tải dữ liệu</td></tr>';
+      }
       toast('Không thể tải dữ liệu');
     }
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  // Gọi init khi DOM sẵn sàng (mở file trực tiếp vẫn OK)
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  }else{
+    init();
+  }
 })();
+

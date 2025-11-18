@@ -106,49 +106,48 @@
     return { slice: arr.slice(start, start+state.perPage), pages, total };
   }
 
-function render(){
-  const { slice, pages } = paginate(filter());
+  function render(){
+    const { slice, pages } = paginate(filter());
 
-  // Đổ body bảng
-  tbody.innerHTML = slice.map(o=>{
-    const itemsCount = (o.items||[]).reduce((s,it)=>s+it.qty,0);
-    const total = fmtVND((o.items||[]).reduce((s,it)=>s+it.price*it.qty,0));
-    return `
-      <tr data-code="${o.code}">
-        <td><a href="#" class="link detail">${o.code}</a></td>
-        <td>${fmtDate(o.createdAt)}</td>
-        <td>${o.customer?.name || "-"}</td>
-        <td class="num">${itemsCount}</td>
-        <td class="num">${total}</td>
-        <td><span class="tag ${o.status}">${LABEL[o.status]||o.status}</span></td>
-        <td>
-          <div class="actions-row">
-            <select class="status-inline">
-              ${STATUS.map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${LABEL[s]}</option>`).join("")}
-            </select>
-            <button class="icon-btn view">Xem</button>
-          </div>
-        </td>
-      </tr>
-    `;
-  }).join("") || `<tr><td colspan="7" class="muted">Không có đơn phù hợp</td></tr>`;
+    // Đổ body bảng
+    tbody.innerHTML = slice.map(o=>{
+      const itemsCount = (o.items||[]).reduce((s,it)=>s+it.qty,0);
+      const total = fmtVND((o.items||[]).reduce((s,it)=>s+it.price*it.qty,0));
+      return `
+        <tr data-code="${o.code}">
+          <td><a href="#" class="link detail">${o.code}</a></td>
+          <td>${fmtDate(o.createdAt)}</td>
+          <td>${o.customer?.name || "-"}</td>
+          <td class="num">${itemsCount}</td>
+          <td class="num">${total}</td>
+          <td><span class="tag ${o.status}">${LABEL[o.status]||o.status}</span></td>
+          <td>
+            <div class="actions-row">
+              <select class="status-inline">
+                ${STATUS.map(s=>`<option value="${s}" ${s===o.status?'selected':''}>${LABEL[s]}</option>`).join("")}
+              </select>
+              <button class="icon-btn view">Xem</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("") || `<tr><td colspan="7" class="muted">Không có đơn phù hợp</td></tr>`;
 
-  // Pager
-  pager.innerHTML = "";
-  if(pages>1){
-    for(let i=1;i<=pages;i++){
-      const b = document.createElement("button");
-      b.className = "page"+(i===state.page?" active":"");
-      b.textContent = i;
-      b.addEventListener("click", ()=>{ state.page=i; render(); });
-      pager.appendChild(b);
+    // Pager
+    pager.innerHTML = "";
+    if(pages>1){
+      for(let i=1;i<=pages;i++){
+        const b = document.createElement("button");
+        b.className = "page"+(i===state.page?" active":"");
+        b.textContent = i;
+        b.addEventListener("click", ()=>{ state.page=i; render(); });
+        pager.appendChild(b);
+      }
     }
+
+    // Beautify dropdown sau khi render xong
+    enhanceAllSelects();
   }
-
-  // Beautify dropdown sau khi render xong
-  enhanceAllSelects();
-}
-
 
   // Modal chi tiết
   const modal = $("#orderModal");
@@ -166,49 +165,49 @@ function render(){
     alert("Đã cập nhật trạng thái (demo local).");
   });
 
-function openDetail(order){
-  editing = order;
+  function openDetail(order){
+    editing = order;
 
-  const itemsHtml = (order.items || []).map(it => `
-    <div class="line-item">
-      <img src="${it.img || '../assets/orders/placeholder.png'}" alt="">
-      <div>
-        <div class="name">${it.name}</div>
-        <div class="meta">Size ${it.size}${it.color ? ` • ${it.color}` : ""} • SL: ${it.qty}</div>
-      </div>
-      <div class="price">${fmtVND(it.price * it.qty)}</div>
-    </div>
-  `).join("");
-
-  detailEl.innerHTML = `
-    <!-- PHẦN 1: TÓM TẮT ĐƠN -->
-    <section class="detail-head">
-      <div class="kv">
-        <div class="label">Mã đơn</div>      <div><b>${order.code}</b></div>
-        <div class="label">Ngày đặt</div>    <div>${fmtDate(order.createdAt)}</div>
-        <div class="label">Khách hàng</div>  <div>${order.customer?.name || "-"}</div>
-        <div class="label">Liên hệ</div>     <div>${order.customer?.phone || "-"} • ${order.customer?.email || "-"}</div>
-        <div class="label">Địa chỉ</div>     <div>${order.customer?.address || "-"}</div>
-      </div>
-      <div class="status-row">
-        <div class="label">Trạng thái</div>
+    const itemsHtml = (order.items || []).map(it => `
+      <div class="line-item">
+        <img src="${it.img || '../assets/orders/placeholder.png'}" alt="">
         <div>
-          <select id="detailStatus" class="status-inline">
-            ${STATUS.map(s => `<option value="${s}" ${s===order.status?'selected':''}>${LABEL[s]}</option>`).join("")}
-          </select>
+          <div class="name">${it.name}</div>
+          <div class="meta">Size ${it.size}${it.color ? ` • ${it.color}` : ""} • SL: ${it.qty}</div>
         </div>
+        <div class="price">${fmtVND(it.price * it.qty)}</div>
       </div>
-    </section>
+    `).join("");
 
-    <!-- PHẦN 2: DANH SÁCH SẢN PHẨM -->
-    <section class="items">
-      ${itemsHtml}
-      <div style="text-align:right;margin-top:6px"><b>Tổng: ${fmtVND(sum(order))}</b></div>
-    </section>
-  `;
+    detailEl.innerHTML = `
+      <!-- PHẦN 1: TÓM TẮT ĐƠN -->
+      <section class="detail-head">
+        <div class="kv">
+          <div class="label">Mã đơn</div>      <div><b>${order.code}</b></div>
+          <div class="label">Ngày đặt</div>    <div>${fmtDate(order.createdAt)}</div>
+          <div class="label">Khách hàng</div>  <div>${order.customer?.name || "-"}</div>
+          <div class="label">Liên hệ</div>     <div>${order.customer?.phone || "-"} • ${order.customer?.email || "-"}</div>
+          <div class="label">Địa chỉ</div>     <div>${order.customer?.address || "-"}</div>
+        </div>
+        <div class="status-row">
+          <div class="label">Trạng thái</div>
+          <div>
+            <select id="detailStatus" class="status-inline">
+              ${STATUS.map(s => `<option value="${s}" ${s===order.status?'selected':''}>${LABEL[s]}</option>`).join("")}
+            </select>
+          </div>
+        </div>
+      </section>
 
-  modal.classList.add("open");
-}
+      <!-- PHẦN 2: DANH SÁCH SẢN PHẨM -->
+      <section class="items">
+        ${itemsHtml}
+        <div style="text-align:right;margin-top:6px"><b>Tổng: ${fmtVND(sum(order))}</b></div>
+      </section>
+    `;
+
+    modal.classList.add("open");
+  }
 
   // Events trên bảng
   document.addEventListener("click", (e)=>{
@@ -247,37 +246,66 @@ function openDetail(order){
     // Cập nhật UI tại chỗ (không re-render cả bảng)
     const tag = row.querySelector(".tag");
     if(tag){
-        // reset class rồi gán lại
-        tag.className = "tag " + order.status;
-        tag.textContent = LABEL[order.status] || order.status;
+      // reset class rồi gán lại
+      tag.className = "tag " + order.status;
+      tag.textContent = LABEL[order.status] || order.status;
     }
- });
-
+  });
 
   // Filter events
   $("#apply").addEventListener("click", ()=>{
-    state.from = $("#fromDate").value || "";
-    state.to   = $("#toDate").value   || "";
-    state.status = $("#status").value || "";
-    state.q = $("#q").value || "";
-    state.page = 1;
+    state.from   = $("#fromDate").value || "";
+    state.to     = $("#toDate").value   || "";
+    state.status = $("#status").value   || "";
+    state.q      = $("#q").value || "";
+    state.page   = 1;
     render();
   });
+
   $("#reset").addEventListener("click", ()=>{
-    ["fromDate","toDate","status","q"].forEach(id=>{ const el=$("#"+id); if(el) el.value=""; });
+    ["fromDate","toDate","status","q"].forEach(id=>{
+      const el = $("#"+id);
+      if(el) el.value = "";
+    });
     state = { from:"", to:"", status:"", q:"", page:1, perPage:8 };
     render();
   });
 
-  // Load data (Admin)
-  fetch("../mock-data/orders.json")
-    .then(r=>r.json())
-    .then(data=>{
-      ALL = Array.isArray(data) ? data : (data.orders||[]);
-      render();
-    })
-    .catch(err=>{
-      console.error(err);
-      tbody.innerHTML = `<tr><td colspan="7" class="muted">Không tải được dữ liệu.</td></tr>`;
-    });
+  // ===== NẠP DỮ LIỆU TỪ JSON NHÚNG TRONG HTML =====
+  function loadOrdersFromEmbedded(){
+    const el = document.getElementById("orders-data");
+    if(!el || !el.textContent || !el.textContent.trim) return null;
+    const txt = el.textContent.trim();
+    if(!txt) return null;
+    try{
+      const json = JSON.parse(txt);
+      return Array.isArray(json) ? json : (json.orders || null);
+    }catch(err){
+      console.error("Không parse được orders-data:", err);
+      return null;
+    }
+  }
+
+  function init(){
+    const embedded = loadOrdersFromEmbedded();
+    if(embedded && embedded.length){
+      ALL = embedded;
+    }else{
+      ALL = [];
+      if(tbody){
+        tbody.innerHTML =
+          `<tr><td colspan="7" class="muted">Không có dữ liệu đơn hàng.</td></tr>`;
+      }
+      return;
+    }
+    render();
+  }
+
+  // Đảm bảo init chạy sau khi DOM sẵn sàng (mở file trực tiếp cũng OK)
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  }else{
+    init();
+  }
 })();
+

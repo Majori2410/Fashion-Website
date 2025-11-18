@@ -1,122 +1,160 @@
-// /js/search.js
-(function () {
-  const PRODUCTS_URL = '../mock-data/products.json'; // đổi nếu bạn để chỗ khác
+(function(){
+  const $  = (s, sc=document) => sc.querySelector(s);
+  const $$ = (s, sc=document) => Array.from(sc.querySelectorAll(s));
 
-  const grid = document.getElementById('productGrid');
-  const info = document.getElementById('searchInfo');
-  const pag  = document.getElementById('pagination');
+  const gridEl  = $("#productGrid");
+  const infoEl  = $("#searchInfo");
+  const pagEl   = $("#pagination");
 
-  // Lấy tham số từ URL
-  const params   = new URLSearchParams(location.search);
-  const q        = (params.get('q') || '').trim();
-  const category = (params.get('category') || '').trim();
-  const min      = Number(params.get('min') || 0);
-  const max      = Number(params.get('max') || 0);
+  const fmtVND = (n) => (n || 0).toLocaleString("vi-VN") + "đ";
 
-  // Hiển thị tiêu đề phụ
-  function setInfo(total){
-    const parts = [];
-    parts.push(`Từ khóa: "${q || 'Tất cả'}"`);
-    if (category) parts.push(`Loại: ${category}`);
-    if (min) parts.push(`Tối thiểu: ${min.toLocaleString('vi-VN')}đ`);
-    if (max) parts.push(`Tối đa: ${max.toLocaleString('vi-VN')}đ`);
-    const head = parts.length ? parts.join(' • ') : 'Tất cả sản phẩm';
-    info.textContent = `${head} — ${total} kết quả`;
+  function loadProductsFromEmbedded(){
+    const el = document.getElementById("products-data");
+    if (!el || !el.textContent || !el.textContent.trim) return [];
+    try {
+      const data = JSON.parse(el.textContent.trim());
+      return Array.isArray(data) ? data : [];
+    } catch (err){
+      console.error("Không parse được products-data:", err);
+      return [];
+    }
   }
 
-  // HTML 1 thẻ sản phẩm
-  function cardHTML(p){
-    const img = p.img || 'https://picsum.photos/seed/placeholder/400/300';
-    const price = (p.price || 0).toLocaleString('vi-VN') + 'đ';
-    return `
-      <article class="card" title="${p.name}">
-        <img src="${img}" alt="${p.name}" onerror="this.src='https://picsum.photos/seed/fallback/400/300'">
+  function parseFilters(){
+    const params   = new URLSearchParams(location.search);
+    const q        = (params.get("q") || "").trim();
+    const category = (params.get("category") || "").trim();
+    const minRaw   = (params.get("min") || "").trim();
+    const maxRaw   = (params.get("max") || "").trim();
+    let   page     = parseInt(params.get("page") || "1", 10);
+    if (isNaN(page) || page < 1) page = 1;
+
+    const min = minRaw ? Number(minRaw) : null;
+    const max = maxRaw ? Number(maxRaw) : null;
+
+    return { q, category, min, max, page };
+  }
+
+  function applyFilters(products, filters){
+    let list = [...products];
+    const { q, category, min, max } = filters;
+
+    if (q){
+      const qLower = q.toLowerCase();
+      list = list.filter(p => (p.name || "").toLowerCase().includes(qLower));
+    }
+    if (category){
+      list = list.filter(p => p.category === category);
+    }
+    if (min != null && !Number.isNaN(min)){
+      list = list.filter(p => (p.price || 0) >= min);
+    }
+    if (max != null && !Number.isNaN(max)){
+      list = list.filter(p => (p.price || 0) <= max);
+    }
+    return list;
+  }
+
+  function describeFilters(filters, total){
+    const parts = [];
+    if (filters.q) parts.push(`Tên chứa “${filters.q}”`);
+    if (filters.category) parts.push(`Loại: ${filters.category}`);
+    if (filters.min != null) parts.push(`Giá từ ${fmtVND(filters.min)}`);
+    if (filters.max != null) parts.push(`Giá đến ${fmtVND(filters.max)}`);
+
+    if (!parts.length){
+      return total
+        ? `Tìm thấy ${total} sản phẩm.`
+        : `Không tìm thấy sản phẩm nào.`;
+    }
+    return total
+      ? `Tìm thấy ${total} sản phẩm với điều kiện: ${parts.join(" • ")}.`
+      : `Không tìm thấy sản phẩm nào với điều kiện: ${parts.join(" • ")}.`;
+  }
+
+  function renderGrid(items){
+    if (!items.length){
+      gridEl.innerHTML = `<p class="empty">Không có sản phẩm phù hợp.</p>`;
+      return;
+    }
+    gridEl.innerHTML = items.map(p => `
+      <article class="card">
+        <div class="thumb">
+          <a href="./product-detail.html?id=${encodeURIComponent(p.id)}" aria-label="${p.name}">
+            <img src="${p.img || "https://picsum.photos/seed/fallback/600/450"}" alt="${p.name}">
+          </a>
+        </div>
         <div class="info">
-          <div class="name">${p.name}</div>
-          <div class="price">${price}</div>
+          <div class="name">
+            <a href="./product-detail.html?id=${encodeURIComponent(p.id)}">${p.name}</a>
+          </div>
+          <div class="price"><b>${fmtVND(p.price)}</b></div>
         </div>
       </article>
-    `;
+    `).join("");
   }
 
-  // Phân trang
-  const PER_PAGE = 12;
-  let filtered = [];
-  let current = 1;
-  let totalPage = 1;
+  function renderPagination(total, filters, perPage){
+    pagEl.innerHTML = "";
+    const totalPages = Math.max(1, Math.ceil(total / perPage));
+    let page = filters.page;
+    if (page > totalPages) page = totalPages;
 
-  function renderPage(page){
-    current = page;
+    if (totalPages <= 1) return;
+
+    for (let i = 1; i <= totalPages; i++){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "page-btn" + (i === page ? " is-active" : "");
+      btn.textContent = i;
+      btn.addEventListener("click", () => {
+        // chỉ đổi trang phía client, không reload lại
+        doRender({ ...filters, page: i });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      pagEl.appendChild(btn);
+    }
+  }
+
+  const ALL = loadProductsFromEmbedded();
+  const PER_PAGE = 6;
+
+  function doRender(filters){
+    const filtered = applyFilters(ALL, filters);
+    const total    = filtered.length;
+
+    if (infoEl){
+      infoEl.textContent = describeFilters(filters, total);
+    }
+
+    const totalPages = Math.max(1, Math.ceil(total / PER_PAGE));
+    let page = filters.page;
+    if (page > totalPages) page = totalPages;
+
     const start = (page - 1) * PER_PAGE;
     const slice = filtered.slice(start, start + PER_PAGE);
 
-    grid.innerHTML = slice.length
-      ? slice.map(cardHTML).join('')
-      : '<p class="muted">Không tìm thấy sản phẩm nào.</p>';
-
-    renderPagination();
+    renderGrid(slice);
+    renderPagination(total, { ...filters, page }, PER_PAGE);
   }
 
-  function renderPagination(){
-    if (totalPage <= 1) { pag.innerHTML = ''; return; }
-
-    // Nút Prev/Next + số trang
-    pag.innerHTML = '';
-    const addBtn = (label, page, disabled=false, active=false)=>{
-      const btn = document.createElement('button');
-      btn.textContent = label;
-      if (active) btn.classList.add('active');
-      if (disabled){ btn.disabled = true; }
-      else { btn.addEventListener('click', ()=> renderPage(page)); }
-      pag.appendChild(btn);
-    };
-
-    addBtn('‹', Math.max(1, current - 1), current === 1);
-
-    const range = 2; // +/- 2 trang quanh current
-    const from = Math.max(1, current - range);
-    const to   = Math.min(totalPage, current + range);
-
-    if (from > 1){ addBtn('1', 1, false, current===1); if (from > 2) addBtn('…', current, true); }
-    for (let i = from; i <= to; i++){
-      addBtn(String(i), i, false, i === current);
+  function init(){
+    if (!gridEl || !infoEl || !pagEl){
+      console.warn("Thiếu phần tử DOM cần thiết cho search page");
+      return;
     }
-    if (to < totalPage){ if (to < totalPage - 1) addBtn('…', current, true); addBtn(String(totalPage), totalPage, false, current===totalPage); }
-
-    addBtn('›', Math.min(totalPage, current + 1), current === totalPage);
-  }
-
-  // Lọc
-  function applyFilter(products){
-    const qLower = q.toLowerCase();
-    filtered = products.filter(p=>{
-      const matchQ   = !q || p.name?.toLowerCase().includes(qLower);
-      const matchCat = !category || p.category === category;
-      const matchMin = !min || (p.price||0) >= min;
-      const matchMax = !max || (p.price||0) <= max;
-      return matchQ && matchCat && matchMin && matchMax;
-    });
-
-    totalPage = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-    setInfo(filtered.length);
-    renderPage(1);
-  }
-
-  // Init
-  async function init(){
-    try{
-      info.textContent = 'Đang tải…';
-      const res = await fetch(PRODUCTS_URL, { cache: 'no-store' });
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      const products = await res.json();
-      applyFilter(products);
-    }catch(err){
-      console.error(err);
-      info.textContent = 'Không thể tải dữ liệu sản phẩm.';
-      grid.innerHTML = '';
-      pag.innerHTML = '';
+    const filters = parseFilters();
+    if (!ALL.length){
+      infoEl.textContent = "Không tải được dữ liệu sản phẩm.";
+      gridEl.innerHTML   = `<p class="empty">Không có dữ liệu để hiển thị.</p>`;
+      return;
     }
+    doRender(filters);
   }
 
-  init();
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

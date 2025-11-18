@@ -50,7 +50,7 @@
     if (min) params.append('min', min);
     if (max) params.append('max', max);
 
-    window.location.href = '/pages/search.html?' + params.toString();
+        window.location.href = './search.html?' + params.toString();
   });
 })();
 

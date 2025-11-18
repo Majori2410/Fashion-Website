@@ -10,20 +10,20 @@
   let state = { q:"", cat:"", status:"", page:1, perPage:8 };
 
   // Chuẩn hóa ID loại & nhãn hiển thị
-    const CAT_ALIASES = {
+  const CAT_ALIASES = {
     "type-ss": "cat_ss",
     "type-fw": "cat_fw",
     "type-shoes": "cat_shoes",
     "type-accessory": "cat_acc"
-    };
-    const CAT_LABELS = {
+  };
+  const CAT_LABELS = {
     // dùng khóa chuẩn theo categories.json
     "cat_ss": "Trang phục Xuân Hè",
     "cat_fw": "Trang phục Thu Đông",
     "cat_shoes": "Giày dép",
     "cat_acc": "Phụ kiện"
-    };
-    const normCatId = id => CAT_ALIASES[id] || id;  // đưa về dạng cat_*
+  };
+  const normCatId = id => CAT_ALIASES[id] || id;  // đưa về dạng cat_*
 
   // sau CAT_LABELS
   const LABEL_TO_ID = Object.fromEntries(
@@ -136,120 +136,118 @@
   }
 
   // ===== Render bảng Theo loại =====
-function renderCatTable() {
-  const tbody = document.querySelector("#catTable tbody");
-  if (!tbody) return;
+  function renderCatTable() {
+    const tbody = document.querySelector("#catTable tbody");
+    if (!tbody) return;
 
-  const cats = categories();
-  tbody.innerHTML = cats.map(c => {
-    const pct = CAT_MARGIN[c.id] ?? 0;
-    const count = PRODUCTS.filter(p => p.categoryId === c.id).length;
-    return `
-      <tr data-cat="${c.id}" class="clickable">
-        <td>
-          <span class="cat-link">
-            <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-            ${c.name} <span class="hint">• ${count} SP — nhấn để xem</span>
-          </span>
-        </td>
-        <td class="num">
-          <input class="cat-pct" type="number" min="0" max="300" step="1" value="${pct}">
-        </td>
-      </tr>
-    `;
-  }).join("") || `<tr><td colspan="2" class="muted">Không có loại sản phẩm</td></tr>`;
-}
-
-// === Sự kiện click hiển thị sản phẩm thuộc loại ===
-document.addEventListener("click", (e)=>{
-  const tr = e.target.closest("#catTable tr[data-cat]");
-  if (!tr) return;
-  const catId = tr.dataset.cat;
-  const catName = tr.querySelector("td").textContent.trim();
-  const pct = CAT_MARGIN[catId] ?? 0;
-
-  // Lọc sản phẩm thuộc loại
-  const list = PRODUCTS.filter(p => p.categoryId === catId);
-  if (!list.length) {
-    alert(`Không có sản phẩm nào trong loại "${catName}"`);
-    return;
+    const cats = categories();
+    tbody.innerHTML = cats.map(c => {
+      const pct = CAT_MARGIN[c.id] ?? 0;
+      const count = PRODUCTS.filter(p => p.categoryId === c.id).length;
+      return `
+        <tr data-cat="${c.id}" class="clickable">
+          <td>
+            <span class="cat-link">
+              <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              ${c.name} <span class="hint">• ${count} SP — nhấn để xem</span>
+            </span>
+          </td>
+          <td class="num">
+            <input class="cat-pct" type="number" min="0" max="300" step="1" value="${pct}">
+          </td>
+        </tr>
+      `;
+    }).join("") || `<tr><td colspan="2" class="muted">Không có loại sản phẩm</td></tr>`;
   }
 
-  // Hiển thị popup hoặc bảng phụ
-  const html = `
-    <div class="popup-overlay" style="
-      position:fixed; inset:0; background:rgba(0,0,0,0.3);
-      display:flex; align-items:center; justify-content:center; z-index:9999;
-    ">
-      <div class="popup" style="
-        background:#fff; border-radius:12px; padding:20px; width:clamp(500px,70vw,900px);
-        max-height:80vh; overflow:auto; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+  // === Sự kiện click hiển thị sản phẩm thuộc loại ===
+  document.addEventListener("click", (e)=>{
+    const tr = e.target.closest("#catTable tr[data-cat]");
+    if (!tr) return;
+    const catId = tr.dataset.cat;
+    const catName = tr.querySelector("td").textContent.trim();
+    const pct = CAT_MARGIN[catId] ?? 0;
+
+    // Lọc sản phẩm thuộc loại
+    const list = PRODUCTS.filter(p => p.categoryId === catId);
+    if (!list.length) {
+      alert(`Không có sản phẩm nào trong loại "${catName}"`);
+      return;
+    }
+
+    // Hiển thị popup hoặc bảng phụ
+    const html = `
+      <div class="popup-overlay" style="
+        position:fixed; inset:0; background:rgba(0,0,0,0.3);
+        display:flex; align-items:center; justify-content:center; z-index:9999;
       ">
-        <h3 style="margin-bottom:12px">${catName} — Lợi nhuận ${pct}%</h3>
-        <table class="tbl-prod" style="width:100%; border-collapse:collapse">
-          <thead><tr>
-            <th>Ảnh</th><th>Sản phẩm</th><th class="num">Giá vốn</th><th class="num">Giá bán</th>
-          </tr></thead>
-          <tbody>
-          ${list.map(p=>`
-            <tr>
-              <td><img src="${p.img || 'https://picsum.photos/80'}" style="width:48px;height:48px;border-radius:8px;object-fit:cover"></td>
-              <td>${p.name}</td>
-              <td class="num">${fmtVND(p.cost)}</td>
-              <td class="num">${fmtVND(priceOf(p))}</td>
-            </tr>`).join("")}
-          </tbody>
-        </table>
-        <div style="text-align:right; margin-top:12px">
-          <button id="closeCatPopup" style="padding:6px 14px;border:1px solid #aaa;border-radius:8px;cursor:pointer;background:#f9f9f9;">Đóng</button>
+        <div class="popup" style="
+          background:#fff; border-radius:12px; padding:20px; width:clamp(500px,70vw,900px);
+          max-height:80vh; overflow:auto; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+        ">
+          <h3 style="margin-bottom:12px">${catName} — Lợi nhuận ${pct}%</h3>
+          <table class="tbl-prod" style="width:100%; border-collapse:collapse">
+            <thead><tr>
+              <th>Ảnh</th><th>Sản phẩm</th><th class="num">Giá vốn</th><th class="num">Giá bán</th>
+            </tr></thead>
+            <tbody>
+            ${list.map(p=>`
+              <tr>
+                <td><img src="${p.img || 'https://picsum.photos/80'}" style="width:48px;height:48px;border-radius:8px;object-fit:cover"></td>
+                <td>${p.name}</td>
+                <td class="num">${fmtVND(p.cost)}</td>
+                <td class="num">${fmtVND(priceOf(p))}</td>
+              </tr>`).join("")}
+            </tbody>
+          </table>
+          <div style="text-align:right; margin-top:12px">
+            <button id="closeCatPopup" style="padding:6px 14px;border:1px solid #aaa;border-radius:8px;cursor:pointer;background:#f9f9f9;">Đóng</button>
+          </div>
         </div>
-      </div>
-    </div>`;
-  document.body.insertAdjacentHTML("beforeend", html);
-});
-
-// Đóng popup
-document.addEventListener("click", (e)=>{
-  if (e.target.id === "closeCatPopup" || e.target.classList.contains("popup-overlay")){
-    document.querySelector(".popup-overlay")?.remove();
-  }
-});
-
-
-function renderProducts(){
-  const tbody = document.querySelector("#prodTable tbody");
-  if (!tbody) return;
-
-  const q = (document.querySelector("#prodSearch")?.value || "").trim().toLowerCase();
-
-  // Lọc nhanh theo tên hoặc SKU
-  const list = PRODUCTS.filter(p => {
-    if (!q) return true;
-    const name = (p.name || "").toLowerCase();
-    const sku  = (p.sku  || "").toLowerCase();
-    return name.includes(q) || sku.includes(q);
+      </div>`;
+    document.body.insertAdjacentHTML("beforeend", html);
   });
 
-  // Render
-  tbody.innerHTML = list.map(p=>{
-    const pct = (p.marginPct != null) ? p.marginPct : (CAT_MARGIN[p.categoryId] ?? 0);
-    return `
-      <tr data-sku="${p.sku}">
-        <td><img class="thumb" src="${p.img || 'https://picsum.photos/80?blur=1'}" alt=""></td>
-        <td>
-          <div class="name">${p.name || "-"}</div>
-          <div class="sku">SKU: ${p.sku || "-"}</div>
-        </td>
-        <td class="num">${fmtVND(p.cost)}</td>
-        <td>
-          <input class="prod-pct" type="number" min="0" max="300" step="1" value="${pct}">
-        </td>
-        <td class="num price">${fmtVND(priceOf(p))}</td>
-      </tr>
-    `;
-  }).join("") || `<tr><td colspan="5" class="muted">Không có sản phẩm phù hợp</td></tr>`;
-}
+  // Đóng popup
+  document.addEventListener("click", (e)=>{
+    if (e.target.id === "closeCatPopup" || e.target.classList.contains("popup-overlay")){
+      document.querySelector(".popup-overlay")?.remove();
+    }
+  });
 
+  function renderProducts(){
+    const tbody = document.querySelector("#prodTable tbody");
+    if (!tbody) return;
+
+    const q = (document.querySelector("#prodSearch")?.value || "").trim().toLowerCase();
+
+    // Lọc nhanh theo tên hoặc SKU
+    const list = PRODUCTS.filter(p => {
+      if (!q) return true;
+      const name = (p.name || "").toLowerCase();
+      const sku  = (p.sku  || "").toLowerCase();
+      return name.includes(q) || sku.includes(q);
+    });
+
+    // Render
+    tbody.innerHTML = list.map(p=>{
+      const pct = (p.marginPct != null) ? p.marginPct : (CAT_MARGIN[p.categoryId] ?? 0);
+      return `
+        <tr data-sku="${p.sku}">
+          <td><img class="thumb" src="${p.img || 'https://picsum.photos/80?blur=1'}" alt=""></td>
+          <td>
+            <div class="name">${p.name || "-"}</div>
+            <div class="sku">SKU: ${p.sku || "-"}</div>
+          </td>
+          <td class="num">${fmtVND(p.cost)}</td>
+          <td>
+            <input class="prod-pct" type="number" min="0" max="300" step="1" value="${pct}">
+          </td>
+          <td class="num price">${fmtVND(priceOf(p))}</td>
+        </tr>
+      `;
+    }).join("") || `<tr><td colspan="5" class="muted">Không có sản phẩm phù hợp</td></tr>`;
+  }
 
   // ===== Events chung =====
   // Lọc
@@ -267,7 +265,7 @@ function renderProducts(){
     render();
   });
 
-  // Sửa % theo sản phẩm (ô input trong bảng)
+  // Sửa % theo sản phẩm (ô input trong bảng chính có class .pct)
   document.addEventListener("input", (e)=>{
     const inp = e.target.closest("input.pct");
     if (!inp) return;
@@ -290,7 +288,7 @@ function renderProducts(){
     }
   });
 
-  // Cập nhật % theo loại (bảng bycat)
+  // Cập nhật % theo loại (bảng bycat) — nếu có nút .btn-edit
   document.addEventListener("click", (e)=>{
     const btn = e.target.closest(".btn-edit");
     if (!btn) return;
@@ -302,7 +300,7 @@ function renderProducts(){
     render();           // đồng bộ sang bảng sản phẩm nếu chuyển tab
   });
 
-  // Tìm kiếm theo sản phẩm
+  // Tìm kiếm theo sản phẩm (tab phụ, nếu có)
   const searchBox = document.querySelector("#prodSearch");
   if (searchBox) {
     searchBox.addEventListener("input", () => {
@@ -310,7 +308,7 @@ function renderProducts(){
     });
   }
 
-  // Chỉnh % lợi nhuận ở bảng sản phẩm -> cập nhật giá bán
+  // Chỉnh % lợi nhuận ở bảng sản phẩm phụ (#prodTable)
   document.addEventListener("input", (e)=>{
     const inp = e.target.closest("input.prod-pct");
     if (!inp) return;
@@ -322,107 +320,107 @@ function renderProducts(){
     tr.querySelector(".price").textContent = fmtVND(priceOf(p));
   });
 
+  // ===== Load Data from embedded JSON (pl-data + products-data) – chạy được cả khi mở file trực tiếp =====
+  (function loadFromEmbeddedJson() {
+    let plJson = null;
+    let prodJson = [];
 
-  // ===== Load Data (products + categories) =====
-  const productsFallback = [
-    { sku:"SKU-TS-001", name:"Áo thun basic",   categoryId:"type-ss",    cost:120000, visible:true },
-    { sku:"SKU-SN-201", name:"Giày sneaker",    categoryId:"type-shoes", cost:350000, visible:true },
-    { sku:"SKU-BG-051", name:"Túi xách mini",   categoryId:"type-accessory", cost:220000, visible:false },
-  ];
-  const categoriesFallback = [
-    { id:"type-ss", name: CAT_LABELS["type-ss"] },
-    { id:"type-fw", name: CAT_LABELS["type-fw"] },
-    { id:"type-shoes", name: CAT_LABELS["type-shoes"] },
-    { id:"type-accessory", name: CAT_LABELS["type-accessory"] },
-  ];
+    // Đọc bảng giá (pricelist)
+    try {
+      const el = document.getElementById("pl-data");
+      if (el && el.textContent.trim()) {
+        plJson = JSON.parse(el.textContent);
+      }
+    } catch (err) {
+      console.error("Không đọc được JSON từ #pl-data:", err);
+    }
 
-  // ==== Load data: products + categories + pricelist (margins & costs) ====
-  Promise.all([
-    fetch("../mock-data/products.json").then(r => r.json()).catch(() => null),
-    fetch("../mock-data/categories.json").then(r => r.json()).catch(() => null),
-    fetch("../mock-data/pricelist.json").then(r => r.json()).catch(() => null) // << thêm file mới
-  ])
-  .then(([pJson, cJson, plJson]) => {
-    // ----- CATEGORIES -----
-    const rawCats = Array.isArray(cJson) ? cJson
-                : Array.isArray(cJson?.categories) ? cJson.categories
-                : categoriesFallback;
+    // Đọc danh sách sản phẩm (kèm hình) từ products-data
+    try {
+      const prodEl = document.getElementById("products-data");
+      if (prodEl && prodEl.textContent.trim()) {
+        prodJson = JSON.parse(prodEl.textContent);
+      }
+    } catch (err) {
+      console.error("Không đọc được JSON từ #products-data:", err);
+    }
 
-    CATEGORIES = (rawCats?.length ? rawCats : categoriesFallback).map(c => {
-      const rawId = c.id || c.code;
-      const id    = normCatId(rawId);                 // chuẩn hóa về dạng cat_*
-      const name  = CAT_LABELS[id] || c.name;         // ưu tiên nhãn Việt
+    if (!plJson) {
+      console.warn("Không tìm thấy dữ liệu trong #pl-data, dùng dữ liệu demo.");
+      // Dữ liệu demo tối thiểu, phòng khi quên chèn JSON
+      CATEGORIES = [
+        { id:"cat_ss",    name:"Trang phục Xuân Hè" },
+        { id:"cat_fw",    name:"Trang phục Thu Đông" },
+        { id:"cat_shoes", name:"Giày dép" },
+        { id:"cat_acc",   name:"Phụ kiện" },
+      ];
+      PRODUCTS = [
+        { id:1, sku:"DEMO-1", name:"Áo thun basic", categoryId:"cat_ss", categoryName:"Trang phục Xuân Hè", cost:120000, visible:true, marginPct:20 },
+        { id:2, sku:"DEMO-2", name:"Giày sneaker",  categoryId:"cat_shoes", categoryName:"Giày dép", cost:350000, visible:true, marginPct:18 }
+      ];
+      CATEGORIES.forEach(c => { CAT_MARGIN[c.id] = 20; });
+      renderFilters();
+      renderCatTable();
+      renderProducts();
+      return;
+    }
+
+    // ===== Dùng chính pricelist.json để build CATEGORIES, PRODUCTS, CAT_MARGIN =====
+    const catMargins  = plJson.categoryMargins || {};
+    const prodMargins = Array.isArray(plJson.productMargins) ? plJson.productMargins : [];
+
+    // Map nhanh product theo id để lấy ảnh từ products.json
+    const prodById = Object.fromEntries(
+      (prodJson || []).map(p => [ Number(p.id), p ])
+    );
+
+    // CATEGORIES: từ keys của categoryMargins
+    CATEGORIES = Object.keys(catMargins).map(label => {
+      const id = LABEL_TO_ID[label] || normCatId(label);
+      const name = CAT_LABELS[id] || label;
       return { id, name };
     });
 
-    // ----- PRODUCTS -----
-    const rawProds = Array.isArray(pJson) ? pJson : (pJson?.products || productsFallback);
+    // PRODUCTS: từ productMargins + join qua products.json để lấy img
+    PRODUCTS = prodMargins.map((m, idx) => {
+      const id = m.productId != null ? Number(m.productId) : (idx + 1);
+      const catId   = LABEL_TO_ID[m.category] || normCatId(m.category);
+      const catName = CAT_LABELS[catId] || m.category || "Khác";
 
-    // Hàm tìm tên loại Việt từ id
-    const catNameVI = (id) => CAT_LABELS[id] || (CATEGORIES.find(x => x.id === id)?.name) || "Khác";
+      const src = prodById[id] || null;  // dữ liệu trong products.json (products-data)
 
-    // Chuẩn hóa sản phẩm
-    PRODUCTS = rawProds.map(p => {
-      const rawId = p.categoryId || p.category?.id || p.categoryCode || "cat_acc";
-      const id = (() => {
-        const raw = p.categoryId || p.category?.id || p.categoryCode || p.category || "cat_acc";
-        if (typeof raw === "string") return LABEL_TO_ID[raw] || normCatId(raw);
-        return normCatId(raw);
-      })();
       return {
-        id:   p.id,
-        sku:  p.sku || p.code || p.id,
-        name: p.name || p.title || "Sản phẩm",
-        categoryId:   id,
-        categoryName: CAT_LABELS[id] || "Khác",
-        cost: Number(p.cost || p.importPrice || p.baseCost || 0),
-        visible: p.status ? (p.status !== "hidden") : (p.visible !== false),
-        img:     p.img || p.image
+        id,
+        sku: "SKU-" + String(id).padStart(3, "0"),  // auto SKU
+        name: m.name || src?.name || "Sản phẩm",
+        categoryId: catId,
+        categoryName: catName,
+        cost: Number(m.cost || 0),
+        visible: true,
+        // Ưu tiên img trong products.json; nếu không có thì lấy ảnh đầu tiên trong images; cuối cùng fallback null
+        img: src?.img || (Array.isArray(src?.images) && src.images[0]) || null,
+        marginPct: Number(m.marginPct || 0)
       };
     });
 
-    // ----- PRICELIST (margins & per-product overrides) -----
-    if (plJson?.categoryMargins && typeof plJson.categoryMargins === "object") {
-      Object.entries(plJson.categoryMargins).forEach(([key, cfg]) => {
-        const id = LABEL_TO_ID[key] || normCatId(key); // 👈 map nhãn -> id
-        const pct = Number(cfg?.marginPct);
-        if (!Number.isNaN(pct)) CAT_MARGIN[id] = pct;
-      });
-    }
+    // CAT_MARGIN: map từ categoryMargins
+    Object.entries(catMargins).forEach(([label, cfg]) => {
+      const id = LABEL_TO_ID[label] || normCatId(label);
+      const pct = Number(cfg?.marginPct);
+      if (!Number.isNaN(pct)) CAT_MARGIN[id] = pct;
+    });
 
-    if (Array.isArray(plJson?.productMargins)) {
-      // Mỗi phần tử có thể chứa productId hoặc sku + cost + marginPct
-      plJson.productMargins.forEach(m => {
-        const keySku = m.sku || m.SKU;
-        const keyId  = m.productId ?? m.id;
-
-        // tìm theo sku trước, không có thì theo id
-        const prod = PRODUCTS.find(p =>
-          (keySku && p.sku == keySku) ||
-          (keyId  != null && p.id == keyId)
-        );
-        if (!prod) return;
-
-        if (m.cost != null && !Number.isNaN(Number(m.cost))) {
-          prod.cost = Number(m.cost);
-        }
-        if (m.marginPct != null && !Number.isNaN(Number(m.marginPct))) {
-          prod.marginPct = Number(m.marginPct); // override % theo sản phẩm
-        }
-      });
-    }
-
-    // Bổ sung mặc định 20% cho loại nào chưa có margin
+    // Bổ sung margin mặc định cho loại chưa có
     CATEGORIES.forEach(c => {
       if (CAT_MARGIN[c.id] == null) CAT_MARGIN[c.id] = 20;
     });
-  })
-  .finally(() => {
+
+    // Cuối cùng: render UI
     renderFilters();
-    // gọi cả 2 để khi user đang ở tab nào thì cũng sẵn dữ liệu
     renderCatTable();   // Tab "Theo loại"
-    renderProducts();   // Tab "Theo sản phẩm"
-  });
+    renderProducts();   // Tab "Theo sản phẩm" phụ (nếu có)
+    render();           // Bảng chính theo sản phẩm
+  })();
 
   // ===== (Tùy chọn) legacy form theo loại — bọc null để không lỗi nếu không có =====
   const _catMarginCat = $("#catMarginCat");

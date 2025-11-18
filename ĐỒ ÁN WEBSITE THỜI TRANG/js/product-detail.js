@@ -2,32 +2,29 @@
   const $ = (s) => document.querySelector(s);
   const fmtVND = (n) => (n || 0).toLocaleString("vi-VN") + "đ";
 
-  // load JSON an toàn với nhiều đường dẫn
-  async function loadProductsJson() {
-    const candidates = [
-      new URL("../mock-data/products.json", document.baseURI).href,
-      "/mock-data/products.json",
-      "./mock-data/products.json"
-    ];
-    for (const url of candidates) {
-      try {
-        const r = await fetch(url, { cache: "no-store" });
-        if (r.ok) return await r.json();
-      } catch (e) {
-        // bỏ qua, thử đường dẫn khác
-      }
+  // Đọc products từ <script id="products-data">
+  function loadProductsFromEmbedded() {
+    const el = document.getElementById("products-data");
+    if (!el || !el.textContent || !el.textContent.trim) return [];
+    const txt = el.textContent.trim();
+    try {
+      const json = JSON.parse(txt);
+      return Array.isArray(json) ? json : [];
+    } catch (err) {
+      console.error("Không parse được products-data:", err);
+      return [];
     }
-    throw new Error("Không tải được products.json từ mọi đường dẫn thử nghiệm");
   }
 
-  async function loadProduct() {
+  function loadProduct() {
     try {
       // 1) Lấy id
       const id = Number(new URLSearchParams(location.search).get("id"));
       if (!id) throw new Error("Thiếu tham số ?id trên URL");
 
-      // 2) Đọc JSON
-      const products = await loadProductsJson();
+      // 2) Đọc JSON từ embedded script
+      const products = loadProductsFromEmbedded();
+      if (!products.length) throw new Error("Chưa có dữ liệu sản phẩm nhúng");
 
       // 3) Tìm sản phẩm
       const p = products.find((x) => x.id === id);
@@ -57,16 +54,27 @@
 
       const thumbsWrap = document.querySelector(".pd-thumbs");
       if (thumbsWrap) {
-        const imgs = Array.isArray(p.images) && p.images.length ? p.images : (p.img ? [p.img] : []);
-        thumbsWrap.innerHTML = imgs.map((src, i) => `
+        const imgs =
+          Array.isArray(p.images) && p.images.length
+            ? p.images
+            : p.img
+            ? [p.img]
+            : [];
+        thumbsWrap.innerHTML = imgs
+          .map(
+            (src, i) => `
           <button class="thumb ${i === 0 ? "is-active" : ""}" data-src="${src}">
             <img src="${src}" alt="">
           </button>
-        `).join("");
+        `
+          )
+          .join("");
 
         thumbsWrap.querySelectorAll(".thumb").forEach((btn) => {
           btn.addEventListener("click", () => {
-            thumbsWrap.querySelectorAll(".thumb").forEach((b) => b.classList.remove("is-active"));
+            thumbsWrap
+              .querySelectorAll(".thumb")
+              .forEach((b) => b.classList.remove("is-active"));
             btn.classList.add("is-active");
             if (hero) hero.src = btn.dataset.src;
           });
@@ -99,39 +107,38 @@
       if (sizeBlock && sizePills && Array.isArray(p.sizes) && p.sizes.length) {
         sizeBlock.hidden = false;
 
-        // render các nút size (label + radio)
-        sizePills.innerHTML = p.sizes.map(s => `
+        sizePills.innerHTML = p.sizes
+          .map(
+            (s) => `
           <label class="sp-pill">
             <input type="radio" name="size" value="${s}">
             <span>${s}</span>
           </label>
-        `).join("");
+        `
+          )
+          .join("");
 
-        // ✅ Sửa ở đây: dùng delegation + toggle .is-selected trên label
         sizePills.addEventListener("change", (e) => {
           if (e.target && e.target.name === "size") {
-            // clear toàn bộ highlight cũ
-            sizePills.querySelectorAll(".sp-pill").forEach(lab => lab.classList.remove("is-selected"));
-            // set highlight cho label vừa chọn
+            sizePills
+              .querySelectorAll(".sp-pill")
+              .forEach((lab) => lab.classList.remove("is-selected"));
+
             const lab = e.target.closest(".sp-pill");
             if (lab) lab.classList.add("is-selected");
 
             selectedSize = e.target.value;
 
-            // mở khóa nút thêm giỏ
             const addBtn = $("#btnAddCart");
             if (addBtn) addBtn.disabled = false;
           }
         });
-
       } else {
-        // sản phẩm không có size → mở sẵn nút thêm giỏ
         const addBtn = $("#btnAddCart");
         if (addBtn) addBtn.disabled = false;
       }
 
-
-      // 8) Meta (demo)
+      // 8) Meta (hiện đang để trống, tùy bạn dùng sau)
       const meta = $("#pdMeta");
       if (meta) meta.innerHTML = "";
 
@@ -176,11 +183,14 @@
       const addBtn = $("#btnAddCart");
       if (addBtn) {
         addBtn.addEventListener("click", () => {
-          // ✅ GUARD: bắt buộc đăng nhập trước khi dùng giỏ
+          // bắt buộc đăng nhập trước khi dùng giỏ
           let u = null;
-          try { u = JSON.parse(localStorage.getItem("currentUser") || "null"); } catch (e) { u = null; }
+          try {
+            u = JSON.parse(localStorage.getItem("currentUser") || "null");
+          } catch (e) {
+            u = null;
+          }
           if (!u) {
-            // sau khi login xong, đưa thẳng tới giỏ để xem
             location.href = `./login.html?next=${encodeURIComponent("cart.html")}`;
             return;
           }
@@ -192,24 +202,28 @@
             showToast("Vui lòng chọn size trước");
             const group = document.querySelector(".size-group");
             if (group) {
-              group.classList.remove("shake"); void group.offsetWidth; group.classList.add("shake");
+              group.classList.remove("shake");
+              void group.offsetWidth;
+              group.classList.add("shake");
             }
             return;
           }
 
-          // 2) Hiệu ứng nút + thông báo
+          // Hiệu ứng nút + thông báo
           addBtn.classList.add("is-pressed");
           showToast(`Đã thêm ${qtyN} sản phẩm vào giỏ`);
 
-          // TODO: logic add-to-cart thật (localStorage/API) đặt ở đây nếu bạn muốn
+          // TODO: logic add-to-cart thật (localStorage/API) bạn có thể bổ sung sau
 
-          // 3) Reset về trạng thái ban đầu sau 600ms
+          // Reset size + nút sau 600ms
           setTimeout(() => {
             addBtn.classList.remove("is-pressed");
             if (Array.isArray(p.sizes) && p.sizes.length) {
               const checked = document.querySelector('input[name="size"]:checked');
               if (checked) checked.checked = false;
-              sizePills.querySelectorAll(".sp-pill").forEach(lab => lab.classList.remove("is-selected"));
+              sizePills
+                .querySelectorAll(".sp-pill")
+                .forEach((lab) => lab.classList.remove("is-selected"));
               addBtn.disabled = true;
               selectedSize = null;
             }
@@ -220,7 +234,6 @@
       // 13) Show content
       const root = $("#pdRoot");
       if (root) root.hidden = false;
-
     } catch (err) {
       console.error("Lỗi loadProduct:", err);
       const nf = $("#notFound");
